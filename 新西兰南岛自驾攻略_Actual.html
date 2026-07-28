@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>新西兰南岛自驾攻略 · Aotearoa Field Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #14202e;
+    --ink-soft: #1d2c3e;
+    --paper: #f4ece0;
+    --paper-warm: #ede2d0;
+    --paper-deep: #e2d4bd;
+    --cream: #faf4ea;
+    --glacier: #4a86a8;
+    --glacier-deep: #2a5d80;
+    --amber: #c87a3a;
+    --amber-deep: #a85e25;
+    --moss: #4d6b4f;
+    --rust: #8b3a2a;
+    --line: rgba(20, 32, 46, 0.18);
+    --line-soft: rgba(20, 32, 46, 0.08);
+    --shadow-sm: 0 1px 2px rgba(20, 32, 46, 0.08);
+    --shadow-md: 0 8px 24px -8px rgba(20, 32, 46, 0.18);
+    --shadow-lg: 0 24px 60px -20px rgba(20, 32, 46, 0.35);
+    --serif: "Noto Serif SC", "Fraunces", "Songti SC", serif;
+    --sans: "Noto Sans SC", "Helvetica Neue", system-ui, sans-serif;
+    --display: "Fraunces", "Noto Serif SC", serif;
+    --mono: "JetBrains Mono", "SF Mono", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* 米色纸张纹理 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(200, 122, 58, 0.04), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(74, 134, 168, 0.05), transparent 50%);
+  }
+
+  ::selection { background: var(--amber); color: var(--cream); }
+
+  /* ======================== HERO ======================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 70% 20%, #2d4763 0%, #14202e 45%, #0a141f 100%);
+    color: var(--cream);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+  }
+
+  /* 星空背景 */
+  .stars, .stars2, .stars3 {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .stars {
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, #ffffff, transparent),
+      radial-gradient(1px 1px at 27% 42%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 38% 8%, #ffffff, transparent),
+      radial-gradient(1px 1px at 56% 24%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(2px 2px at 72% 12%, #ffffff, transparent),
+      radial-gradient(1px 1px at 84% 35%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 92% 18%, #ffffff, transparent),
+      radial-gradient(1px 1px at 8% 60%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 19% 75%, #ffffff, transparent),
+      radial-gradient(1.5px 1.5px at 44% 88%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 65% 70%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(2px 2px at 78% 62%, #ffffff, transparent),
+      radial-gradient(1px 1px at 89% 80%, rgba(255,255,255,0.6), transparent);
+    animation: twinkle 6s ease-in-out infinite alternate;
+  }
+  .stars2 {
+    background-image:
+      radial-gradient(1px 1px at 31% 30%, rgba(200,220,255,0.7), transparent),
+      radial-gradient(1px 1px at 48% 55%, rgba(255,240,220,0.6), transparent),
+      radial-gradient(1px 1px at 67% 45%, rgba(200,220,255,0.6), transparent);
+    animation: twinkle 9s ease-in-out infinite alternate-reverse;
+  }
+  .stars3 {
+    background: radial-gradient(ellipse 800px 300px at 50% 100%, rgba(74,134,168,0.15), transparent);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 山脉剪影 */
+  .mountains {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .mountains svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero__nav {
+    position: relative;
+    z-index: 5;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(244, 236, 224, 0.15);
+  }
+  .hero__nav-brand {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .hero__nav-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 224, 0.65);
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 5;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+    padding: 60px 48px 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero__eyebrow::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero__title {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(48px, 8.5vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 0.5s forwards;
+  }
+  .hero__title-main {
+    display: block;
+    white-space: nowrap;
+  }
+  .hero__title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--amber);
+  }
+  .hero__title .num {
+    display: block;
+    font-family: var(--display);
+    font-size: 0.85em;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(244, 236, 224, 0.85);
+    letter-spacing: -0.04em;
+  }
+
+  .hero__sub {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(244, 236, 224, 0.78);
+    max-width: 460px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 0.7s forwards;
+  }
+
+  .hero__chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 0.9s forwards;
+  }
+  .chip {
+    padding: 8px 16px;
+    border: 1px solid rgba(244, 236, 224, 0.25);
+    border-radius: 999px;
+    font-size: 12px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    color: rgba(244, 236, 224, 0.85);
+    backdrop-filter: blur(4px);
+  }
+
+  /* 右侧坐标块 */
+  .hero__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 1.1s forwards;
+  }
+
+  .compass {
+    align-self: flex-end;
+    width: 220px;
+    height: 220px;
+    border: 1px solid rgba(244, 236, 224, 0.2);
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle, rgba(74,134,168,0.1) 0%, transparent 70%);
+  }
+  .compass::before, .compass::after {
+    content: "";
+    position: absolute;
+    background: rgba(244, 236, 224, 0.15);
+  }
+  .compass::before {
+    top: 0; bottom: 0; left: 50%;
+    width: 1px; transform: translateX(-50%);
+  }
+  .compass::after {
+    left: 0; right: 0; top: 50%;
+    height: 1px; transform: translateY(-50%);
+  }
+  .compass__N, .compass__S, .compass__E, .compass__W {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(244, 236, 224, 0.5);
+    letter-spacing: 0.1em;
+  }
+  .compass__N { top: 10px; left: 50%; transform: translateX(-50%); }
+  .compass__S { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .compass__E { right: 12px; top: 50%; transform: translateY(-50%); }
+  .compass__W { left: 12px; top: 50%; transform: translateY(-50%); }
+  .compass__center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px; height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    box-shadow: 0 0 16px var(--amber);
+  }
+  .compass__needle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 1px; height: 80px;
+    background: linear-gradient(to bottom, var(--amber) 0%, var(--amber) 50%, rgba(244,236,224,0.3) 50%, rgba(244,236,224,0.3) 100%);
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%) rotate(150deg);
+    animation: compass-spin 18s ease-in-out infinite;
+  }
+  @keyframes compass-spin {
+    0%, 100% { transform: translate(-50%, -50%) rotate(140deg); }
+    50% { transform: translate(-50%, -50%) rotate(165deg); }
+  }
+
+  .coord-block {
+    border-left: 2px solid var(--amber);
+    padding-left: 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: rgba(244, 236, 224, 0.85);
+    line-height: 1.8;
+  }
+  .coord-block dt {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 224, 0.5);
+  }
+  .coord-block dd { margin-bottom: 10px; }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(244, 236, 224, 0.5);
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero__scroll::after {
+    content: "";
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, rgba(244,236,224,0.5), transparent);
+    animation: scroll-down 2s ease-in-out infinite;
+  }
+  @keyframes scroll-down {
+    0% { transform: translateY(-10px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(10px); opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ======================== STICKY DAY NAV ======================== */
+  .day-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    backdrop-filter: blur(10px);
+  }
+  .day-nav__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .day-nav__label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .day-nav__list {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .day-nav__list::-webkit-scrollbar { display: none; }
+  .day-nav__item {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .day-nav__item:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .day-nav__item.active {
+    background: var(--amber);
+    color: var(--cream);
+  }
+
+  /* ======================== SECTION CONTAINER ======================== */
+  .section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 48px;
+    position: relative;
+    z-index: 2;
+  }
+  .section--narrow { max-width: 1100px; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 64px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-head__num {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--amber-deep);
+  }
+  .section-head__title {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .section-head__title em { font-style: italic; font-weight: 300; color: var(--glacier-deep); }
+
+  /* ======================== OVERVIEW TABLE ======================== */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 800px) {
+    .overview-grid { grid-template-columns: 1fr; }
+  }
+  .overview-row {
+    background: var(--paper);
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: start;
+    transition: background 0.25s, transform 0.25s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    cursor: pointer;
+  }
+  .overview-row:hover {
+    background: var(--cream);
+    transform: translateX(4px);
+  }
+  .overview-row:hover .overview-row__day {
+    color: var(--amber-deep);
+  }
+  .overview-row:hover .overview-row__icon {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+  .overview-row::after {
+    content: "→";
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--amber-deep);
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+  .overview-row:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  .overview-row:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: -2px;
+  }
+  .overview-row__day {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--ink);
+    width: 60px;
+    transition: color 0.25s;
+  }
+  .overview-row__day small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--amber-deep);
+    margin-top: 6px;
+  }
+  .overview-row__body strong {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .overview-row__body span {
+    font-size: 13px;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    line-height: 1.55;
+  }
+  .overview-row__icon {
+    font-size: 22px;
+    opacity: 0.85;
+    transition: transform 0.25s, opacity 0.25s;
+    margin-right: 18px;
+  }
+
+  /* ======================== ROUTE MAP ======================== */
+  .route-section {
+    background: linear-gradient(180deg, var(--ink) 0%, #0d1825 100%);
+    color: var(--cream);
+    padding: 140px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .route-section .stars {
+    opacity: 0.4;
+  }
+  .route-section__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .route-section .section-head { border-bottom-color: rgba(244,236,224,0.15); }
+  .route-section .section-head__num { color: var(--amber); }
+  .route-section .section-head__title em { color: var(--glacier); }
+
+  .route-map {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 64px;
+    margin-top: 48px;
+  }
+  @media (max-width: 900px) {
+    .route-map { grid-template-columns: 1fr; }
+  }
+
+  .route-stops {
+    list-style: none;
+    counter-reset: stop;
+    position: relative;
+  }
+  .route-stops::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 12px;
+    bottom: 12px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--amber), var(--glacier), var(--amber));
+    opacity: 0.5;
+  }
+  .route-stops li {
+    counter-increment: stop;
+    position: relative;
+    padding: 14px 0 14px 56px;
+    font-family: var(--serif);
+    font-size: 16px;
+  }
+  .route-stops li::before {
+    content: counter(stop, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 36px; height: 36px;
+    background: var(--ink);
+    border: 1px solid var(--amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 700;
+  }
+  .route-stops li small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(244,236,224,0.5);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .route-svg-wrap {
+    position: relative;
+    border: 1px solid rgba(244,236,224,0.12);
+    border-radius: 4px;
+    padding: 32px;
+    background: rgba(244,236,224,0.02);
+    background-image:
+      linear-gradient(rgba(244,236,224,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,236,224,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .route-svg-wrap svg { width: 100%; height: auto; }
+  .route-svg-wrap .map-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(244,236,224,0.3);
+  }
+  .map-corner--tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+  .map-corner--tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
+  .map-corner--bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
+  .map-corner--br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+
+  /* ======================== DAY SECTION ======================== */
+  .day {
+    padding: 100px 48px;
+    border-top: 1px solid var(--line);
+    position: relative;
+    scroll-margin-top: 80px;
+  }
+  .day:nth-child(even) {
+    background: var(--paper-warm);
+  }
+  .day__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 64px;
+  }
+  @media (max-width: 900px) {
+    .day__inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .day__rail {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+    height: fit-content;
+  }
+  @media (max-width: 900px) {
+    .day__rail { position: static; }
+  }
+
+  .day__num {
+    font-family: var(--display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(120px, 16vw, 200px);
+    line-height: 0.85;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.05em;
+  }
+  .day__num span {
+    display: inline-block;
+    font-size: 0.4em;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--amber-deep);
+    vertical-align: top;
+    margin-left: 2px;
+  }
+  .day__date {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .day__meta dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.55;
+    margin-top: 14px;
+  }
+  .day__meta dd {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .day__meta dt:first-child { margin-top: 0; }
+
+  .day__title {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .day__title em { font-style: italic; font-weight: 400; color: var(--glacier-deep); }
+  .day__lede {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    padding-left: 20px;
+    border-left: 2px solid var(--amber);
+    max-width: 660px;
+  }
+
+  /* ======================== ACTIVITY CARD ======================== */
+  .activity {
+    margin-bottom: 36px;
+    padding: 32px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .activity:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .activity::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 24px; height: 24px;
+    border-top: 2px solid var(--amber);
+    border-left: 2px solid var(--amber);
+  }
+
+  .activity__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .activity__time {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--amber-deep);
+    letter-spacing: 0.05em;
+  }
+  .activity__title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .activity--highlight .activity__title { color: var(--glacier-deep); }
+  .activity__icon {
+    font-size: 22px;
+  }
+  .activity__body p {
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+  }
+  .activity__body strong { color: var(--ink); font-weight: 600; }
+  .activity__body ul { list-style: none; margin: 12px 0; }
+  .activity__body ul li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+    color: var(--ink-soft);
+  }
+  .activity__body ul li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 12px;
+    width: 12px; height: 1px;
+    background: var(--amber);
+  }
+  .activity__body ul li strong { color: var(--ink); }
+
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 14px 0;
+    margin: 16px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.6;
+  }
+  .stat dd {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* 提示框 */
+  .callout {
+    margin: 18px 0;
+    padding: 16px 20px;
+    border-left: 3px solid var(--rust);
+    background: rgba(139, 58, 42, 0.05);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  .callout strong { color: var(--rust); font-weight: 700; }
+  .callout--tip {
+    border-left-color: var(--glacier-deep);
+    background: rgba(74, 134, 168, 0.06);
+  }
+  .callout--tip strong { color: var(--glacier-deep); }
+
+  /* 住宿块 */
+  .lodging {
+    margin-top: 36px;
+    padding: 24px 28px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 2px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+  .lodging__icon {
+    font-size: 28px;
+  }
+  .lodging__text strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .lodging__text span {
+    font-size: 13px;
+    color: rgba(244, 236, 224, 0.75);
+    line-height: 1.5;
+  }
+  .lodging__price {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--amber);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* 子步道 / 子项目 */
+  .sub-item {
+    margin: 18px 0;
+    padding: 18px 22px;
+    background: var(--paper-warm);
+    border-left: 2px solid var(--moss);
+    border-radius: 0 2px 2px 0;
+  }
+  .day:nth-child(even) .sub-item {
+    background: var(--paper);
+  }
+  .sub-item__head {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .sub-item__head .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--moss);
+    color: var(--cream);
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  .sub-item p { font-size: 14px; color: var(--ink-soft); margin-bottom: 6px; }
+
+  /* ======================== TABLE GENERIC ======================== */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border: 1px solid var(--line);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 14px 18px;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  tbody td {
+    padding: 14px 18px;
+    border-top: 1px solid var(--line-soft);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(odd) td {
+    background: var(--paper);
+  }
+  tbody tr:nth-child(even) td {
+    background: var(--cream);
+  }
+  tbody td strong { color: var(--ink); font-weight: 600; }
+
+  /* ======================== PREP / CHECKLIST ======================== */
+  .prep-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+  }
+  @media (max-width: 800px) {
+    .prep-grid { grid-template-columns: 1fr; }
+  }
+  .prep-card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    padding: 32px;
+    position: relative;
+  }
+  .prep-card__title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .prep-card__title .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber-deep);
+    letter-spacing: 0.18em;
+  }
+  .prep-list { list-style: none; }
+  .prep-list li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .prep-card .no-bullet::before, .prep-card .no-bullet::after { display:none !important; }
+  .prep-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 12px;
+    width: 14px; height: 14px;
+    border: 1px solid var(--ink-soft);
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+  .prep-list li::after {
+    content: "✓";
+    position: absolute;
+    left: 2px; top: 7px;
+    color: var(--amber-deep);
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .prep-list li:hover::after { opacity: 1; }
+  .prep-list li strong { color: var(--ink); font-weight: 600; }
+
+  /* ======================== BUDGET ======================== */
+  .budget-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 120px 48px;
+  }
+  .budget-section .section-head { border-bottom-color: rgba(244,236,224,0.15); }
+  .budget-section .section-head__num { color: var(--amber); }
+  .budget-section .section-head__title em { color: var(--glacier); }
+
+  .budget-table {
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+  .budget-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(244,236,224,0.1);
+    align-items: baseline;
+  }
+  .budget-row__label {
+    font-family: var(--serif);
+    font-size: 16px;
+  }
+  .budget-row__label small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(244, 236, 224, 0.45);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .budget-row__total {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: rgba(244, 236, 224, 0.6);
+    text-align: right;
+    min-width: 200px;
+  }
+  .budget-row__per {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--amber);
+    text-align: right;
+    min-width: 150px;
+    font-weight: 700;
+  }
+  .budget-row--header {
+    border-bottom: 2px solid rgba(244,236,224,0.3);
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+  }
+  .budget-row--header span {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 224, 0.5);
+  }
+  .budget-row--total {
+    border-top: 2px solid var(--amber);
+    border-bottom: 0;
+    padding-top: 24px;
+    margin-top: 8px;
+  }
+  .budget-row--total .budget-row__label {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+  }
+  .budget-row--total .budget-row__total,
+  .budget-row--total .budget-row__per {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+  .budget-row--total .budget-row__per {
+    color: var(--amber);
+  }
+  .budget-row__total small,
+  .budget-row__per small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    font-family: var(--mono);
+    color: rgba(244, 236, 224, 0.42);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .budget-row__per small { color: rgba(200, 122, 58, 0.7); }
+  .budget-row--total .budget-row__total small,
+  .budget-row--total .budget-row__per small {
+    font-size: 14px;
+    margin-top: 8px;
+    color: var(--glacier);
+  }
+  .budget-row--total .budget-row__per small {
+    color: rgba(200, 122, 58, 0.85);
+  }
+  .budget-fx {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 224, 0.5);
+    margin: -16px 0 16px;
+  }
+  .budget-fx span { color: var(--glacier); }
+
+  .budget-note {
+    text-align: center;
+    margin-top: 48px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(244, 236, 224, 0.6);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ======================== TIPS ======================== */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    margin-top: 48px;
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 800px) {
+    .tips-grid { grid-template-columns: 1fr; }
+  }
+  .tip-block {
+    background: var(--cream);
+    padding: 36px 32px;
+  }
+  .tip-block h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 19px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tip-block h3 .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber-deep);
+    letter-spacing: 0.16em;
+    border: 1px solid var(--amber-deep);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .tip-block ul { list-style: none; }
+  .tip-block ul li {
+    padding: 6px 0 6px 18px;
+    position: relative;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .tip-block ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 6px;
+    color: var(--amber);
+  }
+
+  /* ======================== FOOTER ======================== */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 48px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--amber), transparent);
+  }
+  footer h2 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(32px, 5vw, 56px);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  footer h2 em { font-style: normal; font-weight: 900; color: var(--amber); }
+  footer p {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: rgba(244, 236, 224, 0.65);
+    max-width: 580px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(244, 236, 224, 0.4);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid rgba(244, 236, 224, 0.1);
+  }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 900px) {
+    .hero__nav, .section, .day, .route-section, .budget-section, footer { padding-left: 24px; padding-right: 24px; }
+    .hero__inner { grid-template-columns: 1fr; padding: 40px 24px 100px; }
+    .hero__panel { display: none; }
+    .day-nav__inner { padding: 0 24px; }
+    .section { padding-top: 80px; padding-bottom: 80px; }
+    .day { padding: 60px 24px; }
+    .activity { padding: 24px; }
+    .lodging { grid-template-columns: 1fr; text-align: center; }
+    .lodging__price { text-align: center; }
+    .budget-row { grid-template-columns: 1fr; gap: 4px; }
+    .budget-row__total, .budget-row__per { text-align: left; min-width: 0; }
+    .section-head { grid-template-columns: 1fr; gap: 12px; align-items: start; }
+  }
+
+  /* 滚动揭示 */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+.lodging-detail{font-size:0.85em;color:var(--ink);opacity:0.85;display:block;margin-top:2px}.lodging-note{color:var(--amber-deep);opacity:1;font-weight:500}.lodging-link{color:var(--glacier);text-decoration:none;border-bottom:1px solid var(--glacier)}.lodging-link:hover{color:var(--glacier-deep)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="stars"></div><div class="stars2"></div><div class="stars3"></div>
+  <nav class="hero__nav"><div class="hero__nav-brand">Aotearoa · Field Journal</div><div class="hero__nav-meta">2026 · 南半球 · 春</div></nav>
+  <div class="hero__inner">
+    <div class="hero__main">
+      <div class="hero__eyebrow">SOUTH ISLAND · 首尔中转 · ROAD JOURNAL</div>
+      <h1 class="hero__title"><span class="hero__title-main">南岛<em>自驾</em></span><span class="num">2026 / 09 / 24 — 10 / 07</span></h1>
+      <p class="hero__sub">中秋启程，经首尔中转飞抵奥克兰，南下基督城取车自驾。穿越麦肯齐盆地、塔斯曼冰川、瓦纳卡、皇后镇，最终抵达米尔福德峡湾——一份为期13天的实地自驾手账。</p>
+      <div class="hero__chips"><span class="chip">首尔中转 ✈️</span><span class="chip">9日自驾</span><span class="chip">7晚住宿</span><span class="chip">~1,500 km</span><span class="chip">冰川×峡湾</span><span class="chip">大韩航空</span></div>
+    </div>
+    <aside class="hero__panel">
+      <div class="compass"><span class="compass__N">N</span><span class="compass__S">S</span><span class="compass__E">E</span><span class="compass__W">W</span><div class="compass__needle"></div><div class="compass__center"></div></div>
+      <dl class="coord-block"><dt>ORIGIN</dt><dd>Shanghai · 31.23°N 121.47°E</dd><dt>SOUTHERNMOST</dt><dd>Milford Sound · 44.67°S</dd><dt>HIGHEST</dt><dd>Aoraki / Mt Cook · 3,724 m</dd><dt>DARKEST SKY</dt><dd>Lake Tekapo · Bortle 1</dd></dl>
+    </aside>
+  </div>
+  <div class="mountains"><svg viewBox="0 0 1440 360" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,360 L0,200 L120,140 L200,180 L320,90 L420,160 L540,60 L640,140 L760,40 L880,150 L1000,100 L1120,180 L1240,80 L1360,160 L1440,120 L1440,360 Z" fill="#0a141f" opacity="0.85"/><path d="M0,360 L0,260 L100,220 L220,260 L340,180 L460,240 L580,170 L700,230 L820,170 L940,240 L1060,200 L1180,250 L1300,200 L1440,240 L1440,360 Z" fill="#14202e" opacity="0.95"/></svg></div>
+  <div class="hero__scroll">SCROLL · 沿路向南</div>
+</header>
+
+<nav class="day-nav"><div class="day-nav__inner"><span class="day-nav__label">DAY · INDEX</span><div class="day-nav__list"><a class="day-nav__item" href="#overview">总览</a>
+        <a class="day-nav__item" href="#route">路线图</a>
+        <a class="day-nav__item" href="#day-0">D0 · 上海-奥克兰</a>
+        <a class="day-nav__item" href="#day-1">D1 · 首尔-奥克兰</a>
+        <a class="day-nav__item" href="#day-2">D2 · 奥克兰-基督城</a>
+        <a class="day-nav__item" href="#day-3">D3 · 基督城</a>
+        <a class="day-nav__item" href="#day-4">D4 · 蒂卡波</a>
+        <a class="day-nav__item" href="#day-5">D5 · 库克山</a>
+        <a class="day-nav__item" href="#day-6">D6 · 瓦纳卡</a>
+        <a class="day-nav__item" href="#day-7">D7 · 蒂阿瑙</a>
+        <a class="day-nav__item" href="#day-8">D8 · 蒂阿瑙</a>
+        <a class="day-nav__item" href="#day-9">D9 · 皇后镇</a>
+        <a class="day-nav__item" href="#day-10">D10 · 皇后镇活动日</a>
+        <a class="day-nav__item" href="#day-11">D11 · 7:00-8:50 </a>
+        <a class="day-nav__item" href="#day-12">D12 · 8:25</a>
+        <a class="day-nav__item" href="#day-13">D13 · 休息</a>
+        <a class="day-nav__item" href="#logistics">行前</a>
+        <a class="day-nav__item" href="#budget">预算</a>
+        <a class="day-nav__item" href="#tips">贴士</a></div></div></nav>
+
+<section class="section" <!-- ============== OVERVIEW ============== -->
+<section class="section" id="overview">
+  <div class="section-head" data-reveal>
+    <div class="section-head__num">§ 01 / OVERVIEW</div>
+    <h2 class="section-head__title">行程<em>总览</em></h2>
+  </div>
+  <div class="overview-grid" data-reveal>
+    <a class="overview-row" href="#day-0">
+      <div class="overview-row__day">01<small>09 / 24</small></div>
+      <div class="overview-row__body"><strong>上海 → 首尔</strong><span>18:25-21:30 KE2058 虹桥→金浦</span></div>
+      <div class="overview-row__icon">✈️</div>
+    </a>
+    <a class="overview-row" href="#day-1">
+      <div class="overview-row__day">02<small>09 / 25</small></div>
+      <div class="overview-row__body"><strong>首尔 → 奥克兰</strong><span>首尔一日游 · 18:00 KE411 仁川→奥克兰</span></div>
+      <div class="overview-row__icon">🇰🇷</div>
+    </a>
+    <a class="overview-row" href="#day-2">
+      <div class="overview-row__day">03<small>09 / 26</small></div>
+      <div class="overview-row__body"><strong>奥克兰 → 基督城</strong><span>13:15-14:35 NZ543 · 取车 · 超市采购</span></div>
+      <div class="overview-row__icon">🏙️</div>
+    </a>
+    <a class="overview-row" href="#day-3">
+      <div class="overview-row__day">04<small>09 / 27</small></div>
+      <div class="overview-row__body"><strong>基督城 → 蒂卡波 → 特泽维尔</strong><span>约翰山 · 好牧羊人教堂 · 蒂卡波湖</span></div>
+      <div class="overview-row__icon">⭐</div>
+    </a>
+    <a class="overview-row" href="#day-4">
+      <div class="overview-row__day">05<small>09 / 28</small></div>
+      <div class="overview-row__body"><strong>特泽维尔 → 库克山 → 特泽维尔</strong><span>🚁直升机（排队）或 普卡基湖 · 冰川步道</span></div>
+      <div class="overview-row__icon">🏔️</div>
+    </a>
+    <a class="overview-row" href="#day-5">
+      <div class="overview-row__day">06<small>09 / 29</small></div>
+      <div class="overview-row__body"><strong>特泽维尔 → 瓦纳卡</strong><span>湖畔漫步 · 孤独的树 · 巨树 · 小镇晚餐</span></div>
+      <div class="overview-row__icon">🌳</div>
+    </a>
+    <a class="overview-row" href="#day-6">
+      <div class="overview-row__day">07<small>09 / 30</small></div>
+      <div class="overview-row__body"><strong>瓦纳卡 → 皇后镇 → 蒂阿瑙</strong><span>Fergburger · 湖边休整 · 蒂阿瑙入住</span></div>
+      <div class="overview-row__icon">🌊</div>
+    </a>
+    <a class="overview-row" href="#day-7">
+      <div class="overview-row__day">08<small>10 / 01</small></div>
+      <div class="overview-row__body"><strong>蒂阿瑙 ⇌ 米尔福德峡湾</strong><span>最美公路 · 峡湾游船 · 鲍恩瀑布</span></div>
+      <div class="overview-row__icon">🚢</div>
+    </a>
+    <a class="overview-row" href="#day-8">
+      <div class="overview-row__day">09<small>10 / 02</small></div>
+      <div class="overview-row__body"><strong>蒂阿瑙 → 皇后镇</strong><span>Deer Park（喂鹿·羊驼）· 皇后镇晚餐</span></div>
+      <div class="overview-row__icon">🦌</div>
+    </a>
+    <a class="overview-row" href="#day-9">
+      <div class="overview-row__day">10<small>10 / 03</small></div>
+      <div class="overview-row__body"><strong>皇后镇 → 格林诺奇</strong><span>指环王自驾线 · Shotover Jet · 逛街</span></div>
+      <div class="overview-row__icon">🚤</div>
+    </a>
+    <a class="overview-row" href="#day-10">
+      <div class="overview-row__day">11<small>10 / 04</small></div>
+      <div class="overview-row__body"><strong>皇后镇活动日</strong><span>Nzone 跳伞 · SkyLine 缆车+Luge · 自助晚餐</span></div>
+      <div class="overview-row__icon">🎢</div>
+    </a>
+    <a class="overview-row" href="#day-11">
+      <div class="overview-row__day">12<small>10 / 05</small></div>
+      <div class="overview-row__body"><strong>皇后镇 → 奥克兰 → 首尔</strong><span>7:00-8:50 NZ638 · 12:05 KE412 · 行李直达上海</span></div>
+      <div class="overview-row__icon">🛫</div>
+    </a>
+    <a class="overview-row" href="#day-12">
+      <div class="overview-row__day">13<small>10 / 06</small></div>
+      <div class="overview-row__body"><strong>首尔 → 上海</strong><span>8:25-9:40 KE881 仁川→浦东 · 圆满收官</span></div>
+      <div class="overview-row__icon">🏠</div>
+    </a>
+    </div>
+</section>
+
+<section class="route-section" id="route">
+  <div class="stars"></div>
+  <div class="route-section__inner">
+    <div class="section-head" data-reveal><div class="section-head__num">§ 02 / ROUTE</div><h2 class="section-head__title">南岛<em>路线图</em></h2></div>
+    <div class="route-map" data-reveal>
+      <ol class="route-stops">
+        <li>基督城 / Christchurch <small>CHC · 南岛门户</small></li>
+        <li>蒂卡波 / Lake Tekapo <small>国际暗夜保护区</small></li>
+        <li>库克山 / Aoraki <small>3,724 m · 塔斯曼冰川</small></li>
+        <li>瓦纳卡 / Wanaka <small>孤独的树 · 湖光山色</small></li>
+        <li>皇后镇 / Queenstown <small>冒险之都</small></li>
+        <li>蒂阿瑙 / Te Anau <small>峡湾门户</small></li>
+        <li>米尔福德 / Milford Sound <small>世界第八大奇迹</small></li>
+      </ol>
+      <div class="route-svg-wrap">
+        <span class="map-corner map-corner--tl"></span><span class="map-corner map-corner--tr"></span><span class="map-corner map-corner--bl"></span><span class="map-corner map-corner--br"></span>
+        <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg"><path d="M180,40 Q220,30 280,60 Q330,80 350,140 Q380,210 400,280 Q420,360 410,440 Q400,520 350,580 Q300,640 240,650 Q180,640 140,580 Q110,510 130,430 Q150,340 140,260 Q140,180 160,110 Q170,70 180,40 Z" fill="rgba(74,134,168,0.06)" stroke="rgba(74,134,168,0.4)" stroke-width="1" stroke-dasharray="3,3"/><path d="M280,80 L260,180 L240,260 L210,340 L240,450 L300,500 L260,580" fill="none" stroke="#c87a3a" stroke-width="2" stroke-linecap="round"><animate attributeName="stroke-dasharray" from="0,2000" to="2000,0" dur="3s" fill="freeze"/></path><path d="M260,580 L300,500" fill="none" stroke="#4a86a8" stroke-width="1.5" stroke-dasharray="4,4"/><g font-family="JetBrains Mono,monospace" font-size="11" fill="#f4ece0"><circle cx="280" cy="80" r="6" fill="#c87a3a"/><text x="295" y="84">Christchurch</text><circle cx="260" cy="180" r="6" fill="#c87a3a"/><text x="275" y="184">Tekapo ★</text><circle cx="240" cy="260" r="7" fill="#f4ece0" stroke="#c87a3a" stroke-width="2"/><text x="255" y="264">Mt Cook</text><circle cx="210" cy="340" r="6" fill="#c87a3a"/><text x="225" y="344">Wanaka</text><circle cx="240" cy="450" r="7" fill="#f4ece0" stroke="#c87a3a" stroke-width="2"/><text x="255" y="454">Queenstown</text><circle cx="300" cy="500" r="6" fill="#c87a3a"/><text x="315" y="504">Te Anau</text><circle cx="260" cy="580" r="7" fill="#4a86a8" stroke="#f4ece0" stroke-width="2"/><text x="275" y="584">Milford Sound</text></g></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAY 0 -->
+<article class="day" id="day-0">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">01<span>·</span></div>
+      <div class="day__date">09 / 24 · THU</div>
+      <dl class="day__meta"><dt>FLIGHT</dt><dd>上海 → 首尔</dd><dt>INFO</dt><dd>18:25→21:30 虹桥→金浦</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">出发·<em>首尔中转</em></h3>
+      <p class="day__lede">傍晚从虹桥出发，飞往首尔金浦。在首尔中转一晚，为明日的长途飞行积蓄精力。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:25 — 21:30</span><h4 class="activity__title">上海虹桥 T1 → 首尔金浦 GMP · KE2058</h4></div>
+        <div class="activity__body">
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>KE2058</dd></div>
+            <div class="stat"><dt>航司</dt><dd>大韩航空</dd></div>
+            <div class="stat"><dt>时间</dt><dd>18:25 — 21:30</dd></div>
+            <div class="stat"><dt>飞行</dt><dd>~2h · 虹桥 T1 → 金浦 GMP</dd></div>
+          </div>
+          <p style="margin-top:10px;">从上海虹桥 T1 出发，傍晚起飞，落地即入境韩国。无需过境签——持新西兰签证可免签入境韩国。今晚入住首尔，明日在首尔过中秋节。</p>
+          <div class="callout--tip"><strong>注意：</strong>金浦机场是首尔市内的机场（非仁川），离市区更近，打车约 30—40 min 即可到达明洞/弘大等核心区。</div>
+        </div>
+      </div>
+<div class="lodging"><div class="lodging__icon">🛏️</div><div class="lodging__text"><strong>首尔</strong><span class="lodging-detail">同程预订 · 入住15:00后 · 退房10:00前</span></div></div>
+    </div>
+  </div>
+</article>
+<!-- DAY 1 -->
+<article class="day" id="day-1">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">02<span>·</span></div>
+      <div class="day__date">09 / 25 · FRI · 中秋节</div>
+      <dl class="day__meta"><dt>FLIGHT</dt><dd>首尔 → 奥克兰</dd><dt>INFO</dt><dd>18:00→8:35(+1)</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">首尔·<em>中秋一日游</em></h3>
+      <p class="day__lede">中秋佳节，在首尔感受异国风情。傍晚登上飞往奥克兰的航班，跨过赤道，从北半球的金秋飞向南半球的春天。</p>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">白天</span><h4 class="activity__title">首尔自由探索</h4></div>
+        <div class="activity__body">
+          <p>中秋佳节，全天在首尔自由游览。景福宫、明洞、弘大等任选——韩国的中秋节日氛围也很浓厚。</p>
+          <p style="margin-top:8px">昨晚从金浦国际机场（GMP）入境，今天需在 <strong>18:00 前抵达仁川国际机场（ICN · T2 航站楼）</strong>登机。金浦→仁川打车约 40—60 min，也可乘机场快线 AREX。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:00</span><h4 class="activity__title">仁川 ICN T2 → 奥克兰 AKL · KE411</h4></div>
+        <div class="activity__body">
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>KE411</dd></div>
+            <div class="stat"><dt>航司</dt><dd>大韩航空</dd></div>
+            <div class="stat"><dt>时间</dt><dd>18:00 → 次日 08:35</dd></div>
+            <div class="stat"><dt>飞行</dt><dd>~12h · 跨越赤道</dd></div>
+          </div>
+          <p style="margin-top:10px;">从首尔仁川 T2 起飞，一夜跨越赤道，次日清晨落地奥克兰。这是整个行程中最长的一段飞行——带上颈枕和眼罩，好好休息。</p>
+          <div class="callout--tip"><strong>注意：</strong>确认行李是否直挂奥克兰。如非直挂，需在仁川重新办理托运。抵达奥克兰后入境、提取行李、转国内航站楼登机。</div>
+        </div>
+      </div>
+<div class="lodging"><div class="lodging__icon">✈️</div><div class="lodging__text"><strong>夜宿飞机</strong><span class="lodging-detail">跨赤道的红眼航班</span></div></div>
+    </div>
+  </div>
+</article>
+<!-- DAY 2 -->
+<article class="day" id="day-2">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">03<span>·</span></div>
+      <div class="day__date">09 / 26 · SAT · 中秋节</div>
+      <dl class="day__meta"><dt>FLIGHT</dt><dd>奥克兰 → 基督城 · NZ543</dd><dt>INFO</dt><dd>13:15 → 14:35 · 1h20m</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">抵达·<em>基督城取车</em></h3>
+      <p class="day__lede">清晨落地奥克兰，转乘国内航班南下基督城。抵达"花园之城"后取车、休整，为南岛自驾做最后的准备。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">08:35</span><h4 class="activity__title">奥克兰 AKL → 基督城 CHC · NZ543</h4></div>
+        <div class="activity__body">
+          <p>KE411 航班 8:35 抵达奥克兰国际机场，入境后在 <strong>国内航站楼（Domestic Terminal）</strong> 转乘新西兰航空 <strong>NZ543</strong> 飞往基督城。</p>
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>NZ543</dd></div>
+            <div class="stat"><dt>航司</dt><dd>新西兰航空</dd></div>
+            <div class="stat"><dt>起飞—抵达</dt><dd>13:15 → 14:35</dd></div>
+            <div class="stat"><dt>飞行时间</dt><dd>1h 20m</dd></div>
+          </div>
+          <p style="margin-top:10px;">AKL 国际航站楼到国内航站楼步行约 10 分钟（沿绿色标识线），或乘免费穿梭巴士（每 15 分钟一班）。转机时间充裕，可在国内航站楼吃个简餐。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">15:30</span><h4 class="activity__title">基督城 · 取车 & 休整</h4></div>
+        <div class="activity__body">
+          <p>基督城被称为"花园之城"，取车后可在市区简单休整：逛一逛 <strong>Riverside Market</strong> 市集，去 <strong>基督城植物园</strong> 散步，到 <strong>Countdown / New World</strong> 超市采购未来几天的干粮和水。</p>
+          <div class="callout--tip"><strong>调整建议：</strong>机上尽量休息，落地南半球后第一天往往疲惫。明日可适当推迟出门时间，但新西兰超市关门较早（晚上7—9点），采购尽量在今天完成。</div>
+        </div>
+      </div>
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>基督城</strong>
+          <span class="lodging-detail">2/240 Worcester Street, Christchurch, Canterbury Region 8011</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Nc9925tc" target="_blank" class="lodging-link">airbnb.com/l/Nc9925tc</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 1晚</span>
+          <span class="lodging-detail lodging-note"><strong>注意：</strong>扔垃圾、餐具放进洗碗机、关闭门窗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<!-- DAY 3 -->
+<article class="day" id="day-3">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">04<span>·</span></div>
+      <div class="day__date">09 / 27 · SUN · 中秋节</div>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>基督城 → 蒂卡波 → 特泽维尔</dd><dt>INFO</dt><dd>226 km · ~3 h</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">蒂卡波·<em>暗夜星空</em></h3>
+      <p class="day__lede">上午 9 点出发，翻越麦肯齐盆地，登顶约翰山喝一杯土星拉花的卡布奇诺。下午在蒂卡波湖畔漫步，傍晚抵达特泽维尔——库克山脚下的理想前哨。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">09:00</span><h4 class="activity__title">基督城出发，驶向麦肯齐盆地</h4></div>
+        <div class="activity__body">
+          <p>从基督城出发一路向西，穿越坎特伯雷平原进入麦肯齐盆地。沿途地貌从农田逐渐切换为荒原+雪山远景，是南岛最具电影感的驾驶路段之一。</p>
+        </div>
+      </div>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">~11:30</span><h4 class="activity__title">约翰山 · Astro Cafe</h4></div>
+        <div class="activity__body">
+        <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;margin:12px 0;">约翰山天文台 Astro Cafe，俯瞰蒂卡波湖最广角的位置。山顶360度全景，远处是白雪皑皑的南阿尔卑斯山脉。</p><p><strong>必点卡布奇诺，有土星等星球图案拉花。</strong>坐在室外座位，手捧咖啡，脚下是牛奶蓝的蒂卡波湖，远处是库克雪山——这是南岛自驾的封面照。</p><div class="callout"><strong>避坑：</strong>最后下单时间约 14:30，最好不要卡点到。山顶风极大，务必带防风保暖衣物，极端天气咖啡馆可能临时关闭。</div></div>
+      </div>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">14:00</span><h4 class="activity__title">蒂卡波湖 · 好牧羊人教堂</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;margin:12px 0;">蒂卡波湖（Lake Tekapo）——南岛最上镜的湖泊。冰川融水中的岩粉颗粒悬浮在水中，在阳光折射下呈现独特的"牛奶蓝"，与远处库克雪山相映。</p>
+          <p><strong>好牧羊人教堂（Church of the Good Shepherd）</strong>——蒂卡波湖畔的石砌小教堂，南半球最受欢迎的婚礼场地之一。日落时分以教堂为前景、雪山湖泊为背景的构图是蒂卡波的经典打卡位。</p>
+          <div class="callout"><strong>三条规矩：</strong>① 教堂门口停车位有限，建议停在镇中心步行过去（约10分钟）；② 教堂内部严禁拍照录像；③ 教堂周边属禁飞区，严禁使用无人机。</div>
+          
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">17:00</span><h4 class="activity__title">蒂卡波 → 特泽维尔</h4></div>
+        <div class="activity__body">
+          <p>下午驱车前往特泽维尔（Twizel），约 30 分钟车程。注意特泽维尔超市（Four Square）晚上 <strong>7 点关门</strong>，抵达后还有时间采购——务必在关门前赶到。</p>
+          <div class="callout--tip" style="margin-top:12px;"><strong>🌌 特泽维尔观星：</strong>特泽维尔同样属于麦肯齐暗夜保护区，光污染极低。躺在院子里或开车到镇外几分钟就能看到银河横跨天际。推荐下载 <strong>Clear Outside</strong> 或 <strong>MetService</strong> 查云量。10 月初夜间气温可降至 5°C 以下，务必穿足保暖衣物。</div>
+        </div>
+      </div>
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>特泽维尔</strong>
+          <span class="lodging-detail">15 Braemar Place, Twizel, Canterbury 7901</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/2sXkz36L" target="_blank" class="lodging-link">airbnb.com/l/2sXkz36L</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
+          <span class="lodging-detail lodging-note"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<!-- DAY 4 -->
+<article class="day" id="day-4" style="background: linear-gradient(180deg, var(--paper-deep), var(--paper));">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">05<span>·</span></div>
+      <div class="day__date">09 / 28 · MON · 休假</div>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 库克山 → 特泽维尔</dd><dt>INFO</dt><dd>往返 164 km · ~3 h</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">塔斯曼·<em>冰川日</em></h3>
+      <p class="day__lede">今天是整个行程中最"看运气"的一天——库克山直升机冰川徒步三大运营商全部满员，正在排队候补。排上了 → 飞上冰川（普卡基湖改到 D3 下午），没排上 → Plan B 同样精彩。</p>
+
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin:28px 0;">
+        <!-- Plan A -->
+        <div style="flex:1;min-width:260px;background:linear-gradient(135deg,#1a2a3a,#21384a);color:#e8e0d0;border-radius:8px;padding:22px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.06;">🚁</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:24px;">🚁</span>
+            <h4 style="font-family:var(--display);font-size:1.2em;font-weight:600;color:var(--glacier);">Plan A · 直升机冰川徒步</h4>
+          </div>
+          <div style="background:rgba(200,122,58,0.2);color:#f0a050;padding:4px 10px;border-radius:3px;font-size:0.8em;font-weight:600;display:inline-block;margin-bottom:14px;">⏳ 排队候补中 · 三大运营商已满</div>
+          <ul style="font-size:0.95em;line-height:1.9;color:rgba(232,224,208,0.85);">
+            <li>乘坐直升机飞抵塔斯曼冰川表面</li>
+            <li>在专业向导带领下冰川穿行 2—3 小时</li>
+            <li>冰洞、冰舌、裂缝——最震撼的冰川体验</li>
+            <li>参考价格 NZD 250—400 / 人</li>
+            <li>穿着建议：速干底层 + 保暖中层 + 防水外层</li>
+          </ul>
+          <div style="margin-top:12px;padding:8px 12px;background:rgba(74,134,168,0.15);border-left:3px solid var(--glacier);font-size:0.85em;border-radius:0 4px 4px 0;color:rgba(232,224,208,0.7);">如收到候补通知 → 立即前往集合点 → 余下日程自动切换为 Plan B（见下方标注）</div>
+        </div>
+
+        <!-- Plan B -->
+        <div style="flex:1;min-width:260px;background:var(--cream);border:1px solid var(--paper-deep);border-radius:8px;padding:22px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:24px;">🏔️</span>
+            <h4 style="font-family:var(--display);font-size:1.2em;font-weight:600;color:var(--glacier-deep);">Plan B · 普卡基湖 + 冰川步道</h4>
+          </div>
+          <div style="background:rgba(77,107,79,0.1);color:var(--moss);padding:4px 10px;border-radius:3px;font-size:0.8em;font-weight:600;display:inline-block;margin-bottom:14px;">✅ 确定执行（直升机排队中）</div>
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink-soft);margin-bottom:10px;">如果直升机没有排上，Plan B 同样不会让你失望——牛奶蓝的湖泊、冰川步道、网红三文鱼，每一样都值得。</p>
+
+          <div style="border-left:3px solid var(--glacier);padding-left:12px;margin:8px 0;">
+            <span style="font-size:0.75em;font-weight:700;color:var(--glacier);text-transform:uppercase;">上午</span>
+            <p style="margin:2px 0 8px 0;"><strong>普卡基湖（Lake Pukaki）</strong>——冰川岩粉赋予的"牛奶蓝"，南岛公认最美的湖泊。必停观景台：<strong>Peter's Lookout</strong>（库克山倒影最佳机位）。</p>
+          </div>
+          <div style="border-left:3px solid var(--amber);padding-left:12px;margin:8px 0;">
+            <span style="font-size:0.75em;font-weight:700;color:var(--amber);text-transform:uppercase;">中午</span>
+            <p style="margin:2px 0 8px 0;"><strong>Mt Cook Salmon Shop</strong>——用冰川融水养殖的三文鱼，现片刺身拼盘，坐在普卡基湖畔看雪山吃鱼生。</p>
+          </div>
+          <div style="border-left:3px solid var(--moss);padding-left:12px;margin:8px 0;">
+            <span style="font-size:0.75em;font-weight:700;color:var(--moss);text-transform:uppercase;">下午</span>
+            <p style="margin:2px 0;"><strong>塔斯曼冰川步道（Tasman Glacier Walk）</strong>——3条步道可选：Lookout → Blue Lakes → Sealy Tarns。全程约 1.5—2h，冰川终点壮观。</p>
+            <p style="font-size:0.85em;color:var(--ink-soft);margin:6px 0 0 0;font-style:italic;">⚠ 如果上午排到了直升机，Plan B 的普卡基湖游览改到 <strong>Day 3（9/27）下午</strong>完成——从蒂卡波出发前先去普卡基湖，再去特泽维尔。</p>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="callout--tip" style="margin-top:24px;"><strong>无论哪个计划：</strong>冰川区域手机信号极弱，提前下载离线地图。穿防水登山靴，冰川湖中冰山不稳定，切勿靠近湖边。</div>
+
+<div class="activity" style="margin-top:20px;">
+        <div class="activity__head"><span class="activity__time">傍晚</span><h4 class="activity__title">返回特泽维尔 · 晚餐</h4></div>
+        <div class="activity__body">
+          <p>结束一天的冰川探索，返回特泽维尔。晚餐推荐：<strong>Poppies Cafe</strong>（本地人最爱，三文鱼和羊腿）、<strong>Ministry of Works Bar & Eatery</strong>（精酿啤酒+汉堡，氛围轻松）、<strong>The Musterer's Hut</strong>（简餐+咖啡，白天也适合）。</p>
+        </div>
+      </div>
+
+    
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>特泽维尔</strong>
+          <span class="lodging-detail">15 Braemar Place, Twizel, Canterbury 7901</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/2sXkz36L" target="_blank" class="lodging-link">airbnb.com/l/2sXkz36L</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</article>
+<!-- DAY 5 -->
+<article class="day" id="day-5">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">06<span>·</span></div>
+      <div class="day__date">09 / 29 · TUE · 休假</div>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 瓦纳卡</dd><dt>INFO</dt><dd>206 km · ~2.5 h</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">瓦纳卡·<em>湖畔时光</em></h3>
+      <p class="day__lede">上午从特泽维尔自驾出发，中午抵达瓦纳卡午餐。下午在湖畔漫步，打卡孤独的树和巨树。晚上在小镇享受一顿悠闲晚餐——瓦纳卡的节奏，就是没有节奏。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">09:00 — 11:30</span><h4 class="activity__title">特泽维尔 → 瓦纳卡（206 km · ~2.5 h）</h4></div>
+        <div class="activity__body">
+          <p>从特泽维尔出发，途经 Lindis Pass（林迪斯山口），沿途是南岛典型的内陆荒原景观——金黄草原、蜿蜒公路、远处雪山。是拍摄公路大片的好路段。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">11:30 — 13:00</span><h4 class="activity__title">瓦纳卡午餐</h4></div>
+        <div class="activity__body">
+          <p>抵达瓦纳卡后在镇中心用午餐。推荐：<strong>Kai Whakapai</strong>（湖畔咖啡简餐，户外座位看湖）、<strong>Big Fig</strong>（慢炖菜，性价比高）、<strong>Federal Diner</strong>（精品咖啡馆风格）。饭后在湖边稍作散步消化。</p>
+        </div>
+      </div>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">13:00 — 17:00</span><h4 class="activity__title">瓦纳卡湖畔漫步 · 孤独的树 · 巨树</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;">瓦纳卡——会让人想多住几天的湖滨小镇。比皇后镇少了喧嚣，多了恬静。</p>
+          <p style="margin-top:12px"><strong>孤独的树（That Wanaka Tree）：</strong>新西兰出镜率最高的树，一棵独自站在湖中的柳树。下午光线从侧面打来，湖面平静时倒影极佳。沿湖步行即可到达，无需门票。</p>
+          <p style="margin-top:10px"><strong>巨树（Wanaka Station Park）：</strong>瓦纳卡车站公园的古老大树，树冠巨大适合拍照，是当地人散步野餐的好去处。公园距镇中心步行约 10 分钟。</p>
+          <div class="callout"><strong>旺季提醒：</strong>9月—次年4月罗伊峰步道设有单向限流，如计划徒步建议提前在 DOC 官网查询。当天下午时间若充裕也可走一段湖边步道（Wanaka Lakefront Walk）。</div>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:00</span><h4 class="activity__title">瓦纳卡小镇晚餐</h4></div>
+        <div class="activity__body">
+          <p style="margin-bottom:8px;"><strong>晚餐推荐：</strong></p>
+          <ul>
+            <li><strong>Kika</strong> — 精致小盘菜，开放式厨房，需提前预订</li>
+            <li><strong>Francesca's Italian Kitchen</strong> — 地道意大利面 & 披萨，氛围温馨</li>
+            <li><strong>Ode</strong> — 高端体验，纪念日可选</li>
+          </ul>
+          <p style="margin-top:10px;">饭后沿湖边散步消食，瓦纳卡的夜色格外宁静。</p>
+        </div>
+      </div>
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>瓦纳卡</strong>
+          <span class="lodging-detail">24 Tenby Street, Wanaka, 9305</span>
+          <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-Lub8m7J" target="_blank" class="lodging-link">booking.cn/Share-Lub8m7J</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 1晚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+</div><!-- DAY 6 -->
+<article class="day" id="day-6">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">07<span>·</span></div>
+      <div class="day__date">09 / 30 · WED · 休假</div>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>瓦纳卡 → 皇后镇 → 蒂阿瑙</dd><dt>INFO</dt><dd>239 km · ~3 h</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">驶向·<em>蒂阿瑙</em></h3>
+      <p class="day__lede">上午从瓦纳卡出发，中午抵达皇后镇午餐休整。下午悠闲地逛逛湖边、吃个冰淇淋，4 点左右再驱车南下抵达蒂阿瑙——峡湾门户的宁静一夜。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">09:00 — 10:30</span><h4 class="activity__title">瓦纳卡 → 皇后镇（68 km · ~1 h）</h4></div>
+        <div class="activity__body">
+          <p>从瓦纳卡出发，经 Crown Range Road（新西兰海拔最高的公路）驶向皇后镇。沿途经过 Cardrona 山谷，风景壮丽。可在 Crown Range Summit 观景台稍作停留，俯瞰箭镇和皇后镇盆地。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">10:30 — 14:00</span><h4 class="activity__title">皇后镇午餐 · 湖边休整</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--amber);padding-left:16px;">皇后镇——冒险之都，也是美食之城。给自己 3-4 小时的午餐+休整时间。</p>
+          <p style="margin-top:12px"><strong>午餐选择（三选一）：</strong></p>
+          <ul>
+            <li>🍔 <strong>Fergburger：</strong>传说中的"世界第一大汉堡"，排队是常态但值得等。分量巨大，两人吃一个也够。</li>
+            <li>🍦 <strong>Mrs Ferg Gelateria：</strong>Fergburger 隔壁的冰淇淋店，吃完堡配冰淇淋是经典组合。即使不吃汉堡也值得专门来买。</li>
+            <li>🌊 <strong>湖景午餐：</strong>Pier 19（湖景+海鲜）、The Bathhouse（湖边历史建筑，轻松简餐）、Vudu Cafe（精品brunch）</li>
+          </ul>
+          <p style="margin-top:12px"><strong>休整建议：</strong>饭后沿着瓦卡提普湖（Lake Wakatipu）湖边散步 1-2 小时。湖边码头、沙滩区、Queenstown Gardens 都是散步好去处。可顺路去 Cookie Time 买一块新西兰国民曲奇。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">15:30 — 17:30</span><h4 class="activity__title">皇后镇 → 蒂阿瑙（171 km · ~2 h）</h4></div>
+        <div class="activity__body">
+          <p>下午 3 点半左右出发南下，沿 SH6 公路穿过南地平原，途经 Mossburn（新西兰的"鹿之都"）。傍晚抵达蒂阿瑙，正好入住。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:00</span><h4 class="activity__title">蒂阿瑙入住 · 晚餐 · 采购</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;">蒂阿瑙——米尔福德峡湾的门户小镇，安静而从容。黄昏时分的蒂阿瑙湖尤为温柔。</p>
+          <p style="margin-top:10px">办理入住后，先去 <strong>FreshChoice</strong> 超市采购次日干粮和饮水（峡湾国家公园内没有商店和加油站）。晚餐推荐：<strong>The Fat Duck</strong>（湖畔餐厅，海鲜+牛排）、<strong>Redcliff Cafe</strong>（本地人最爱，暖色调石头小屋）。饭后在蒂阿瑙湖边散步，感受峡湾之夜的宁静。</p>
+        </div>
+      </div>
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>蒂阿瑙</strong>
+          <span class="lodging-detail">Oraka Street, Te Anau, 9600</span>
+          <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-gR4WqiS" target="_blank" class="lodging-link">booking.cn/Share-gR4WqiS</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article><!-- DAY 7 -->
+<article class="day" id="day-7" style="background: linear-gradient(180deg, var(--paper-deep), var(--paper));">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">08<span>·</span></div>
+      <div class="day__date">10 / 01 · THU · 国庆节</div>
+      <dl class="day__meta"><dt>CRUISE</dt><dd>蒂阿瑙 ⇌ 米尔福德峡湾</dd><dt>INFO</dt><dd>往返 236 km</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">米尔福德·<em>世界第八大奇迹</em></h3>
+      <p class="day__lede">今天是整个南岛之旅的重头戏。118 公里新西兰最美公路，5 个不可错过的停留点，2 小时峡湾游船——让数百米高的瀑布把水雾打在你的脸上。</p>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">09:00 — 10:40</span><h4 class="activity__title">蒂阿瑙 → 米尔福德峡湾（118 km · ~1h40m）</h4></div>
+        <div class="activity__body">
+          <div class="callout"><strong>关键提醒：</strong>进入峡湾国家公园后全程无手机信号，<strong>提前下载好离线地图</strong>。在蒂阿瑙出发前加满油，带上足够的零食和饮水。峡湾内没有加油站和商店。</div>
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;margin-top:16px;">从蒂阿瑙到米尔福德峡湾的 118 公里被誉为"新西兰最美公路"，建议沿途留出 1.5—2 小时走走停停。</p>
+          <div class="table-wrap" style="margin-top:12px;"><table><thead><tr><th>景点</th><th>说明</th><th>停留</th></tr></thead><tbody>
+            <tr><td><strong>Eglinton Valley 埃格林顿山谷</strong></td><td>金黄草原 + 笔直公路，《指环王》取景地</td><td>15 min</td></tr>
+            <tr><td><strong>镜湖 Mirror Lakes</strong></td><td>晴朗无风时湖面完美倒映伯爵山脉</td><td>20 min</td></tr>
+            <tr><td><strong>Pop's View Lookout</strong></td><td>俯瞰分水岭壮丽山谷</td><td>10 min</td></tr>
+            <tr><td><strong>Monkey Creek 猴子溪</strong></td><td>纯净可饮用的冰川融水，雪山背景大片</td><td>15 min</td></tr>
+            <tr><td><strong>Homer Tunnel 荷马隧道</strong></td><td>等红灯时观察垂直岩壁，运气好可见 Kea 高山鹦鹉</td><td>10 min</td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+
+<div class="activity activity--highlight" style="border-top: 3px solid var(--glacier-deep);">
+        <div class="activity__head"><span class="activity__time">12:00 — 14:00</span><h4 class="activity__title">米尔福德峡湾游船 · Milford Sound Cruise</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;">米尔福德峡湾被誉为"世界第八大奇迹"，峡湾两侧耸立着数百米高的垂直悬崖，瀑布从山顶倾泻而下，海豹在礁石上晒太阳。</p>
+          <div class="callout">⚠️ <strong>必须提前网上预订</strong>，旺季名额非常紧张。建议提前 30 分钟到达办理签到。</div>
+          <p style="margin-top:14px"><strong>游船亮点：</strong></p>
+          <ul>
+            <li><strong>鲍恩瀑布 Bowen Falls：</strong>155 米高，游船会靠近让游客感受水雾</li>
+            <li><strong>斯特林瀑布 Stirling Falls：</strong>游船驶入瀑布下方，水花打在甲板上</li>
+            <li><strong>海豹礁 Seal Rock：</strong>峡湾入海口处常有海豹和企鹅出没</li>
+            <li><strong>银色公路 Silver Mirror：</strong>峡湾入口处的镜面水域，晴天倒影完美</li>
+          </ul>
+          <div class="callout--tip"><strong>注意事项：</strong>峡湾一年约有 200 天在下雨，雨天悬崖上会出现"万瀑齐飞"的奇观，比晴天更壮观；<strong>沙蝇（Sandflies）特别凶猛</strong>，务必带防虫喷雾；温度较低，防水冲锋衣必备。</div>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">14:00 — 15:40</span><h4 class="activity__title">米尔福德 → 蒂阿瑙（118 km · ~1h40m）</h4></div>
+        <div class="activity__body">
+          <p>下午驾车返回蒂阿瑙，沿途可再次打卡上午未停靠的观景点——傍晚光线与上午不同，Mirror Lakes 和 Eglinton Valley 都值得再看一眼。</p>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:00</span><h4 class="activity__title">蒂阿瑙晚餐</h4></div>
+        <div class="activity__body">
+          <p style="margin-bottom:8px;"><strong>晚餐推荐：</strong></p>
+          <ul>
+            <li><strong>The Fat Duck</strong> — 湖畔餐厅，海鲜 + 牛排，景观与菜品俱佳</li>
+            <li><strong>Redcliff Cafe</strong> — 本地人最爱，暖色调石头小屋，氛围温馨</li>
+            <li><strong>Sandfly Cafe</strong> — 简餐 + 咖啡，早上也适合来一杯</li>
+          </ul>
+          <p style="margin-top:10px;">饭后沿蒂阿瑙湖边散步，感受峡湾之夜的宁静——今天你亲眼见证了世界第八大奇迹。</p>
+        </div>
+      </div>
+
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>蒂阿瑙</strong>
+          <span class="lodging-detail">Oraka Street, Te Anau, 9600</span>
+          <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-gR4WqiS" target="_blank" class="lodging-link">booking.cn/Share-gR4WqiS</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article><!-- DAY 8 -->
+<article class="day" id="day-8">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">09<span>·</span></div>
+      <div class="day__date">10 / 02 · FRI · 国庆节</div>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>蒂阿瑙 → 皇后镇</dd><dt>INFO</dt><dd>171 km · ~2 h</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">皇后镇·<em>Deer Park</em></h3>
+      <p class="day__lede">上午从蒂阿瑙返回皇后镇，中午在皇后镇午餐休整。下午去 Deer Park 喂鹿和羊驼，在山顶俯瞰整个皇后镇和瓦卡提普湖。</p>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">09:00 — 11:00</span><h4 class="activity__title">蒂阿瑙 → 皇后镇（171 km · ~2 h）</h4></div>
+        <div class="activity__body">
+          <p>从蒂阿瑙出发，沿 SH6 公路北上返回皇后镇。沿途经过南地平原和 Mossburn（"鹿之都"），上午光线从侧面打来，适合拍摄公路大片。</p>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">11:00 — 13:00</span><h4 class="activity__title">皇后镇午餐 · 休整</h4></div>
+        <div class="activity__body">
+          <p style="margin-bottom:8px;"><strong>午餐推荐（任选）：</strong></p>
+          <ul>
+              <li>🌮 <strong>Taco Medic</strong> — 平价墨西哥卷，快且好吃</li>
+            <li>🥗 <strong>Vudu Cafe & Larder</strong> — 精品 brunch，沙拉和蛋糕都很赞</li>
+            <li>🌊 <strong>Pier 19</strong> — 湖景海鲜餐厅，天气好坐户外</li>
+          </ul>
+          <p style="margin-top:10px;">饭后可沿湖边散步消食，或逛逛皇后镇中心的小店——Shotover Street 和 Beach Street 交汇处是购物核心区。</p>
+        </div>
+      </div>
+
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">13:30 — 15:30</span><h4 class="activity__title">Deer Park Heights 鹿公园</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--amber);padding-left:16px;">驾车穿行园区，亲手喂食鹿、羊驼、牦牛等动物。园区山顶有俯瞰皇后镇和瓦卡提普湖的全景视角。</p>
+          <div class="stat-row"><div class="stat"><dt>门票</dt><dd>NZD 75 / 车（含一桶饲料）</dd></div><div class="stat"><dt>车程</dt><dd>皇后镇 15 min</dd></div><div class="stat"><dt>游玩</dt><dd>1—1.5 h</dd></div></div>
+          <ul>
+            <li>10 月初气温较低，动物可能在山顶区域</li>
+            <li>官网预订，每天限 80 辆车进入，<strong>最多提前 7 天预定</strong></li>
+          </ul>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">18:00</span><h4 class="activity__title">皇后镇晚餐</h4></div>
+        <div class="activity__body">
+          <p style="margin-bottom:8px;"><strong>晚餐推荐：</strong></p>
+          <ul>
+            <li>🍕 <strong>Winnie's</strong> — 屋顶披萨，开放式餐厅，氛围超好</li>
+            <li>🍷 <strong>The Grille by Eichardt's</strong> — 湖景高端餐厅，海鲜和牛排是招牌</li>
+            <li>🍜 <strong>Tanoshi</strong> — 日式居酒屋，适合换口味</li>
+          </ul>
+          <p style="margin-top:10px;">饭后沿瓦卡提普湖散步，皇后镇的夜晚从码头到花园都很迷人。</p>
+        </div>
+      </div>
+
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>皇后镇</strong>
+          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" class="lodging-link">airbnb.com/l/Hvay9r0d</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article><!-- DAY 9 -->
+<article class="day" id="day-9">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">10<span>·</span></div>
+      <div class="day__date">10 / 03 · SAT · 国庆节</div>
+      <dl class="day__meta"><dt>ADVENTURE</dt><dd>皇后镇 → 格林诺奇</dd><dt>INFO</dt><dd>自驾往返 + Jet</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">格林诺奇·<em>指环王之路</em></h3>
+      <p class="day__lede">上午沿最美自驾路线驶向格林诺奇——「指环王」取景地。中午在格林诺奇午餐，下午返回皇后镇体验 Shotover Jet 喷气快艇，晚上在镇上逛街觅食。</p>
+
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">09:30 — 11:00</span><h4 class="activity__title">格林诺奇自驾 · 指环王取景地</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);">皇后镇地区最美的一条自驾路线，沿途风景如画，也是《指环王》《霍比特人》的主要取景地。</p>
+          <p style="margin-top:10px"><strong>沿途必停打卡点：</strong></p>
+          <ul>
+            <li>📸 <strong>Bennett's Bluff Lookout：</strong>俯瞰瓦卡提普湖弯曲处，经典明信片角度</li>
+            <li>🌲 <strong>Wilson Bay：</strong>小而美的湖畔停车观景点</li>
+            <li>🦅 <strong>Glenorchy Wharf：</strong>码头漫步，拍摄湖光山色</li>
+          </ul>
+          <div class="callout"><strong>注意：</strong>进入格林诺奇方向后半段全程无手机信号，提前下载好离线地图。</div>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">11:00 — 12:30</span><h4 class="activity__title">格林诺奇午餐</h4></div>
+        <div class="activity__body">
+          <p style="margin-bottom:8px;"><strong>格林诺奇餐饮推荐：</strong></p>
+          <ul>
+            <li>🥟 <strong>Mrs Woolly's General Store</strong> — 传奇饺子店！据说有华人厨师，饺子味道正宗，南岛自驾圈口耳相传</li>
+            <li>☕ <strong>Glenorchy Cafe</strong> — 小镇咖啡馆，三明治和派都不错</li>
+            <li>🥪 <strong>自带干粮</strong> — 格林诺奇餐饮选择不多，也可在皇后镇提前买好三明治，在湖边野餐</li>
+          </ul>
+          <p style="margin-top:12px;font-size:0.9em;color:var(--ink-soft);">格林诺奇真的是一个小镇——两条街，一个咖啡馆，一个码头，但景色绝对值回油费。</p>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">12:30 — 14:00</span><h4 class="activity__title">格林诺奇 → 皇后镇 · 前往 Shotover Jet</h4></div>
+        <div class="activity__body">
+          <p>午饭后沿原路返回皇后镇（约 45 min）。沿途可再次停靠 Bennett's Bluff 或 Wilson Bay，午后光线与上午不同。直接开到 Arthurs Point 签到（市中心 10 min 车程）。</p>
+          <div class="callout"><strong>提前至少 15 分钟到达签到</strong>，14:30 准时出发。上船点：Arthurs Point。</div>
+        </div>
+      </div>
+
+<div class="activity activity--highlight" style="border-top: 3px solid var(--amber);">
+        <div class="activity__head"><span class="activity__time">14:30 — 15:00</span><h4 class="activity__title">Shotover Jet 喷气快艇</h4></div>
+        <div class="activity__body">
+          <p>在 Shotover River 峡谷中高速穿行，360 度旋转飞驰，离岩壁仅几厘米——全程肾上腺素飙升。</p>
+          <div class="stat-row">
+            <div class="stat"><dt>价格</dt><dd>¥668 / 人</dd></div>
+            <div class="stat"><dt>已预订</dt><dd>✅ 14:30</dd></div>
+            <div class="stat"><dt>上船点</dt><dd>Arthurs Point</dd></div>
+            <div class="stat"><dt>时长</dt><dd>水上 30 min，预留 1.5 h</dd></div>
+          </div>
+          <p style="margin-top:10px;font-size:0.9em;color:var(--ink-soft);">穿好防水外套，相机做好防水——快艇会在峡谷中甩出大量水花。</p>
+        </div>
+      </div>
+
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">15:30 — 19:00</span><h4 class="activity__title">皇后镇逛街 · 晚餐</h4></div>
+        <div class="activity__body">
+          <p>Jet 结束后回到皇后镇中心，下午和晚上适合闲逛 + 觅食。</p>
+          <p style="margin-top:10px;margin-bottom:8px;"><strong>逛街推荐：</strong></p>
+          <ul>
+            <li>🍪 <strong>Cookie Time</strong> — 新西兰国民曲奇，必买伴手礼</li>
+            <li>🛍️ <strong>Shotover Street</strong> — 户外品牌 + 纪念品店集中区（Kathmandu、Macpac）</li>
+            <li>🎁 <strong>DFS Galleria</strong> — 免税店，护肤品和香水值得逛</li>
+          </ul>
+          <p style="margin-top:12px;margin-bottom:8px;"><strong>晚餐推荐：</strong></p>
+          <ul>
+            <li>🍕 <strong>Fat Badgers</strong> — 巨型披萨，性价比之王</li>
+            <li>🍔 <strong>Fergburger</strong> — 没吃够再来一次</li>
+            <li>🥩 <strong>Flame Bar & Grill</strong> — 南非风味烤肉，分量大</li>
+          </ul>
+        </div>
+      </div>
+
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>皇后镇</strong>
+          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" class="lodging-link">airbnb.com/l/Hvay9r0d</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article><!-- DAY 10 -->
+<article class="day" id="day-10">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">11<span>·</span></div>
+      <div class="day__date">10 / 04 · SUN · 国庆节</div>
+      <dl class="day__meta"><dt>FUN</dt><dd>皇后镇活动日</dd><dt>INFO</dt><dd>蹦极 · 缆车 · Luge</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">皇后镇·<em>冒险之日</em></h3>
+      <p class="day__lede">蹦极、SkyLine 缆车、山顶自助餐、Luge 滑板车、看日落——国庆假期的完美收官。</p>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">09:30</span><h4 class="activity__title">Nzone 跳伞</h4></div>
+        <div class="activity__body">
+        <div class="table-wrap"><table><thead><tr><th>高度</th><th>价格</th><th>推荐</th></tr></thead><tbody><tr><td>9,000 ft（2,700m）</td><td>NZD 299</td><td></td></tr><tr><td><strong>12,000 ft（3,600m）</strong></td><td><strong>NZD 399</strong></td><td>⭐ 推荐</td></tr><tr><td>15,000 ft（4,500m）</td><td>NZD 549</td><td>已定</td></tr></tbody></table></div><ul><li>拍摄套餐额外 NZD 150—200（第三方摄影师跟拍）</li><li>含准备约3—3.5小时，实际自由落体45—60秒</li><li>从南阿尔卑斯山脉上空俯瞰峡湾、瓦卡提普湖</li></ul><div class="callout"><strong>必须提前预约</strong>，建议选上午场次（天气更稳定，云层更薄）。</div></div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">12:00</span><h4 class="activity__title">皇后镇简餐 · 逛街</h4></div>
+        <div class="activity__body"></div>
+      </div>
+<div class="activity activity--highlight">
+        <div class="activity__head"><span class="activity__time">16:00</span><h4 class="activity__title">SkyLine 天空缆车 · Luge · 山顶自助餐</h4></div>
+        <div class="activity__body">
+          <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--amber);padding-left:16px;">南半球最陡的缆车，450米升高直达鲍勃峰山顶。</p>
+          <p style="margin-top:10px">已预订包含：上下缆车、<strong>Luge 滑板车 3 次</strong>（初级道适合所有人，高级道弯多速度快）、<strong>16:45 山顶自助晚餐</strong>。</p>
+          <p style="margin-top:8px">日落时分俯瞰皇后镇全景、瓦卡提普湖和卓越山脉——绝美收官。</p>
+          <div class="callout--tip"><strong>拍照建议：</strong>坐缆车靠窗位，上山面朝皇后镇方向取景；山顶观景台 360 度，日落前 1 小时光线最佳。</div>
+        </div>
+      </div>
+<div class="lodging">
+        <div class="lodging__icon">🏨</div>
+        <div class="lodging__text">
+          <strong>皇后镇</strong>
+          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" class="lodging-link">airbnb.com/l/Hvay9r0d</a></span>
+          <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
+          <span class="lodging-detail lodging-note"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<!-- DAY 11 -->
+<article class="day" id="day-11">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">12<span>·</span></div>
+      <div class="day__date">10 / 05 · MON · 国庆节</div>
+      <dl class="day__meta"><dt>FLIGHT</dt><dd>皇后镇 → 奥克兰 → 首尔</dd><dt>INFO</dt><dd>7:00→8:50→20:20</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">告别·<em>南岛</em></h3>
+      <p class="day__lede">清晨告别皇后镇，先还车，再登机。经奥克兰转首尔——南岛的记忆，收藏在这片长白云之乡。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">06:00</span><h4 class="activity__title">皇后镇机场（ZQN）还车</h4></div>
+        <div class="activity__body">
+          <p>早起出发，前往皇后镇机场还车点。皇后镇机场很小，还车点就在航站楼步行范围内。建议提前一晚收拾行李——<strong>随身包放洗漱护肤用品</strong>（奥克兰转机过安检需要），其余行李值机直挂到上海。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">07:00 — 08:50</span><h4 class="activity__title">皇后镇 ZQN → 奥克兰 AKL · NZ638</h4></div>
+        <div class="activity__body">
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>NZ638</dd></div>
+            <div class="stat"><dt>航司</dt><dd>新西兰航空</dd></div>
+            <div class="stat"><dt>时间</dt><dd>07:00 — 08:50</dd></div>
+            <div class="stat"><dt>飞行</dt><dd>1h 50m · 国内段</dd></div>
+          </div>
+          <p style="margin-top:10px;">清晨从皇后镇起飞，从舷窗俯瞰瓦卡提普湖和卓越山脉的最后一眼——和南岛说再见。</p>
+        </div>
+      </div>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">12:05 — 20:20</span><h4 class="activity__title">奥克兰 AKL → 仁川 ICN T2 · KE412</h4></div>
+        <div class="activity__body">
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>KE412</dd></div>
+            <div class="stat"><dt>航司</dt><dd>大韩航空</dd></div>
+            <div class="stat"><dt>时间</dt><dd>12:05 — 20:20</dd></div>
+            <div class="stat"><dt>飞行</dt><dd>~12h · 国际段</dd></div>
+          </div>
+          <p style="margin-top:10px;">奥克兰转机约 3 小时，可在免税店逛逛或在休息室休整。登机后好好休息——跨时区的长途飞行，抵达首尔已是晚上。</p>
+          <div class="callout--tip"><strong>行李提示：</strong>奥克兰值机时行李直挂到上海。仁川转机无需取行李，次日 KE881 回到浦东。</div>
+        </div>
+      </div>
+<div class="lodging"><div class="lodging__icon">🛏️</div><div class="lodging__text"><strong>首尔机场</strong><span class="lodging-detail">中转住宿 · 行李直达上海</span></div></div>
+    </div>
+  </div>
+</article>
+<!-- DAY 12 -->
+<article class="day" id="day-12">
+  <div class="day__inner">
+    <aside class="day__rail" data-reveal>
+      <div class="day__num">13<span>·</span></div>
+      <div class="day__date">10 / 06 · TUE · 国庆节</div>
+      <dl class="day__meta"><dt>HOME</dt><dd>首尔 → 上海</dd><dt>INFO</dt><dd>8:25→9:40</dd></dl>
+    </aside>
+    <div class="day__body" data-reveal>
+      <h3 class="day__title">归途·<em>回家</em></h3>
+      <p class="day__lede">最后一段飞行——从首尔回到上海。旅程圆满结束，整理照片，让记忆沉淀。</p>
+<div class="activity">
+        <div class="activity__head"><span class="activity__time">08:25 — 09:40</span><h4 class="activity__title">仁川 ICN T2 → 上海浦东 PVG · KE881</h4></div>
+        <div class="activity__body">
+          <div class="stat-row">
+            <div class="stat"><dt>航班号</dt><dd>KE881</dd></div>
+            <div class="stat"><dt>航司</dt><dd>大韩航空</dd></div>
+            <div class="stat"><dt>时间</dt><dd>08:25 — 09:40</dd></div>
+            <div class="stat"><dt>飞行</dt><dd>~2h · 仁川 T2 → 浦东 PVG</dd></div>
+          </div>
+          <p style="margin-top:10px;">早上从仁川 T2 出发，短短两小时就能落地浦东。13 天的旅程，从上海出发、经首尔、飞奥克兰、自驾南岛——最终回到原点，满载而归。</p>
+          <div class="callout--tip"><strong>温柔的告别：</strong>新西兰人称这片土地为 Aotearoa——"长白云之乡"。它会一直在那里，等你下次再来。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+<section class="section" id="logistics">
+  <div class="section-head" data-reveal><div class="section-head__num">§ 03 / LOGISTICS</div><h2 class="section-head__title">行前<em>备忘</em></h2></div>
+  <div class="prep-grid">
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">01</span>证件·金钱</h3><ul class="prep-list"><li>护照（有效期6个月以上）</li><li>新西兰电子签证（已办）</li><li>韩国签证（已办 · 入境首尔用）</li><li>国际驾照翻译件</li><li>Visa/MasterCard信用卡</li><li>少量纽币现金（小镇停车费）</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">02</span>✈️ 航班信息</h3><ul class="prep-list">
+        <li class="no-bullet" style="color:var(--glacier);font-weight:600;margin-top:6px;">去程</li>
+        <li><strong>① KE2058</strong> 上海虹桥 T1 → 首尔金浦 GMP · 18:25—21:30 · 大韩航空</li>
+        <li><strong>② KE411</strong> 首尔仁川 ICN T2 → 奥克兰 AKL · 18:00→8:35(+1) · 大韩航空</li>
+        <li><strong>③ NZ543</strong> 奥克兰 AKL → 基督城 CHC · 13:15—14:35 · 新西兰航空</li>
+        <li class="no-bullet" style="color:var(--glacier);font-weight:600;margin-top:6px;">回程</li>
+        <li><strong>① NZ638</strong> 皇后镇 ZQN → 奥克兰 AKL · 07:00—08:50 · 新西兰航空</li>
+        <li><strong>② KE412</strong> 奥克兰 AKL → 首尔仁川 ICN T2 · 12:05—20:20 · 大韩航空</li>
+        <li><strong>③ KE881</strong> 首尔仁川 ICN T2 → 上海浦东 PVG · 08:25—09:40 · 大韩航空</li>
+        <li class="no-bullet" style="color:var(--amber-deep);margin-top:8px;">⚠️ 奥克兰直挂上海 · 仁川无需取行李</li>
+      </ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">03</span>租车·自驾</h3><ul class="prep-list"><li>基督城取车（9/26）→皇后镇还车（10/5）</li><li>已预订 · ¥5,068</li><li><strong>新西兰靠左行驶</strong></li><li>下载 Google Maps 离线地图</li><li>山区弯道多，注意限速</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">04</span>必备 APP</h3><ul class="prep-list"><li><strong>Google Maps</strong> · 离线地图</li><li><strong>MetService</strong> · 天气预报</li><li><strong>CamperMate</strong> · 旅行神器</li><li><strong>Clear Outside</strong> · 观星云量</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">05</span>衣物·装备</h3><ul class="prep-list"><li>防风防水冲锋衣（峡湾必备）</li><li>保暖中间层 + 防水登山靴</li><li>防晒霜 SPF50+ · 墨镜</li><li>防虫喷雾（沙蝇专用）</li><li>帽子 · 手套(山顶)</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">06</span>通讯·安全</h3><ul class="prep-list">
+        <li>🇰🇷 <strong>韩国单日流量卡</strong> — 淘宝提前购，首尔中转日用</li>
+        <li>🇳🇿 <strong>新西兰电话卡/流量卡</strong> — 推荐 Spark / Skinny / One NZ，奥克兰机场或基督城购买</li>
+        <li>南岛大部分地区信号弱，离线地图必备</li>
+        <li style="margin-top:6px;">紧急电话：新西兰 111</li>
+        <li>中国驻新西兰使馆：+64-4-4721382</li>
+      </ul></div>
+  </div>
+</section>
+
+<section class="budget-section" id="budget">
+  <div class="route-section__inner">
+    <div class="section-head" data-reveal><div class="section-head__num">§ 04 / BUDGET</div><h2 class="section-head__title">预算<em>参考</em> <span style="font-size:0.4em;font-style:italic;font-weight:300;opacity:.6;">5人出行 · 费用均摊</span></h2></div>
+    <div class="budget-table" data-reveal>
+      <div class="budget-fx">参考汇率 · <span>1 NZD ≈ ¥4.3</span></div>
+      <div class="budget-row budget-row--header"><span>项目</span><span class="budget-row__total">5人合计</span><span class="budget-row__per">人均</span></div>
+      <div class="budget-row"><div class="budget-row__label">国际往返机票<small>大韩航空 · KE2058/411/412/881 · 经首尔中转</small></div><div class="budget-row__total">¥54,425<small>¥10,885/人 × 5人</small></div><div class="budget-row__per">¥10,885</div></div>
+      <div class="budget-row"><div class="budget-row__label">新西兰国内机票<small>NZ543 奥克兰→基督城 + NZ638 皇后镇→奥克兰</small></div><div class="budget-row__total">¥13,265<small>¥1,203+1,450/人 × 5人</small></div><div class="budget-row__per">¥2,653</div></div>
+      <div class="budget-row"><div class="budget-row__label">新西兰住宿 · 7晚<small>Airbnb + Booking · 整栋费用5人均摊</small></div><div class="budget-row__total">¥27,170<small>5人分摊</small></div><div class="budget-row__per">¥5,434</div></div>
+      <div class="budget-row"><div class="budget-row__label">租车 · 9天<small>基督城取 → 皇后镇还 · 不含油费</small></div><div class="budget-row__total">¥5,068<small>5人分摊</small></div><div class="budget-row__per">¥1,014</div></div>
+      <div class="budget-row"><div class="budget-row__label">活动项目<small>直升机¥4,160/人 · 峡湾船票NZ45/人 · Deer Park NZ5/车 · Jet ¥668/人 · 跳伞 ¥2,200/人 · Skyline ¥815/人</small></div><div class="budget-row__total">¥42,655</div><div class="budget-row__per">¥8,531</div></div>
+      <div class="budget-row"><div class="budget-row__label">餐饮 + 油费 + 杂费<small>约10天自驾 · 超市采购 + 外食</small></div><div class="budget-row__total">约 ¥25,000 — 30,000</div><div class="budget-row__per">¥5,000 — 6,000</div></div>
+      <div class="budget-row budget-row--total"><div class="budget-row__label">总计估算</div><div class="budget-row__total">约 ¥167,583 — 172,583</div><div class="budget-row__per">约 ¥33,517 — 34,517</div></div>
+    </div>
+    <p class="budget-note" data-reveal>以上为<strong>5人出行</strong>实际花费测算。机票为单人价，住宿和租车5人均摊。活动除 Deer Park 按车计费外均为单人价。不含首尔中转住宿、购物及个人消费。</p>
+  </div>
+</section>
+
+<section class="section" id="tips">
+  <div class="section-head" data-reveal><div class="section-head__num">§ 05 / FIELD NOTES</div><h2 class="section-head__title">实用<em>贴士</em></h2></div>
+  <div class="tips-grid">
+    <div class="tip-block" data-reveal><h3><span class="num">01</span>🚗 行车安全</h3><ul><li>南岛山路弯道多，严格遵守限速</li><li>靠左行驶（与国内相反），转弯谨慎</li><li>山区天气多变，随时查 MetService</li><li>单车道桥梁按箭头方向让行</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">02</span>📶 信号覆盖</h3><ul><li>南岛大部分地区信号弱或无信号</li><li>米尔福德、格林诺奇全程无信号</li><li><strong>出发前必下离线地图</strong></li><li>住宿地通常有 Wi-Fi</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">03</span>🌡️ 9-10月天气</h3><ul><li>白天 10—18°C，夜间 4—10°C</li><li>一天内可能经历四季，洋葱式穿搭</li><li>峡湾全年约 200 天有雨（≠坏事！）</li><li>紫外线极强，防晒必涂</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">04</span>🛒 超市·补给</h3><ul><li><strong>New World / Countdown</strong></li><li><strong>Pak'nSave</strong> 价格最低</li><li><strong>FreshChoice / Four Square</strong></li><li>特泽维尔超市晚7点关门，注意时间</li><li>建议在基督城采购充足再出发</li></ul></div>
+  </div>
+</section>
+
+<footer>
+  <h2>愿你<em>南向</em>的旅途<br>有星可看，有路可走。</h2>
+  <p>基于 2026 年实际行程整理，经首尔中转、大韩航空往返，南下基督城取车自驾，覆盖麦肯齐盆地、库克山、瓦纳卡、皇后镇及米尔福德峡湾。</p>
+  <div class="footer-meta"><span>Aotearoa Field Journal</span><span>Vol. 03 · Actual</span><span>2026.09</span><span>🇳🇿</span></div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}})},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  const ni=document.querySelectorAll('.day-nav__item'),nio=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const id=e.target.id;ni.forEach(it=>it.classList.toggle('active',it.getAttribute('href')==='#'+id));}})},{rootMargin:'-30% 0px -60% 0px'});document.querySelectorAll('section[id],article[id]').forEach(s=>nio.observe(s));
+</script>
+</body></html>
