@@ -1,0 +1,46 @@
+{
+  "name": "southern-trail-field-line",
+  "label": "Aotearoa Field Journal Line",
+  "preamble": "Refined editorial travel-journal spot icons. Flat front-facing line art with strong deep-night navy outlines, a restrained pale glacier-blue wash inside one secondary shape, and one tiny amber circular wayfinding mark. Organic but precise, inspired by topographic field notes, vintage expedition diagrams, and New Zealand road journals. No enclosing tile, no badge, no text, no shadow.",
+  "palette": [
+    "#14202E",
+    "#4A86A8",
+    "#C87A3A",
+    "#F4ECE0",
+    "#FAF4EA"
+  ],
+  "cutout": "floodfill",
+  "thresh": 28,
+  "construction": {
+    "grid": "24-unit keyline; live area about 76%; generous optical padding",
+    "stroke": "uniform 2-unit deep-night navy stroke with rounded caps and joins",
+    "corner_radius": "one restrained soft radius shared by vehicles, buildings, and containers",
+    "angles": "geometry constrained to horizontal, vertical, and 45-degree diagonals",
+    "detail_budget": "one core idea with at most four main elements and generous negative space",
+    "fill_rule": "mostly outline; one small pale glacier-blue wash may support the subject",
+    "color_rule": "navy linework is always visually dominant; glacier wash is lighter and smaller; exactly one tiny amber circular route marker per icon",
+    "shared_parts": "reuse the same amber route dot, wave curve, window radius, and mountain peak language",
+    "perspective": "flat front-facing with no isometric depth",
+    "shadow": "none",
+    "motif": "a tiny amber circular route marker attached to or hovering beside the defining contour",
+    "weight_hierarchy": "navy contour first, pale glacier wash second, tiny amber dot last"
+  },
+  "icons": [
+    "flight — a side-view passenger airplane crossing one short route arc",
+    "city — a compact skyline with one low tower and two simple buildings",
+    "stargazing — a four-point southern star above a low horizon arc",
+    "mountain — two Aoraki alpine peaks with one snow line",
+    "lone-tree — one windswept lakeside willow on a short ground line",
+    "lake — two calm wave lines beneath a distant shore",
+    "cruise — a small Milford Sound excursion boat seen from the side",
+    "deer — a calm deer head with simplified antlers",
+    "jetboat — a low speedboat with one swept wake",
+    "adventure — an open parachute canopy above a tiny harness",
+    "lodge — a simple pitched-roof lodge with one door and window",
+    "helicopter — a compact side-view sightseeing helicopter",
+    "car — a compact road-trip car seen from the side",
+    "signal — three clean radio-signal arcs rising from one point",
+    "weather — a small sun emerging behind one cloud",
+    "supplies — a field backpack with one front pocket"
+  ]
+}
