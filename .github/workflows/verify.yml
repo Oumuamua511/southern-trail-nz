@@ -1,0 +1,35 @@
+name: Verify static release
+
+on:
+  push:
+    branches:
+      - master
+      - "codex/**"
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify release contract
+        run: |
+          node scripts/verify-map.mjs
+          node scripts/verify-release.mjs
+
+      - name: Validate HTML
+        run: npx --yes html-validate@11.6.0 --rule no-inline-style:off index.html

@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="2026 年新西兰南岛 13 天自驾行程手账：路线、每日安排、住宿、预算、行前清单与旅行贴士。">
 <meta name="theme-color" content="#14202e">
+<link rel="canonical" href="https://oumuamua511.github.io/southern-trail-nz/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="新西兰南岛自驾攻略 · Aotearoa Field Journal">
+<meta property="og:description" content="2026 年新西兰南岛 13 天自驾行程手账：路线、每日安排、住宿、预算、行前清单与旅行贴士。">
+<meta property="og:url" content="https://oumuamua511.github.io/southern-trail-nz/">
 <title>新西兰南岛自驾攻略 · Aotearoa Field Journal</title>
 <script>document.documentElement.classList.replace('no-js','js');</script>
 <link rel="icon" type="image/png" href="assets/icons/flight.png">
@@ -604,86 +610,510 @@
   .route-section .section-head__num { color: var(--amber); }
   .route-section .section-head__title em { color: var(--glacier); }
 
-  .route-map {
+  .south-island-map {
     display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 64px;
+    grid-template-columns: minmax(230px, 270px) minmax(0, 1fr);
+    gap: 28px;
     margin-top: 48px;
-  }
-  @media (max-width: 900px) {
-    .route-map { grid-template-columns: 1fr; }
+    align-items: start;
   }
 
-  .route-stops {
-    list-style: none;
-    counter-reset: stop;
-    position: relative;
+  .map-day-list {
+    display: grid;
+    gap: 7px;
+    align-content: start;
   }
-  .route-stops::before {
-    content: "";
-    position: absolute;
-    left: 18px;
-    top: 12px;
-    bottom: 12px;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--amber), var(--glacier), var(--amber));
-    opacity: 0.5;
-  }
-  .route-stops li {
-    counter-increment: stop;
-    position: relative;
-    padding: 14px 0 14px 56px;
-    font-family: var(--serif);
-    font-size: 16px;
-  }
-  .route-stops li::before {
-    content: counter(stop, decimal-leading-zero);
-    position: absolute;
-    left: 0;
-    top: 12px;
-    width: 36px; height: 36px;
-    background: var(--ink);
-    border: 1px solid var(--amber);
-    border-radius: 50%;
-    display: flex;
+
+  .map-day {
+    appearance: none;
+    width: 100%;
+    min-height: 65px;
+    border: 1px solid rgba(244, 236, 224, 0.12);
+    border-radius: 7px;
+    background: rgba(244, 236, 224, 0.035);
+    color: var(--cream);
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
     align-items: center;
-    justify-content: center;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--amber);
-    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      color 220ms ease,
+      border-color 220ms ease,
+      background-color 220ms ease,
+      transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .route-stops li small {
-    display: block;
+  .map-day:hover {
+    border-color: rgba(200, 122, 58, 0.55);
+    background: rgba(244, 236, 224, 0.075);
+    transform: translateX(3px);
+  }
+  .map-day.is-preview {
+    border-color: rgba(200, 122, 58, 0.72);
+    background: rgba(244, 236, 224, 0.1);
+  }
+  .map-day.is-active {
+    color: var(--ink);
+    border-color: var(--amber);
+    background: var(--paper-warm);
+    box-shadow: 0 12px 30px -18px rgba(4, 10, 17, 0.8);
+  }
+  .map-day__number {
     font-family: var(--mono);
+    color: var(--amber);
     font-size: 11px;
-    color: rgba(244,236,224,0.5);
-    letter-spacing: 0.1em;
-    margin-top: 2px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .map-day.is-active .map-day__number { color: var(--amber-deep); }
+  .map-day__copy {
+    min-width: 0;
+    display: block;
+  }
+  .map-day__copy strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .map-day__copy small {
+    display: block;
+    overflow: hidden;
+    margin-top: 3px;
+    color: rgba(244, 236, 224, 0.5);
+    font-family: var(--mono);
+    font-size: 9px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .map-day.is-active .map-day__copy small { color: rgba(20, 32, 46, 0.62); }
+  .map-day--overview {
+    margin-bottom: 7px;
+    border-style: dashed;
+  }
+
+  .map-stage {
+    position: relative;
+    min-width: 0;
   }
 
   .route-svg-wrap {
     position: relative;
-    border: 1px solid rgba(244,236,224,0.12);
-    border-radius: 4px;
-    padding: 32px;
-    background: rgba(244,236,224,0.02);
-    background-image:
-      linear-gradient(rgba(244,236,224,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(244,236,224,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(244, 236, 224, 0.2);
+    border-radius: 14px 10px 16px 9px;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 28%),
+      rgba(244, 236, 224, 0.035);
+    box-shadow: 0 34px 80px -48px rgba(0, 0, 0, 0.9);
+    perspective: 1100px;
   }
-  .route-svg-wrap svg { width: 100%; height: auto; }
-  .route-svg-wrap .map-corner {
+  .route-svg-wrap::before {
+    content: "";
     position: absolute;
-    width: 24px;
-    height: 24px;
-    border: 1px solid rgba(244,236,224,0.3);
+    z-index: -1;
+    inset: 12px -10px -11px 10px;
+    border: 1px solid rgba(200, 122, 58, 0.16);
+    border-radius: inherit;
+    transform: rotate(-0.35deg);
   }
-  .map-corner--tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
-  .map-corner--tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
-  .map-corner--bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
-  .map-corner--br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+  .map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform-origin: 50% 52%;
+    transition: transform 480ms cubic-bezier(0.2, 0.7, 0.15, 1);
+  }
+  .south-island-map.is-filtered .map-svg {
+    transform: rotateX(2.25deg) rotateZ(-0.25deg) translateY(-2px);
+  }
+
+  .map-paper {
+    fill: #f1e5d3;
+    stroke: rgba(20, 32, 46, 0.42);
+    stroke-width: 1;
+  }
+  .map-land {
+    fill: #e8dac4;
+    stroke: #253b49;
+    stroke-width: 1.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .map-land--stewart { fill: #e1d1b8; }
+  .map-grain { fill: url("#paper-grain"); }
+  .map-terrain {
+    fill: url("#terrain-hatch");
+    opacity: 0.72;
+  }
+  .map-ranges path {
+    fill: none;
+    stroke: rgba(77, 107, 79, 0.52);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .map-lakes path {
+    fill: rgba(74, 134, 168, 0.7);
+    stroke: #2a5d80;
+    stroke-width: 0.75;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-place-labels text {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    fill: rgba(20, 32, 46, 0.25);
+  }
+  .map-compass path {
+    fill: var(--amber-deep);
+    stroke: var(--ink);
+    stroke-width: 0.8;
+  }
+  .map-compass text {
+    text-anchor: middle;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--ink);
+  }
+
+  .map-route {
+    cursor: pointer;
+    opacity: 0.63;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 260ms ease,
+      transform 380ms cubic-bezier(0.2, 0.75, 0.2, 1),
+      filter 380ms ease;
+  }
+  .map-route__halo,
+  .map-route__line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-route__halo {
+    stroke: transparent;
+    stroke-width: 17;
+    pointer-events: stroke;
+  }
+  .map-route__line {
+    stroke: #365d70;
+    stroke-width: 2.4;
+    stroke-dasharray: 2 5;
+    transition:
+      stroke 260ms ease,
+      stroke-width 260ms ease,
+      stroke-dasharray 260ms ease;
+    pointer-events: none;
+  }
+  .map-route:hover,
+  .map-route:focus-visible,
+  .map-route.is-preview,
+  .map-route.is-active {
+    opacity: 1;
+    outline: none;
+    transform: translateY(-5px);
+    filter: url("#route-lift");
+  }
+  .map-route:hover .map-route__line,
+  .map-route:focus-visible .map-route__line,
+  .map-route.is-preview .map-route__line,
+  .map-route.is-active .map-route__line {
+    stroke: var(--amber-deep);
+    stroke-width: 4.2;
+    stroke-dasharray: none;
+  }
+  .south-island-map.is-filtered .map-route:not(.is-active, .is-preview) {
+    opacity: 0.12;
+  }
+
+  .map-context circle {
+    fill: var(--paper);
+    stroke: var(--amber-deep);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-context text {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    fill: rgba(20, 32, 46, 0.74);
+    paint-order: stroke;
+    stroke: #f1e5d3;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  .map-pin {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease calc(var(--pin-order, 0) * 65ms);
+  }
+  .map-pin.is-active,
+  .map-pin.is-preview {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .map-pin:focus-visible {
+    outline: none;
+  }
+  .map-pin:focus-visible .map-pin__marker use,
+  .map-pin.is-selected .map-pin__marker use {
+    stroke: var(--cream);
+    stroke-width: 2.5;
+  }
+  .map-pin__leader {
+    fill: none;
+    stroke: rgba(20, 32, 46, 0.55);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-pin__marker {
+    filter: url("#pin-lift");
+  }
+  .map-pin__hit {
+    fill: transparent;
+    stroke: none;
+    pointer-events: all;
+  }
+  .map-pin__marker use {
+    fill: var(--amber-deep);
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+  .map-pin__marker use + image { pointer-events: none; }
+  .map-pin__label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--ink);
+    paint-order: stroke;
+    stroke: #f1e5d3;
+    stroke-width: 5px;
+    stroke-linejoin: round;
+  }
+  .map-pin__marker--left .map-pin__label { text-anchor: end; }
+
+  .map-scale path {
+    fill: none;
+    stroke: rgba(20, 32, 46, 0.62);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-scale text {
+    font-family: var(--mono);
+    font-size: 8px;
+    fill: rgba(20, 32, 46, 0.62);
+  }
+
+  .map-clear {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 3;
+    border: 1px solid rgba(20, 32, 46, 0.24);
+    border-radius: 999px;
+    background: rgba(250, 244, 234, 0.88);
+    color: var(--ink);
+    padding: 8px 13px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background-color 180ms ease, border-color 180ms ease;
+  }
+  .map-clear:hover {
+    border-color: var(--amber-deep);
+    background: var(--cream);
+  }
+
+  .map-attribution {
+    position: absolute;
+    right: 17px;
+    bottom: 10px;
+    color: rgba(20, 32, 46, 0.52);
+    font-family: var(--mono);
+    font-size: 7px;
+    line-height: 1.4;
+  }
+  .map-attribution a { color: inherit; text-underline-offset: 2px; }
+
+  .map-detail {
+    position: absolute;
+    z-index: 4;
+    left: 28px;
+    bottom: 30px;
+    width: min(360px, calc(100% - 56px));
+    border: 1px solid rgba(20, 32, 46, 0.17);
+    border-radius: 4px 9px 5px 11px;
+    background: rgba(250, 244, 234, 0.94);
+    color: var(--ink);
+    padding: 20px 22px;
+    box-shadow: 0 24px 54px -26px rgba(20, 32, 46, 0.55);
+    backdrop-filter: blur(9px);
+    transform-origin: left bottom;
+    transition:
+      opacity 220ms ease,
+      transform 340ms cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+  .map-detail::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    bottom: -7px;
+    left: -7px;
+    z-index: -1;
+    border: 1px solid rgba(200, 122, 58, 0.2);
+    border-radius: inherit;
+    transform: rotate(-0.4deg);
+  }
+  .map-detail.is-changing {
+    opacity: 0.25;
+    transform: translateY(5px) scale(0.985);
+  }
+  .map-detail__eyebrow {
+    display: block;
+    color: var(--amber-deep);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+  }
+  .map-detail__title {
+    margin-top: 5px;
+    font-family: var(--display);
+    font-size: clamp(21px, 2vw, 29px);
+    font-weight: 700;
+    line-height: 1.18;
+  }
+  .map-detail__route {
+    margin-top: 5px;
+    color: var(--glacier-deep);
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .map-detail__summary {
+    margin-top: 8px;
+    color: rgba(20, 32, 46, 0.68);
+    font-size: 11px;
+    line-height: 1.65;
+  }
+  .map-detail__link {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+    color: var(--amber-deep);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .map-detail__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  @media (max-width: 1050px) {
+    .south-island-map {
+      grid-template-columns: minmax(210px, 235px) minmax(0, 1fr);
+      gap: 18px;
+    }
+    .map-day { min-height: 58px; padding: 8px 10px; }
+    .map-detail {
+      left: 20px;
+      bottom: 24px;
+      width: min(330px, calc(100% - 40px));
+      padding: 17px 18px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .route-section { padding: 96px 20px; }
+    .south-island-map {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .map-day-list {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 3px 3px 9px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+    }
+    .map-day {
+      flex: 0 0 210px;
+      min-height: 61px;
+      scroll-snap-align: start;
+    }
+    .map-day:hover { transform: translateY(-2px); }
+    .map-day--overview { margin: 0; }
+    .map-stage {
+      display: grid;
+      gap: 14px;
+    }
+    .map-detail {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: 100%;
+      min-height: 158px;
+      order: 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .route-section { padding-inline: 14px; }
+    .route-svg-wrap { border-radius: 10px 6px 12px 7px; }
+    .map-clear { top: 12px; left: 12px; padding: 6px 10px; }
+    .map-attribution {
+      right: 10px;
+      bottom: 7px;
+      max-width: 210px;
+      text-align: right;
+      font-size: 6px;
+    }
+    .map-place-labels,
+    .map-scale { opacity: 0.55; }
+    .map-context text { font-size: 9px; }
+    .map-pin__label { font-size: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .map-day,
+    .map-svg,
+    .map-route,
+    .map-route__line,
+    .map-pin,
+    .map-detail {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+    .south-island-map.is-filtered .map-svg,
+    .map-route:hover,
+    .map-route:focus-visible,
+    .map-route.is-preview,
+    .map-route.is-active {
+      transform: none;
+    }
+  }
 
   /* ======================== DAY SECTION ======================== */
   .day {
@@ -1434,7 +1864,7 @@
 
 <header class="hero">
   <div class="stars"></div><div class="stars2"></div><div class="stars3"></div>
-  <nav class="hero__nav"><div class="hero__nav-brand">Aotearoa · Field Journal</div><div class="hero__nav-meta">2026 · 南半球 · 春</div></nav>
+  <nav class="hero__nav" aria-label="页面页眉"><div class="hero__nav-brand">Aotearoa · Field Journal</div><div class="hero__nav-meta">2026 · 南半球 · 春</div></nav>
   <div class="hero__inner">
     <div class="hero__main">
       <div class="hero__eyebrow">SOUTH ISLAND · 首尔中转 · ROAD JOURNAL</div>
@@ -1442,7 +1872,7 @@
       <p class="hero__sub">中秋启程，经首尔中转飞抵奥克兰，南下基督城取车自驾。穿越麦肯齐盆地、塔斯曼冰川、瓦纳卡、皇后镇，最终抵达米尔福德峡湾——一份为期13天的实地自驾手账。</p>
       <div class="hero__chips"><span class="chip">首尔中转</span><span class="chip">9日自驾</span><span class="chip">7晚住宿</span><span class="chip">~1,500 km</span><span class="chip">冰川×峡湾</span><span class="chip">大韩航空</span></div>
     </div>
-    <aside class="hero__panel">
+    <aside class="hero__panel" aria-label="行程坐标摘要">
       <div class="compass"><span class="compass__N">N</span><span class="compass__S">S</span><span class="compass__E">E</span><span class="compass__W">W</span><div class="compass__needle"></div><div class="compass__center"></div></div>
       <dl class="coord-block"><dt>ORIGIN</dt><dd>Shanghai · 31.23°N 121.47°E</dd><dt>SOUTHERNMOST</dt><dd>Milford Sound · 44.67°S</dd><dt>HIGHEST</dt><dd>Aoraki / Mt Cook · 3,724 m</dd><dt>DARKEST SKY</dt><dd>Lake Tekapo · Bortle 1</dd></dl>
     </aside>
@@ -1549,20 +1979,381 @@
 <section class="route-section" id="route">
   <div class="stars"></div>
   <div class="route-section__inner">
-    <div class="section-head" data-reveal><div class="section-head__num">§ 02 / ROUTE</div><h2 class="section-head__title">南岛<em>路线图</em></h2></div>
-    <div class="route-map" data-reveal>
-      <ol class="route-stops">
-        <li>基督城 / Christchurch <small>CHC · 南岛门户</small></li>
-        <li>蒂卡波 / Lake Tekapo <small>国际暗夜保护区</small></li>
-        <li>库克山 / Aoraki <small>3,724 m · 塔斯曼冰川</small></li>
-        <li>瓦纳卡 / Wanaka <small>孤独的树 · 湖光山色</small></li>
-        <li>皇后镇 / Queenstown <small>冒险之都</small></li>
-        <li>蒂阿瑙 / Te Anau <small>峡湾门户</small></li>
-        <li>米尔福德 / Milford Sound <small>世界第八大奇迹</small></li>
-      </ol>
-      <div class="route-svg-wrap">
-        <span class="map-corner map-corner--tl"></span><span class="map-corner map-corner--tr"></span><span class="map-corner map-corner--bl"></span><span class="map-corner map-corner--br"></span>
-        <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="route-map-title"><title id="route-map-title">基督城至米尔福德峡湾南岛自驾路线示意图</title><path d="M180,40 Q220,30 280,60 Q330,80 350,140 Q380,210 400,280 Q420,360 410,440 Q400,520 350,580 Q300,640 240,650 Q180,640 140,580 Q110,510 130,430 Q150,340 140,260 Q140,180 160,110 Q170,70 180,40 Z" fill="rgba(74,134,168,0.06)" stroke="rgba(74,134,168,0.4)" stroke-width="1" stroke-dasharray="3,3"/><path d="M280,80 L260,180 L240,260 L210,340 L240,450 L300,500 L260,580" fill="none" stroke="#c87a3a" stroke-width="2" stroke-linecap="round"><animate attributeName="stroke-dasharray" from="0,2000" to="2000,0" dur="3s" fill="freeze"/></path><path d="M260,580 L300,500" fill="none" stroke="#4a86a8" stroke-width="1.5" stroke-dasharray="4,4"/><g font-family="JetBrains Mono,monospace" font-size="11" fill="#f4ece0"><circle cx="280" cy="80" r="6" fill="#c87a3a"/><text x="295" y="84">Christchurch</text><circle cx="260" cy="180" r="6" fill="#c87a3a"/><text x="275" y="184">Tekapo · Dark Sky</text><circle cx="240" cy="260" r="7" fill="#f4ece0" stroke="#c87a3a" stroke-width="2"/><text x="255" y="264">Mt Cook</text><circle cx="210" cy="340" r="6" fill="#c87a3a"/><text x="225" y="344">Wanaka</text><circle cx="240" cy="450" r="7" fill="#f4ece0" stroke="#c87a3a" stroke-width="2"/><text x="255" y="454">Queenstown</text><circle cx="300" cy="500" r="6" fill="#c87a3a"/><text x="315" y="504">Te Anau</text><circle cx="260" cy="580" r="7" fill="#4a86a8" stroke="#f4ece0" stroke-width="2"/><text x="275" y="584">Milford Sound</text></g></svg>
+    <div class="section-head" data-reveal>
+      <div class="section-head__num">§ 02 / ROUTE</div>
+      <h2 class="section-head__title">南岛<em>路线图</em></h2>
+    </div>
+    <div class="south-island-map" data-map data-reveal>
+      <div class="map-day-list" role="group" aria-label="按天查看南岛自驾路线">
+        <button class="map-day map-day--overview is-active" type="button" data-map-overview aria-pressed="true">
+          <span class="map-day__number">ALL</span>
+          <span class="map-day__copy"><strong>全程鸟瞰</strong><small>D04—D11 · 南岛自驾环线</small></span>
+        </button>
+          <button class="map-day" type="button" data-map-day="04" data-map-title="穿越坎特伯雷" data-map-route="基督城 → 蒂卡波 → 特泽维尔" data-map-meta="保守里程 304 km" data-map-summary="从南岛门户出发，经蒂卡波暗夜保护区与湖畔地标，抵达特泽维尔。" data-map-href="#day-3" aria-pressed="false">
+            <span class="map-day__number">D04</span>
+            <span class="map-day__copy"><strong>穿越坎特伯雷</strong><small>09 / 27 · 基督城 → 蒂卡波 → 特泽维尔</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="05" data-map-title="向奥拉基进发" data-map-route="特泽维尔 ⇌ 库克山" data-map-meta="保守里程 194 km" data-map-summary="沿普卡基湖驶入高山腹地，在奥拉基与塔斯曼冰川之间展开一日探索。" data-map-href="#day-4" aria-pressed="false">
+            <span class="map-day__number">D05</span>
+            <span class="map-day__copy"><strong>向奥拉基进发</strong><small>09 / 28 · 特泽维尔 ⇌ 库克山</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="06" data-map-title="湖区转换日" data-map-route="特泽维尔 → 瓦纳卡" data-map-meta="保守里程 206 km" data-map-summary="离开麦肯齐盆地，翻越内陆公路抵达瓦纳卡湖畔。" data-map-href="#day-5" aria-pressed="false">
+            <span class="map-day__number">D06</span>
+            <span class="map-day__copy"><strong>湖区转换日</strong><small>09 / 29 · 特泽维尔 → 瓦纳卡</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="07" data-map-title="纵贯南部湖区" data-map-route="瓦纳卡 → 皇后镇 → 蒂阿瑙" data-map-meta="保守里程 240 km" data-map-summary="由瓦纳卡南下，短停皇后镇后继续前往峡湾国家公园门户蒂阿瑙。" data-map-href="#day-6" aria-pressed="false">
+            <span class="map-day__number">D07</span>
+            <span class="map-day__copy"><strong>纵贯南部湖区</strong><small>09 / 30 · 瓦纳卡 → 皇后镇 → 蒂阿瑙</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="08" data-map-title="驶入峡湾" data-map-route="蒂阿瑙 ⇌ 米尔福德峡湾" data-map-meta="保守里程 237 km" data-map-summary="沿米尔福德公路穿越镜湖与荷马隧道，乘船深入峡湾后原路返回。" data-map-href="#day-7" aria-pressed="false">
+            <span class="map-day__number">D08</span>
+            <span class="map-day__copy"><strong>驶入峡湾</strong><small>10 / 01 · 蒂阿瑙 ⇌ 米尔福德峡湾</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="09" data-map-title="重返皇后镇" data-map-route="蒂阿瑙 → 皇后镇" data-map-meta="保守里程 185 km" data-map-summary="从蒂阿瑙回到瓦卡蒂普湖畔，在鹿苑高地收下皇后镇第一幅全景。" data-map-href="#day-8" aria-pressed="false">
+            <span class="map-day__number">D09</span>
+            <span class="map-day__copy"><strong>重返皇后镇</strong><small>10 / 02 · 蒂阿瑙 → 皇后镇</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="10" data-map-title="格林诺奇支线" data-map-route="皇后镇 ⇌ 格林诺奇" data-map-meta="保守里程 104 km · Shotover Jet" data-map-summary="沿瓦卡蒂普湖西岸前往格林诺奇，返程接上喷射快艇体验。" data-map-href="#day-9" aria-pressed="false">
+            <span class="map-day__number">D10</span>
+            <span class="map-day__copy"><strong>格林诺奇支线</strong><small>10 / 03 · 皇后镇 ⇌ 格林诺奇</small></span>
+          </button>
+          <button class="map-day" type="button" data-map-day="11" data-map-title="冒险之都" data-map-route="皇后镇活动环" data-map-meta="NZONE · Skyline · Luge" data-map-summary="用紧凑的城市活动环串起高空跳伞、天空缆车与山顶滑板车。" data-map-href="#day-10" aria-pressed="false">
+            <span class="map-day__number">D11</span>
+            <span class="map-day__copy"><strong>冒险之都</strong><small>10 / 04 · 皇后镇活动环</small></span>
+          </button>
+      </div>
+
+      <div class="map-stage">
+        <div class="route-svg-wrap" role="group" aria-label="南岛路线交互地图">
+          <svg class="map-svg" viewBox="0 0 900 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="route-map-title route-map-desc">
+            <title id="route-map-title">新西兰南岛 D04 至 D11 自驾路线图</title>
+            <desc id="route-map-desc">基于真实南岛海岸线和公路路线绘制。选择日期可突出当天路段与沿途景点。</desc>
+            <metadata>Coastline and lakes: Natural Earth 1:10m. Driving geometry: OpenStreetMap contributors via OSRM.</metadata>
+            <defs>
+              <pattern id="paper-grain" width="34" height="34" patternUnits="userSpaceOnUse">
+                <path d="M 2 8 C 9 5 17 11 31 6 M 5 25 C 14 20 21 28 34 22" fill="none" stroke="#a18d75" stroke-width="0.65" opacity="0.18"></path>
+              </pattern>
+              <pattern id="terrain-hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+                <path d="M 0 2 L 16 2 M 0 10 L 16 10" stroke="#607260" stroke-width="0.7" opacity="0.18"></path>
+              </pattern>
+              <filter id="route-lift" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#13212d" flood-opacity="0.34"></feDropShadow>
+              </filter>
+              <filter id="pin-lift" x="-80%" y="-80%" width="260%" height="260%">
+                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#13212d" flood-opacity="0.3"></feDropShadow>
+              </filter>
+              <symbol id="map-pin-shape" viewBox="-14 -16 28 36">
+                <path d="M 0 -14 C 7.4 -14 12.5 -8.6 12.5 -2.1 C 12.5 5.6 4.8 12.6 0 18 C -4.8 12.6 -12.5 5.6 -12.5 -2.1 C -12.5 -8.6 -7.4 -14 0 -14 Z"></path>
+                <circle cx="0" cy="-2" r="8.5"></circle>
+              </symbol>
+              <clipPath id="south-island-clip">
+                <path d="M 624.8 314.9 L 623.5 328.0 L 626.9 341.9 L 626.8 343.4 L 624.8 342.8 L 630.7 346.1 L 620.1 349.8 L 624.4 351.4 L 625.9 349.5 L 632.1 349.0 L 633.7 352.7 L 635.0 347.4 L 637.2 349.4 L 637.4 354.3 L 641.0 350.7 L 644.1 353.4 L 647.0 350.7 L 649.8 355.3 L 650.3 360.1 L 648.9 370.7 L 648.0 369.4 L 645.1 371.4 L 644.6 374.1 L 642.2 374.1 L 638.8 360.7 L 637.3 362.1 L 637.3 369.3 L 640.0 375.7 L 629.6 373.3 L 624.6 367.8 L 625.9 364.7 L 602.0 370.7 L 603.2 368.2 L 617.8 363.7 L 611.0 361.3 L 607.2 357.8 L 601.6 359.3 L 598.8 371.7 L 589.9 373.3 L 563.2 390.5 L 558.9 390.8 L 549.2 396.0 L 541.0 401.1 L 531.6 410.2 L 526.7 411.9 L 522.1 421.0 L 521.4 429.4 L 518.0 436.2 L 514.6 438.0 L 516.2 439.9 L 517.5 457.0 L 514.6 461.2 L 516.6 461.6 L 517.3 463.9 L 516.7 472.9 L 508.9 489.2 L 501.1 497.1 L 497.3 505.2 L 493.9 516.6 L 495.9 521.2 L 492.7 525.5 L 493.1 528.9 L 488.7 533.5 L 488.4 537.0 L 485.4 536.6 L 486.4 540.5 L 480.4 542.4 L 483.0 544.5 L 481.4 548.1 L 476.4 550.7 L 476.6 553.2 L 481.1 553.2 L 485.6 557.5 L 479.6 559.9 L 471.5 569.1 L 480.6 564.8 L 486.8 557.9 L 487.0 567.2 L 482.7 567.9 L 481.5 570.3 L 467.0 571.7 L 455.9 577.4 L 450.7 585.4 L 447.7 596.0 L 425.5 612.7 L 423.0 616.0 L 421.9 624.7 L 417.8 627.1 L 413.0 625.7 L 408.7 627.1 L 415.4 627.8 L 411.8 632.6 L 407.0 635.4 L 402.2 634.1 L 396.2 637.7 L 397.6 639.8 L 391.3 639.5 L 390.0 641.8 L 384.4 640.1 L 381.2 642.9 L 377.0 643.3 L 375.1 639.1 L 373.4 643.5 L 370.8 643.8 L 367.0 641.2 L 366.9 644.4 L 365.1 645.5 L 354.8 643.0 L 351.7 633.7 L 339.1 635.7 L 342.5 633.8 L 335.8 632.4 L 337.7 637.7 L 334.0 638.9 L 321.9 637.7 L 324.8 634.8 L 332.1 636.1 L 328.5 633.6 L 322.4 633.8 L 318.2 631.7 L 318.0 635.4 L 320.9 639.8 L 319.0 639.5 L 311.3 630.4 L 314.2 629.8 L 315.4 631.4 L 319.5 627.8 L 318.4 619.7 L 316.6 619.8 L 316.5 624.5 L 313.7 625.7 L 307.7 613.7 L 304.6 611.9 L 296.7 613.6 L 296.7 616.4 L 288.9 615.2 L 287.1 617.4 L 281.3 617.4 L 274.4 610.5 L 277.8 607.8 L 272.5 598.5 L 263.9 594.7 L 254.3 593.8 L 251.0 603.6 L 243.3 605.8 L 237.5 604.5 L 234.8 605.8 L 228.6 602.2 L 206.0 600.6 L 199.6 594.2 L 205.4 589.2 L 210.9 579.3 L 219.3 573.8 L 208.8 578.5 L 205.2 586.1 L 204.0 582.4 L 203.0 585.5 L 195.7 587.8 L 198.7 579.2 L 208.0 574.7 L 209.2 572.5 L 204.4 574.4 L 201.0 573.4 L 205.3 567.2 L 204.7 565.7 L 196.7 575.8 L 186.4 580.0 L 185.3 563.7 L 186.9 560.5 L 196.3 559.9 L 196.3 561.3 L 200.1 559.2 L 214.9 557.5 L 224.1 549.8 L 206.8 551.9 L 209.0 548.0 L 215.0 545.2 L 207.1 545.9 L 207.4 539.8 L 216.4 536.6 L 222.0 538.0 L 223.5 536.6 L 219.3 535.2 L 225.9 532.3 L 226.5 529.8 L 217.1 534.6 L 202.6 538.0 L 201.8 534.8 L 206.3 521.8 L 209.5 520.2 L 219.3 524.5 L 216.3 518.9 L 215.5 521.2 L 209.3 516.8 L 210.4 512.9 L 215.0 509.5 L 219.8 513.8 L 217.9 516.5 L 223.9 515.2 L 225.9 517.2 L 226.6 519.9 L 223.4 523.5 L 227.2 523.3 L 229.4 519.2 L 232.9 522.3 L 234.6 527.8 L 237.0 528.6 L 236.6 525.4 L 225.9 513.8 L 235.2 509.7 L 240.7 514.3 L 244.2 512.5 L 239.7 511.6 L 239.9 506.6 L 225.9 508.3 L 223.1 500.9 L 223.5 495.0 L 227.1 494.0 L 234.6 500.0 L 229.6 493.3 L 226.5 491.9 L 230.9 485.9 L 235.1 490.6 L 236.1 495.3 L 236.5 491.2 L 241.8 491.2 L 235.3 487.6 L 233.2 482.8 L 235.8 480.6 L 246.1 485.7 L 247.1 484.6 L 236.5 478.5 L 241.5 472.9 L 245.6 471.9 L 244.2 469.9 L 249.6 466.7 L 251.9 466.6 L 254.1 471.3 L 254.8 481.3 L 258.6 481.3 L 254.0 466.1 L 254.6 461.6 L 259.2 459.1 L 261.5 461.2 L 260.2 467.1 L 262.4 470.6 L 264.2 462.0 L 261.0 456.2 L 263.8 454.5 L 270.1 459.2 L 264.2 452.7 L 275.2 443.5 L 279.3 443.1 L 285.7 448.3 L 287.9 452.6 L 288.3 448.5 L 282.6 442.6 L 281.1 434.0 L 294.9 419.2 L 294.5 416.0 L 301.5 415.6 L 302.4 412.5 L 299.8 410.0 L 304.4 408.0 L 314.1 399.3 L 317.3 392.4 L 320.4 390.0 L 318.5 388.7 L 328.2 386.7 L 337.8 381.4 L 341.5 385.4 L 348.8 384.6 L 367.1 371.0 L 368.9 367.4 L 376.0 361.4 L 389.1 354.5 L 391.9 350.9 L 396.3 350.6 L 403.4 346.3 L 407.7 346.7 L 412.8 343.4 L 417.8 335.5 L 421.8 332.5 L 423.8 327.3 L 434.6 321.3 L 439.9 312.8 L 445.0 309.6 L 449.2 310.8 L 453.7 303.4 L 451.5 303.0 L 446.5 308.7 L 452.8 298.1 L 459.5 296.9 L 461.7 293.0 L 464.3 292.8 L 468.5 288.3 L 481.5 283.3 L 492.6 272.5 L 498.5 261.8 L 502.8 259.1 L 511.1 248.1 L 518.2 234.3 L 518.9 228.9 L 523.8 219.1 L 527.9 196.7 L 531.7 191.1 L 536.7 174.0 L 535.2 167.8 L 547.2 166.9 L 562.3 158.0 L 572.0 137.1 L 577.4 133.6 L 578.9 122.4 L 582.2 121.6 L 580.4 117.7 L 579.9 82.3 L 586.1 73.9 L 597.9 65.7 L 607.9 53.4 L 610.5 52.3 L 610.3 57.0 L 613.9 54.8 L 616.3 51.0 L 615.2 49.7 L 611.4 51.0 L 614.1 47.4 L 617.3 45.7 L 631.2 44.9 L 642.2 47.1 L 624.4 46.8 L 621.2 58.4 L 618.6 59.1 L 621.5 62.9 L 621.0 69.0 L 623.0 67.7 L 632.4 78.1 L 637.1 76.4 L 638.5 73.2 L 639.8 74.4 L 641.6 72.0 L 643.6 73.6 L 643.1 80.4 L 647.0 82.3 L 646.5 89.7 L 642.2 95.0 L 644.6 95.0 L 647.3 105.4 L 647.0 107.0 L 645.1 104.3 L 644.6 107.8 L 646.5 111.7 L 647.7 110.5 L 648.3 111.7 L 649.8 119.0 L 648.0 121.0 L 649.7 123.2 L 657.3 122.6 L 673.1 106.6 L 673.8 109.0 L 680.1 103.0 L 681.9 103.4 L 683.6 98.8 L 685.8 98.8 L 687.7 103.6 L 688.9 102.4 L 689.6 103.6 L 689.6 100.7 L 694.7 96.9 L 693.2 95.0 L 690.1 96.7 L 691.9 92.7 L 698.5 90.3 L 702.1 86.1 L 701.9 90.6 L 703.5 91.0 L 706.4 86.3 L 711.8 83.6 L 714.1 84.3 L 714.8 86.8 L 710.2 86.3 L 709.3 90.3 L 706.4 91.0 L 707.8 92.3 L 706.6 93.5 L 697.0 94.4 L 698.7 96.4 L 697.0 97.8 L 698.2 99.0 L 696.9 103.8 L 700.4 99.0 L 709.3 99.0 L 707.1 101.5 L 704.2 100.5 L 704.4 103.6 L 700.4 106.9 L 699.7 108.4 L 703.5 111.3 L 702.5 115.7 L 695.9 119.0 L 696.6 120.9 L 707.8 116.3 L 704.5 114.3 L 712.8 114.9 L 715.6 113.7 L 714.1 112.3 L 718.2 112.7 L 721.7 110.4 L 705.1 111.9 L 704.9 107.4 L 708.8 101.0 L 711.2 101.6 L 710.7 107.6 L 713.5 102.3 L 715.6 102.3 L 714.1 99.5 L 714.7 95.0 L 712.4 98.5 L 708.8 94.4 L 711.2 94.4 L 710.6 92.1 L 712.1 92.3 L 712.3 90.3 L 719.0 95.2 L 721.3 93.0 L 723.7 93.7 L 725.2 90.7 L 727.5 94.7 L 725.3 97.5 L 726.9 100.2 L 733.7 93.4 L 735.2 94.2 L 730.4 105.6 L 726.9 107.6 L 726.3 102.2 L 724.1 104.6 L 727.5 111.7 L 723.2 114.8 L 710.3 117.6 L 707.8 120.5 L 722.7 116.3 L 726.3 119.0 L 735.2 114.3 L 729.5 124.6 L 724.7 127.0 L 726.3 123.3 L 721.7 124.4 L 715.9 135.8 L 716.4 143.6 L 719.7 147.9 L 719.6 141.7 L 720.6 142.6 L 724.4 149.5 L 728.2 163.6 L 732.8 164.3 L 727.4 176.6 L 712.7 193.5 L 709.7 199.2 L 709.2 205.9 L 704.7 213.9 L 691.6 227.3 L 693.0 232.9 L 688.3 231.2 L 681.5 238.2 L 677.4 249.8 L 674.3 251.4 L 675.8 252.8 L 669.6 268.3 L 665.0 273.2 L 665.2 278.3 L 662.5 283.2 L 653.2 287.9 L 648.2 294.2 L 636.5 297.7 L 629.2 304.1 L 624.6 313.5 Z"></path>
+              </clipPath>
+            </defs>
+
+            <rect class="map-paper" x="18" y="18" width="864" height="724" rx="12"></rect>
+            <g class="map-geography" aria-hidden="true">
+              <path class="map-land map-land--south" d="M 624.8 314.9 L 623.5 328.0 L 626.9 341.9 L 626.8 343.4 L 624.8 342.8 L 630.7 346.1 L 620.1 349.8 L 624.4 351.4 L 625.9 349.5 L 632.1 349.0 L 633.7 352.7 L 635.0 347.4 L 637.2 349.4 L 637.4 354.3 L 641.0 350.7 L 644.1 353.4 L 647.0 350.7 L 649.8 355.3 L 650.3 360.1 L 648.9 370.7 L 648.0 369.4 L 645.1 371.4 L 644.6 374.1 L 642.2 374.1 L 638.8 360.7 L 637.3 362.1 L 637.3 369.3 L 640.0 375.7 L 629.6 373.3 L 624.6 367.8 L 625.9 364.7 L 602.0 370.7 L 603.2 368.2 L 617.8 363.7 L 611.0 361.3 L 607.2 357.8 L 601.6 359.3 L 598.8 371.7 L 589.9 373.3 L 563.2 390.5 L 558.9 390.8 L 549.2 396.0 L 541.0 401.1 L 531.6 410.2 L 526.7 411.9 L 522.1 421.0 L 521.4 429.4 L 518.0 436.2 L 514.6 438.0 L 516.2 439.9 L 517.5 457.0 L 514.6 461.2 L 516.6 461.6 L 517.3 463.9 L 516.7 472.9 L 508.9 489.2 L 501.1 497.1 L 497.3 505.2 L 493.9 516.6 L 495.9 521.2 L 492.7 525.5 L 493.1 528.9 L 488.7 533.5 L 488.4 537.0 L 485.4 536.6 L 486.4 540.5 L 480.4 542.4 L 483.0 544.5 L 481.4 548.1 L 476.4 550.7 L 476.6 553.2 L 481.1 553.2 L 485.6 557.5 L 479.6 559.9 L 471.5 569.1 L 480.6 564.8 L 486.8 557.9 L 487.0 567.2 L 482.7 567.9 L 481.5 570.3 L 467.0 571.7 L 455.9 577.4 L 450.7 585.4 L 447.7 596.0 L 425.5 612.7 L 423.0 616.0 L 421.9 624.7 L 417.8 627.1 L 413.0 625.7 L 408.7 627.1 L 415.4 627.8 L 411.8 632.6 L 407.0 635.4 L 402.2 634.1 L 396.2 637.7 L 397.6 639.8 L 391.3 639.5 L 390.0 641.8 L 384.4 640.1 L 381.2 642.9 L 377.0 643.3 L 375.1 639.1 L 373.4 643.5 L 370.8 643.8 L 367.0 641.2 L 366.9 644.4 L 365.1 645.5 L 354.8 643.0 L 351.7 633.7 L 339.1 635.7 L 342.5 633.8 L 335.8 632.4 L 337.7 637.7 L 334.0 638.9 L 321.9 637.7 L 324.8 634.8 L 332.1 636.1 L 328.5 633.6 L 322.4 633.8 L 318.2 631.7 L 318.0 635.4 L 320.9 639.8 L 319.0 639.5 L 311.3 630.4 L 314.2 629.8 L 315.4 631.4 L 319.5 627.8 L 318.4 619.7 L 316.6 619.8 L 316.5 624.5 L 313.7 625.7 L 307.7 613.7 L 304.6 611.9 L 296.7 613.6 L 296.7 616.4 L 288.9 615.2 L 287.1 617.4 L 281.3 617.4 L 274.4 610.5 L 277.8 607.8 L 272.5 598.5 L 263.9 594.7 L 254.3 593.8 L 251.0 603.6 L 243.3 605.8 L 237.5 604.5 L 234.8 605.8 L 228.6 602.2 L 206.0 600.6 L 199.6 594.2 L 205.4 589.2 L 210.9 579.3 L 219.3 573.8 L 208.8 578.5 L 205.2 586.1 L 204.0 582.4 L 203.0 585.5 L 195.7 587.8 L 198.7 579.2 L 208.0 574.7 L 209.2 572.5 L 204.4 574.4 L 201.0 573.4 L 205.3 567.2 L 204.7 565.7 L 196.7 575.8 L 186.4 580.0 L 185.3 563.7 L 186.9 560.5 L 196.3 559.9 L 196.3 561.3 L 200.1 559.2 L 214.9 557.5 L 224.1 549.8 L 206.8 551.9 L 209.0 548.0 L 215.0 545.2 L 207.1 545.9 L 207.4 539.8 L 216.4 536.6 L 222.0 538.0 L 223.5 536.6 L 219.3 535.2 L 225.9 532.3 L 226.5 529.8 L 217.1 534.6 L 202.6 538.0 L 201.8 534.8 L 206.3 521.8 L 209.5 520.2 L 219.3 524.5 L 216.3 518.9 L 215.5 521.2 L 209.3 516.8 L 210.4 512.9 L 215.0 509.5 L 219.8 513.8 L 217.9 516.5 L 223.9 515.2 L 225.9 517.2 L 226.6 519.9 L 223.4 523.5 L 227.2 523.3 L 229.4 519.2 L 232.9 522.3 L 234.6 527.8 L 237.0 528.6 L 236.6 525.4 L 225.9 513.8 L 235.2 509.7 L 240.7 514.3 L 244.2 512.5 L 239.7 511.6 L 239.9 506.6 L 225.9 508.3 L 223.1 500.9 L 223.5 495.0 L 227.1 494.0 L 234.6 500.0 L 229.6 493.3 L 226.5 491.9 L 230.9 485.9 L 235.1 490.6 L 236.1 495.3 L 236.5 491.2 L 241.8 491.2 L 235.3 487.6 L 233.2 482.8 L 235.8 480.6 L 246.1 485.7 L 247.1 484.6 L 236.5 478.5 L 241.5 472.9 L 245.6 471.9 L 244.2 469.9 L 249.6 466.7 L 251.9 466.6 L 254.1 471.3 L 254.8 481.3 L 258.6 481.3 L 254.0 466.1 L 254.6 461.6 L 259.2 459.1 L 261.5 461.2 L 260.2 467.1 L 262.4 470.6 L 264.2 462.0 L 261.0 456.2 L 263.8 454.5 L 270.1 459.2 L 264.2 452.7 L 275.2 443.5 L 279.3 443.1 L 285.7 448.3 L 287.9 452.6 L 288.3 448.5 L 282.6 442.6 L 281.1 434.0 L 294.9 419.2 L 294.5 416.0 L 301.5 415.6 L 302.4 412.5 L 299.8 410.0 L 304.4 408.0 L 314.1 399.3 L 317.3 392.4 L 320.4 390.0 L 318.5 388.7 L 328.2 386.7 L 337.8 381.4 L 341.5 385.4 L 348.8 384.6 L 367.1 371.0 L 368.9 367.4 L 376.0 361.4 L 389.1 354.5 L 391.9 350.9 L 396.3 350.6 L 403.4 346.3 L 407.7 346.7 L 412.8 343.4 L 417.8 335.5 L 421.8 332.5 L 423.8 327.3 L 434.6 321.3 L 439.9 312.8 L 445.0 309.6 L 449.2 310.8 L 453.7 303.4 L 451.5 303.0 L 446.5 308.7 L 452.8 298.1 L 459.5 296.9 L 461.7 293.0 L 464.3 292.8 L 468.5 288.3 L 481.5 283.3 L 492.6 272.5 L 498.5 261.8 L 502.8 259.1 L 511.1 248.1 L 518.2 234.3 L 518.9 228.9 L 523.8 219.1 L 527.9 196.7 L 531.7 191.1 L 536.7 174.0 L 535.2 167.8 L 547.2 166.9 L 562.3 158.0 L 572.0 137.1 L 577.4 133.6 L 578.9 122.4 L 582.2 121.6 L 580.4 117.7 L 579.9 82.3 L 586.1 73.9 L 597.9 65.7 L 607.9 53.4 L 610.5 52.3 L 610.3 57.0 L 613.9 54.8 L 616.3 51.0 L 615.2 49.7 L 611.4 51.0 L 614.1 47.4 L 617.3 45.7 L 631.2 44.9 L 642.2 47.1 L 624.4 46.8 L 621.2 58.4 L 618.6 59.1 L 621.5 62.9 L 621.0 69.0 L 623.0 67.7 L 632.4 78.1 L 637.1 76.4 L 638.5 73.2 L 639.8 74.4 L 641.6 72.0 L 643.6 73.6 L 643.1 80.4 L 647.0 82.3 L 646.5 89.7 L 642.2 95.0 L 644.6 95.0 L 647.3 105.4 L 647.0 107.0 L 645.1 104.3 L 644.6 107.8 L 646.5 111.7 L 647.7 110.5 L 648.3 111.7 L 649.8 119.0 L 648.0 121.0 L 649.7 123.2 L 657.3 122.6 L 673.1 106.6 L 673.8 109.0 L 680.1 103.0 L 681.9 103.4 L 683.6 98.8 L 685.8 98.8 L 687.7 103.6 L 688.9 102.4 L 689.6 103.6 L 689.6 100.7 L 694.7 96.9 L 693.2 95.0 L 690.1 96.7 L 691.9 92.7 L 698.5 90.3 L 702.1 86.1 L 701.9 90.6 L 703.5 91.0 L 706.4 86.3 L 711.8 83.6 L 714.1 84.3 L 714.8 86.8 L 710.2 86.3 L 709.3 90.3 L 706.4 91.0 L 707.8 92.3 L 706.6 93.5 L 697.0 94.4 L 698.7 96.4 L 697.0 97.8 L 698.2 99.0 L 696.9 103.8 L 700.4 99.0 L 709.3 99.0 L 707.1 101.5 L 704.2 100.5 L 704.4 103.6 L 700.4 106.9 L 699.7 108.4 L 703.5 111.3 L 702.5 115.7 L 695.9 119.0 L 696.6 120.9 L 707.8 116.3 L 704.5 114.3 L 712.8 114.9 L 715.6 113.7 L 714.1 112.3 L 718.2 112.7 L 721.7 110.4 L 705.1 111.9 L 704.9 107.4 L 708.8 101.0 L 711.2 101.6 L 710.7 107.6 L 713.5 102.3 L 715.6 102.3 L 714.1 99.5 L 714.7 95.0 L 712.4 98.5 L 708.8 94.4 L 711.2 94.4 L 710.6 92.1 L 712.1 92.3 L 712.3 90.3 L 719.0 95.2 L 721.3 93.0 L 723.7 93.7 L 725.2 90.7 L 727.5 94.7 L 725.3 97.5 L 726.9 100.2 L 733.7 93.4 L 735.2 94.2 L 730.4 105.6 L 726.9 107.6 L 726.3 102.2 L 724.1 104.6 L 727.5 111.7 L 723.2 114.8 L 710.3 117.6 L 707.8 120.5 L 722.7 116.3 L 726.3 119.0 L 735.2 114.3 L 729.5 124.6 L 724.7 127.0 L 726.3 123.3 L 721.7 124.4 L 715.9 135.8 L 716.4 143.6 L 719.7 147.9 L 719.6 141.7 L 720.6 142.6 L 724.4 149.5 L 728.2 163.6 L 732.8 164.3 L 727.4 176.6 L 712.7 193.5 L 709.7 199.2 L 709.2 205.9 L 704.7 213.9 L 691.6 227.3 L 693.0 232.9 L 688.3 231.2 L 681.5 238.2 L 677.4 249.8 L 674.3 251.4 L 675.8 252.8 L 669.6 268.3 L 665.0 273.2 L 665.2 278.3 L 662.5 283.2 L 653.2 287.9 L 648.2 294.2 L 636.5 297.7 L 629.2 304.1 L 624.6 313.5 Z"></path>
+              <path class="map-land map-land--stewart" d="M 306.5 681.0 L 310.7 684.6 L 305.9 682.9 L 305.2 686.5 L 302.8 685.5 L 303.6 687.0 L 294.1 687.7 L 285.7 694.7 L 277.8 693.0 L 276.1 689.8 L 273.0 691.7 L 272.5 694.4 L 265.8 697.0 L 267.0 698.3 L 273.4 696.4 L 269.6 701.7 L 268.7 699.4 L 265.2 702.7 L 259.1 702.9 L 260.8 694.7 L 266.7 691.7 L 265.5 690.9 L 266.5 682.7 L 269.6 680.0 L 274.7 679.1 L 274.2 672.1 L 277.1 671.5 L 279.6 667.8 L 275.7 657.7 L 277.7 647.0 L 284.3 647.2 L 287.0 645.6 L 290.3 647.2 L 305.1 663.2 L 306.0 667.0 L 304.3 667.6 L 297.9 667.0 L 298.4 665.7 L 293.1 666.2 L 293.7 669.2 L 290.2 673.7 L 296.0 669.8 L 303.1 673.1 L 301.7 675.7 L 308.7 673.6 L 310.8 676.3 L 309.9 680.4 L 306.5 680.4 Z"></path>
+              <rect class="map-grain" x="150" y="35" width="620" height="675" clip-path="url(#south-island-clip)"></rect>
+              <path class="map-terrain" d="M 505 170 C 470 235 458 290 430 350 C 408 396 382 438 349 482 C 324 514 288 558 250 598 L 294 615 C 333 570 369 528 400 487 C 435 440 462 399 480 350 C 502 291 526 227 548 180 Z" clip-path="url(#south-island-clip)"></path>
+              <g class="map-ranges">
+                <path d="M 531 203 l -10 -18 l -11 18 M 506 249 l -11 -21 l -13 21 M 478 305 l -12 -23 l -14 23 M 449 360 l -11 -22 l -14 22 M 417 416 l -12 -22 l -13 22 M 379 466 l -11 -19 l -12 19 M 333 526 l -10 -18 l -12 18"></path>
+              </g>
+              <g class="map-lakes">
+                <path d="M 471.5 366.7 L 470.5 380.7 L 468.7 381.4 L 467.1 385.0 L 465.1 385.1 L 467.9 379.8 L 466.9 379.4 L 466.6 376.9 L 467.9 373.2 L 468.2 366.1 L 468.8 364.6 L 471.6 364.0 Z"></path>
+                <path d="M 446.6 388.2 L 447.7 390.8 L 447.1 395.2 L 447.3 398.0 L 447.6 400.5 L 446.4 402.2 L 444.3 402.0 L 442.4 402.3 L 441.0 401.3 L 441.1 399.3 L 442.5 398.0 L 442.2 396.4 L 442.6 394.2 L 442.2 391.9 L 442.0 391.0 L 442.2 390.0 L 442.2 387.8 L 442.0 385.7 L 442.2 383.7 L 442.1 381.7 L 442.4 379.8 L 441.3 377.8 L 441.6 376.1 L 445.2 375.1 L 445.7 376.5 L 445.8 378.2 L 446.2 380.8 L 446.3 384.7 L 446.0 385.9 L 446.1 387.1 L 446.6 388.2 Z"></path>
+                <path d="M 369.4 451.2 L 367.8 448.7 L 364.9 448.9 L 364.0 450.2 L 364.2 447.7 L 366.6 445.9 L 363.1 446.3 L 363.3 444.8 L 366.0 442.4 L 366.2 437.8 L 370.6 434.1 L 371.3 422.4 L 374.0 415.8 L 375.4 415.8 L 374.5 419.5 L 375.6 421.9 L 373.9 432.3 L 372.2 437.0 L 368.5 441.3 L 369.3 447.1 L 370.8 447.4 L 372.2 446.2 L 373.5 448.4 L 371.5 449.2 L 371.0 452.5 Z"></path>
+                <path d="M 348.6 507.2 L 348.9 509.4 L 347.6 513.4 L 345.5 514.1 L 346.3 509.6 L 344.2 500.0 L 345.4 496.0 L 343.4 492.4 L 343.3 489.7 L 342.0 489.2 L 334.5 492.7 L 328.8 493.0 L 325.6 490.8 L 323.5 487.2 L 322.1 481.2 L 320.3 478.7 L 320.3 467.3 L 321.8 467.3 L 324.5 472.3 L 327.3 485.7 L 329.9 489.1 L 333.1 488.9 L 345.6 483.6 L 346.1 484.5 L 345.0 487.8 L 348.7 493.4 L 347.2 505.0 Z"></path>
+                <path d="M 284.8 476.3 L 289.2 475.6 L 289.7 476.5 L 288.5 476.4 L 288.0 477.3 L 289.0 481.8 L 286.0 488.7 L 284.5 495.0 L 283.1 496.5 L 282.1 503.9 L 280.8 510.1 L 278.4 515.6 L 278.1 519.3 L 275.1 521.2 L 274.9 524.6 L 274.0 525.3 L 272.8 524.6 L 273.7 516.3 L 263.3 516.3 L 259.9 511.3 L 257.5 512.0 L 257.2 511.5 L 259.2 510.0 L 260.5 510.1 L 265.2 514.4 L 269.1 515.0 L 275.9 514.4 L 276.2 509.5 L 274.3 503.3 L 269.9 499.7 L 267.8 496.2 L 266.3 497.1 L 260.5 496.1 L 260.9 495.4 L 265.0 495.9 L 266.7 494.7 L 265.6 491.3 L 266.6 491.5 L 268.2 494.4 L 271.4 497.3 L 273.7 497.7 L 275.9 499.3 L 278.8 498.7 L 281.1 496.1 L 281.2 493.6 L 277.2 489.2 L 275.7 486.2 L 280.5 491.2 L 282.0 491.5 L 284.2 485.7 L 287.3 481.6 L 286.5 478.6 Z"></path>
+              </g>
+              <g class="map-place-labels">
+                <text x="640" y="329">CANTERBURY</text>
+                <text x="473" y="340">AORAKI</text>
+                <text x="366" y="420">OTAGO</text>
+                <text x="214" y="480">FIORDLAND</text>
+                <text x="246" y="718">RAKIURA</text>
+              </g>
+              <g class="map-compass" transform="translate(803 92)">
+                <path d="M 0 -24 L 6 0 L 0 18 L -6 0 Z"></path>
+                <text x="0" y="-32">N</text>
+              </g>
+            </g>
+
+            <g class="map-route-network">
+                <g class="map-route" data-map-day="04" tabindex="0" role="button" aria-label="D04 基督城 → 蒂卡波 → 特泽维尔" aria-pressed="false">
+                  <title>D04 · 基督城 → 蒂卡波 → 特泽维尔</title>
+                  <path class="map-route__halo" d="M 616.9 339.2 L 616.8 340.9 L 613.3 340.8 L 611.2 342.5 L 603.7 342.7 L 578.8 355.6 L 573.8 362.0 L 561.8 369.2 L 541.3 385.9 L 528.4 391.4 L 525.0 394.2 L 523.3 398.2 L 518.2 395.8 L 515.9 396.6 L 512.1 395.7 L 508.7 397.4 L 505.2 396.8 L 501.0 392.7 L 499.6 393.5 L 497.6 390.3 L 495.4 389.5 L 493.3 391.5 L 493.2 393.1 L 490.5 394.4 L 484.9 388.3 L 482.6 387.7 L 480.6 388.6 L 478.2 393.6 L 472.1 394.2 L 467.8 391.1 L 467.5 386.0 L 464.0 384.9 L 465.3 382.0 L 464.0 384.8 L 466.2 385.5 L 461.5 384.7 L 457.7 391.7 L 455.7 401.4 L 451.0 404.6 L 447.4 401.2 L 445.9 402.7 L 444.5 401.8 L 442.5 403.4 L 441.3 403.0 L 440.6 409.3 L 439.5 409.9"></path>
+                  <path class="map-route__line" d="M 616.9 339.2 L 616.8 340.9 L 613.3 340.8 L 611.2 342.5 L 603.7 342.7 L 578.8 355.6 L 573.8 362.0 L 561.8 369.2 L 541.3 385.9 L 528.4 391.4 L 525.0 394.2 L 523.3 398.2 L 518.2 395.8 L 515.9 396.6 L 512.1 395.7 L 508.7 397.4 L 505.2 396.8 L 501.0 392.7 L 499.6 393.5 L 497.6 390.3 L 495.4 389.5 L 493.3 391.5 L 493.2 393.1 L 490.5 394.4 L 484.9 388.3 L 482.6 387.7 L 480.6 388.6 L 478.2 393.6 L 472.1 394.2 L 467.8 391.1 L 467.5 386.0 L 464.0 384.9 L 465.3 382.0 L 464.0 384.8 L 466.2 385.5 L 461.5 384.7 L 457.7 391.7 L 455.7 401.4 L 451.0 404.6 L 447.4 401.2 L 445.9 402.7 L 444.5 401.8 L 442.5 403.4 L 441.3 403.0 L 440.6 409.3 L 439.5 409.9"></path>
+                </g>
+                <g class="map-route" data-map-day="05" tabindex="0" role="button" aria-label="D05 特泽维尔 ⇌ 库克山" aria-pressed="false">
+                  <title>D05 · 特泽维尔 ⇌ 库克山</title>
+                  <path class="map-route__halo" d="M 439.5 409.9 L 440.6 409.3 L 441.2 403.2 L 444.5 401.8 L 445.9 402.6 L 448.1 399.7 L 447.0 395.5 L 448.1 390.6 L 446.9 388.4 L 448.1 391.4 L 447.0 395.5 L 447.9 400.5 L 445.9 402.6 L 443.6 401.9 L 442.4 403.4 L 441.0 403.0 L 440.1 401.0 L 441.9 394.9 L 441.9 388.7 L 441.7 379.7 L 440.5 376.9 L 441.3 375.6 L 439.7 371.4 L 441.1 362.2 L 439.4 359.0 L 441.4 359.7 L 443.9 355.6 L 441.4 359.7 L 440.2 359.5 L 441.2 363.7 L 439.7 371.4 L 441.3 375.6 L 440.5 376.9 L 441.7 379.7 L 442.0 393.5 L 440.1 399.4 L 441.2 403.1 L 440.6 409.3 L 439.5 409.9"></path>
+                  <path class="map-route__line" d="M 439.5 409.9 L 440.6 409.3 L 441.2 403.2 L 444.5 401.8 L 445.9 402.6 L 448.1 399.7 L 447.0 395.5 L 448.1 390.6 L 446.9 388.4 L 448.1 391.4 L 447.0 395.5 L 447.9 400.5 L 445.9 402.6 L 443.6 401.9 L 442.4 403.4 L 441.0 403.0 L 440.1 401.0 L 441.9 394.9 L 441.9 388.7 L 441.7 379.7 L 440.5 376.9 L 441.3 375.6 L 439.7 371.4 L 441.1 362.2 L 439.4 359.0 L 441.4 359.7 L 443.9 355.6 L 441.4 359.7 L 440.2 359.5 L 441.2 363.7 L 439.7 371.4 L 441.3 375.6 L 440.5 376.9 L 441.7 379.7 L 442.0 393.5 L 440.1 399.4 L 441.2 403.1 L 440.6 409.3 L 439.5 409.9"></path>
+                </g>
+                <g class="map-route" data-map-day="06" tabindex="0" role="button" aria-label="D06 特泽维尔 → 瓦纳卡" aria-pressed="false">
+                  <title>D06 · 特泽维尔 → 瓦纳卡</title>
+                  <path class="map-route__halo" d="M 439.5 409.9 L 438.5 412.9 L 432.7 420.1 L 430.8 429.2 L 431.3 431.4 L 420.5 434.9 L 415.5 433.2 L 407.8 442.0 L 405.9 440.9 L 399.6 444.3 L 396.0 450.5 L 398.2 456.1 L 397.8 463.7 L 394.1 463.3 L 392.4 466.1 L 390.5 466.8 L 387.2 464.8 L 386.3 457.2 L 382.4 455.6 L 380.7 456.2 L 376.0 453.0 L 372.1 452.3"></path>
+                  <path class="map-route__line" d="M 439.5 409.9 L 438.5 412.9 L 432.7 420.1 L 430.8 429.2 L 431.3 431.4 L 420.5 434.9 L 415.5 433.2 L 407.8 442.0 L 405.9 440.9 L 399.6 444.3 L 396.0 450.5 L 398.2 456.1 L 397.8 463.7 L 394.1 463.3 L 392.4 466.1 L 390.5 466.8 L 387.2 464.8 L 386.3 457.2 L 382.4 455.6 L 380.7 456.2 L 376.0 453.0 L 372.1 452.3"></path>
+                </g>
+                <g class="map-route" data-map-day="07" tabindex="0" role="button" aria-label="D07 瓦纳卡 → 皇后镇 → 蒂阿瑙" aria-pressed="false">
+                  <title>D07 · 瓦纳卡 → 皇后镇 → 蒂阿瑙</title>
+                  <path class="map-route__halo" d="M 372.1 452.3 L 371.6 457.1 L 369.5 458.7 L 366.7 465.6 L 360.7 473.8 L 358.3 481.3 L 356.2 481.4 L 355.4 480.0 L 353.1 479.4 L 338.8 485.2 L 343.8 483.6 L 345.2 485.8 L 345.9 493.4 L 344.3 504.1 L 346.1 510.0 L 344.5 513.9 L 339.5 520.5 L 339.8 522.8 L 341.8 523.7 L 339.1 530.1 L 336.1 532.4 L 331.5 531.5 L 330.9 534.0 L 328.0 536.1 L 324.7 542.6 L 322.1 541.5 L 310.3 545.8 L 309.4 547.2 L 306.6 546.0 L 299.1 537.1 L 294.0 536.4 L 290.4 534.4 L 285.1 535.0 L 280.9 532.8 L 277.9 532.7 L 277.2 524.7 L 272.8 522.3"></path>
+                  <path class="map-route__line" d="M 372.1 452.3 L 371.6 457.1 L 369.5 458.7 L 366.7 465.6 L 360.7 473.8 L 358.3 481.3 L 356.2 481.4 L 355.4 480.0 L 353.1 479.4 L 338.8 485.2 L 343.8 483.6 L 345.2 485.8 L 345.9 493.4 L 344.3 504.1 L 346.1 510.0 L 344.5 513.9 L 339.5 520.5 L 339.8 522.8 L 341.8 523.7 L 339.1 530.1 L 336.1 532.4 L 331.5 531.5 L 330.9 534.0 L 328.0 536.1 L 324.7 542.6 L 322.1 541.5 L 310.3 545.8 L 309.4 547.2 L 306.6 546.0 L 299.1 537.1 L 294.0 536.4 L 290.4 534.4 L 285.1 535.0 L 280.9 532.8 L 277.9 532.7 L 277.2 524.7 L 272.8 522.3"></path>
+                </g>
+                <g class="map-route" data-map-day="08" tabindex="0" role="button" aria-label="D08 蒂阿瑙 ⇌ 米尔福德峡湾" aria-pressed="false">
+                  <title>D08 · 蒂阿瑙 ⇌ 米尔福德峡湾</title>
+                  <path class="map-route__halo" d="M 272.8 522.3 L 275.7 520.7 L 275.7 517.1 L 280.2 501.4 L 282.7 501.4 L 285.7 496.0 L 288.8 495.2 L 293.4 487.0 L 293.7 476.9 L 295.9 473.2 L 298.9 471.2 L 300.6 465.9 L 300.3 463.6 L 295.4 463.8 L 292.5 459.3 L 289.9 458.7 L 288.5 456.3 L 290.5 453.3 L 290.1 450.8 L 287.5 449.8 L 290.1 450.8 L 290.5 453.3 L 288.5 456.3 L 289.9 458.7 L 292.5 459.3 L 295.4 463.8 L 300.3 463.6 L 300.6 465.9 L 298.9 471.2 L 295.9 473.2 L 293.7 476.9 L 293.4 487.0 L 288.8 495.2 L 285.7 496.0 L 282.7 501.4 L 280.2 501.4 L 275.7 517.1 L 275.7 520.7 L 272.8 522.3"></path>
+                  <path class="map-route__line" d="M 272.8 522.3 L 275.7 520.7 L 275.7 517.1 L 280.2 501.4 L 282.7 501.4 L 285.7 496.0 L 288.8 495.2 L 293.4 487.0 L 293.7 476.9 L 295.9 473.2 L 298.9 471.2 L 300.6 465.9 L 300.3 463.6 L 295.4 463.8 L 292.5 459.3 L 289.9 458.7 L 288.5 456.3 L 290.5 453.3 L 290.1 450.8 L 287.5 449.8 L 290.1 450.8 L 290.5 453.3 L 288.5 456.3 L 289.9 458.7 L 292.5 459.3 L 295.4 463.8 L 300.3 463.6 L 300.6 465.9 L 298.9 471.2 L 295.9 473.2 L 293.7 476.9 L 293.4 487.0 L 288.8 495.2 L 285.7 496.0 L 282.7 501.4 L 280.2 501.4 L 275.7 517.1 L 275.7 520.7 L 272.8 522.3"></path>
+                </g>
+                <g class="map-route" data-map-day="09" tabindex="0" role="button" aria-label="D09 蒂阿瑙 → 皇后镇" aria-pressed="false">
+                  <title>D09 · 蒂阿瑙 → 皇后镇</title>
+                  <path class="map-route__halo" d="M 272.8 522.3 L 277.2 524.7 L 277.9 532.7 L 280.9 532.8 L 285.1 535.0 L 290.4 534.4 L 294.0 536.4 L 299.1 537.1 L 306.6 546.0 L 309.4 547.2 L 310.3 545.8 L 322.1 541.5 L 324.7 542.6 L 328.0 536.1 L 330.9 534.0 L 331.5 531.5 L 336.1 532.4 L 339.1 530.1 L 341.8 523.7 L 339.8 522.8 L 339.5 520.5 L 344.5 513.9 L 346.1 510.0 L 344.3 504.1 L 345.9 493.4 L 345.2 485.8 L 343.7 483.6 L 338.8 485.2 L 343.8 483.6 L 344.4 485.3 L 342.5 484.9 L 341.4 485.9"></path>
+                  <path class="map-route__line" d="M 272.8 522.3 L 277.2 524.7 L 277.9 532.7 L 280.9 532.8 L 285.1 535.0 L 290.4 534.4 L 294.0 536.4 L 299.1 537.1 L 306.6 546.0 L 309.4 547.2 L 310.3 545.8 L 322.1 541.5 L 324.7 542.6 L 328.0 536.1 L 330.9 534.0 L 331.5 531.5 L 336.1 532.4 L 339.1 530.1 L 341.8 523.7 L 339.8 522.8 L 339.5 520.5 L 344.5 513.9 L 346.1 510.0 L 344.3 504.1 L 345.9 493.4 L 345.2 485.8 L 343.7 483.6 L 338.8 485.2 L 343.8 483.6 L 344.4 485.3 L 342.5 484.9 L 341.4 485.9"></path>
+                </g>
+                <g class="map-route" data-map-day="10" tabindex="0" role="button" aria-label="D10 皇后镇 ⇌ 格林诺奇" aria-pressed="false">
+                  <title>D10 · 皇后镇 ⇌ 格林诺奇</title>
+                  <path class="map-route__halo" d="M 338.8 485.2 L 335.5 487.5 L 325.4 489.8 L 323.3 484.4 L 323.2 477.5 L 320.8 471.7 L 320.8 468.6 L 319.5 467.4 L 320.8 468.6 L 320.8 471.7 L 323.2 477.5 L 323.3 484.4 L 325.4 489.8 L 335.5 487.4 L 338.9 484.9 L 339.6 480.8 L 338.8 485.2"></path>
+                  <path class="map-route__line" d="M 338.8 485.2 L 335.5 487.5 L 325.4 489.8 L 323.3 484.4 L 323.2 477.5 L 320.8 471.7 L 320.8 468.6 L 319.5 467.4 L 320.8 468.6 L 320.8 471.7 L 323.2 477.5 L 323.3 484.4 L 325.4 489.8 L 335.5 487.4 L 338.9 484.9 L 339.6 480.8 L 338.8 485.2"></path>
+                </g>
+                <g class="map-route" data-map-day="11" tabindex="0" role="button" aria-label="D11 皇后镇活动环" aria-pressed="false">
+                  <title>D11 · 皇后镇活动环</title>
+                  <path class="map-route__halo" d="M 338.8 485.2 C 347.5 477.0 356.0 480.5 353.5 488.8 C 351.0 496.0 340.0 498.5 334.5 491.5 C 331.0 486.0 334.0 481.5 339.5 480.8"></path>
+                  <path class="map-route__line" d="M 338.8 485.2 C 347.5 477.0 356.0 480.5 353.5 488.8 C 351.0 496.0 340.0 498.5 334.5 491.5 C 331.0 486.0 334.0 481.5 339.5 480.8"></path>
+                </g>
+            </g>
+
+            <g class="map-context" aria-label="行程起点与终点">
+              <g data-map-context="03" transform="translate(609.9 334.8)">
+                <circle r="5"></circle>
+                <text x="13" y="-7">D03 · CHC 取车</text>
+              </g>
+              <g data-map-context="12" transform="translate(344.6 483.9)">
+                <circle r="5"></circle>
+                <text x="13" y="18">D12 · ZQN 还车</text>
+              </g>
+            </g>
+
+            <g class="map-pins" aria-label="当日沿途地标">
+                <g class="map-pin" data-map-day="10" data-map-landmark="Bennett’s Bluff" tabindex="-1" role="button" aria-label="D10 · Bennett’s Bluff" style="--pin-order:0" transform="translate(323.4 484.8)">
+                  <path class="map-pin__leader" d="M 0 0 L 42 20"></path>
+                  <g class="map-pin__marker" transform="translate(42 20)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">Bennett’s Bluff</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="10" data-map-landmark="格林诺奇" tabindex="-1" role="button" aria-label="D10 · 格林诺奇" style="--pin-order:1" transform="translate(319.5 467.4)">
+                  <path class="map-pin__leader" d="M 0 0 L -48 -28"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-48 -28)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">格林诺奇</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="10" data-map-landmark="Shotover Jet" tabindex="-1" role="button" aria-label="D10 · Shotover Jet" style="--pin-order:2" transform="translate(339.5 480.8)">
+                  <path class="map-pin__leader" d="M 0 0 L 42 -26"></path>
+                  <g class="map-pin__marker" transform="translate(42 -26)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/jetboat.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">Shotover Jet</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="11" data-map-landmark="NZONE 跳伞" tabindex="-1" role="button" aria-label="D11 · NZONE 跳伞" style="--pin-order:0" transform="translate(338.7 485.1)">
+                  <path class="map-pin__leader" d="M 0 0 L 46 20"></path>
+                  <g class="map-pin__marker" transform="translate(46 20)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">NZONE 跳伞</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="11" data-map-landmark="Skyline 缆车" tabindex="-1" role="button" aria-label="D11 · Skyline 缆车" style="--pin-order:1" transform="translate(337.8 484.8)">
+                  <path class="map-pin__leader" d="M 0 0 L -52 -30"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-52 -30)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">Skyline 缆车</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="11" data-map-landmark="Luge" tabindex="-1" role="button" aria-label="D11 · Luge" style="--pin-order:2" transform="translate(338.8 485.2)">
+                  <path class="map-pin__leader" d="M 0 0 L -54 28"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-54 28)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">Luge</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="04" data-map-landmark="Mt John" tabindex="-1" role="button" aria-label="D04 · Mt John" style="--pin-order:0" transform="translate(465 383.4)">
+                  <path class="map-pin__leader" d="M 0 0 L 28 -38"></path>
+                  <g class="map-pin__marker" transform="translate(28 -38)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/stargazing.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">Mt John</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="04" data-map-landmark="好牧羊人教堂" tabindex="-1" role="button" aria-label="D04 · 好牧羊人教堂" style="--pin-order:1" transform="translate(466.3 385.2)">
+                  <path class="map-pin__leader" d="M 0 0 L -58 -24"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-58 -24)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">好牧羊人教堂</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="04" data-map-landmark="蒂卡波湖" tabindex="-1" role="button" aria-label="D04 · 蒂卡波湖" style="--pin-order:2" transform="translate(465.9 385.3)">
+                  <path class="map-pin__leader" d="M 0 0 L 45 18"></path>
+                  <g class="map-pin__marker" transform="translate(45 18)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">蒂卡波湖</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="05" data-map-landmark="普卡基湖" tabindex="-1" role="button" aria-label="D05 · 普卡基湖" style="--pin-order:0" transform="translate(444.7 389.5)">
+                  <path class="map-pin__leader" d="M 0 0 L 42 10"></path>
+                  <g class="map-pin__marker" transform="translate(42 10)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">普卡基湖</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="05" data-map-landmark="奥拉基" tabindex="-1" role="button" aria-label="D05 · 奥拉基" style="--pin-order:1" transform="translate(439.3 359.1)">
+                  <path class="map-pin__leader" d="M 0 0 L -46 -24"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -24)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">奥拉基</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="05" data-map-landmark="塔斯曼冰川" tabindex="-1" role="button" aria-label="D05 · 塔斯曼冰川" style="--pin-order:2" transform="translate(444.7 352.6)">
+                  <path class="map-pin__leader" d="M 0 0 L 36 -38"></path>
+                  <g class="map-pin__marker" transform="translate(36 -38)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/helicopter.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">塔斯曼冰川</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="06" data-map-landmark="瓦纳卡湖畔" tabindex="-1" role="button" aria-label="D06 · 瓦纳卡湖畔" style="--pin-order:0" transform="translate(372.1 452.3)">
+                  <path class="map-pin__leader" d="M 0 0 L 34 -30"></path>
+                  <g class="map-pin__marker" transform="translate(34 -30)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">瓦纳卡湖畔</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="06" data-map-landmark="孤独的树" tabindex="-1" role="button" aria-label="D06 · 孤独的树" style="--pin-order:1" transform="translate(370.8 452.7)">
+                  <path class="map-pin__leader" d="M 0 0 L -50 24"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-50 24)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lone-tree.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">孤独的树</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="07" data-map-landmark="皇后镇" tabindex="-1" role="button" aria-label="D07 · 皇后镇" style="--pin-order:0" transform="translate(338.8 485.2)">
+                  <path class="map-pin__leader" d="M 0 0 L 36 -24"></path>
+                  <g class="map-pin__marker" transform="translate(36 -24)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">皇后镇</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="07" data-map-landmark="蒂阿瑙" tabindex="-1" role="button" aria-label="D07 · 蒂阿瑙" style="--pin-order:1" transform="translate(272.8 522.3)">
+                  <path class="map-pin__leader" d="M 0 0 L -44 25"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-44 25)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">蒂阿瑙</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="08" data-map-landmark="镜湖" tabindex="-1" role="button" aria-label="D08 · 镜湖" style="--pin-order:0" transform="translate(293.3 484.8)">
+                  <path class="map-pin__leader" d="M 0 0 L 42 12"></path>
+                  <g class="map-pin__marker" transform="translate(42 12)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">镜湖</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="08" data-map-landmark="荷马隧道" tabindex="-1" role="button" aria-label="D08 · 荷马隧道" style="--pin-order:1" transform="translate(291.2 459.1)">
+                  <path class="map-pin__leader" d="M 0 0 L -46 -28"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -28)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">荷马隧道</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="08" data-map-landmark="峡湾游船" tabindex="-1" role="button" aria-label="D08 · 峡湾游船" style="--pin-order:2" transform="translate(287.5 449.8)">
+                  <path class="map-pin__leader" d="M 0 0 L 35 -35"></path>
+                  <g class="map-pin__marker" transform="translate(35 -35)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/cruise.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">峡湾游船</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="08" data-map-landmark="鲍恩瀑布" tabindex="-1" role="button" aria-label="D08 · 鲍恩瀑布" style="--pin-order:3" transform="translate(287.4 449.5)">
+                  <path class="map-pin__leader" d="M 0 0 L -50 28"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-50 28)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">鲍恩瀑布</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="09" data-map-landmark="皇后镇" tabindex="-1" role="button" aria-label="D09 · 皇后镇" style="--pin-order:0" transform="translate(338.8 485.2)">
+                  <path class="map-pin__leader" d="M 0 0 L -46 -30"></path>
+                  <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -30)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="-16" y="-2">皇后镇</text>
+                  </g>
+                </g>
+                <g class="map-pin" data-map-day="09" data-map-landmark="鹿苑高地" tabindex="-1" role="button" aria-label="D09 · 鹿苑高地" style="--pin-order:1" transform="translate(341.4 485.9)">
+                  <path class="map-pin__leader" d="M 0 0 L 42 20"></path>
+                  <g class="map-pin__marker" transform="translate(42 20)">
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
+                    <image href="assets/icons/deer.png" x="-7" y="-12" width="14" height="14"></image>
+                    <text class="map-pin__label" x="16" y="-2">鹿苑高地</text>
+                  </g>
+                </g>
+            </g>
+
+            <g class="map-scale" transform="translate(710 690)" aria-hidden="true">
+              <path d="M 0 0 H 100 M 0 -4 V 4 M 50 -4 V 4 M 100 -4 V 4"></path>
+              <text x="0" y="18">0</text><text x="45" y="18">50</text><text x="91" y="18">100 km</text>
+            </g>
+          </svg>
+          <button class="map-clear" type="button" data-map-clear aria-label="返回全程路线">全程路线</button>
+          <p class="map-attribution">
+            海岸线与湖泊：Natural Earth · 路线数据：
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+          </p>
+        </div>
+
+        <aside class="map-detail" aria-label="路线详情">
+          <span class="map-detail__eyebrow">D04—D11 · SOUTH ISLAND</span>
+          <h3 class="map-detail__title">选择一天，展开路线</h3>
+          <p class="map-detail__route">从基督城到峡湾，再回到皇后镇</p>
+          <p class="map-detail__summary" aria-live="polite">悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。</p>
+          <a class="map-detail__link" href="#day-3">查看第一段行程 <span aria-hidden="true">→</span></a>
+        </aside>
       </div>
     </div>
   </div>
@@ -1571,7 +2362,7 @@
 <!-- DAY 0 -->
 <article class="day" id="day-0">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D01 行程摘要" data-reveal>
       <div class="day__num">01<span>·</span></div>
       <div class="day__date">09 / 24 · THU</div>
       <dl class="day__meta"><dt>FLIGHT</dt><dd>上海 → 首尔</dd><dt>INFO</dt><dd>18:25→21:30 虹桥→金浦</dd></dl>
@@ -1599,7 +2390,7 @@
 <!-- DAY 1 -->
 <article class="day" id="day-1">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D02 行程摘要" data-reveal>
       <div class="day__num">02<span>·</span></div>
       <div class="day__date">09 / 25 · FRI · 中秋节</div>
       <dl class="day__meta"><dt>FLIGHT</dt><dd>首尔 → 奥克兰</dd><dt>INFO</dt><dd>18:00→8:35(+1)</dd></dl>
@@ -1634,7 +2425,7 @@
 <!-- DAY 2 -->
 <article class="day" id="day-2">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D03 行程摘要" data-reveal>
       <div class="day__num">03<span>·</span></div>
       <div class="day__date">09 / 26 · SAT · 中秋节</div>
       <dl class="day__meta"><dt>FLIGHT</dt><dd>奥克兰 → 基督城 · NZ543</dd><dt>INFO</dt><dd>13:15 → 14:35 · 1h20m</dd></dl>
@@ -1656,7 +2447,7 @@
         </div>
       </div>
 <div class="activity">
-        <div class="activity__head"><span class="activity__time">15:30</span><h4 class="activity__title">基督城 · 取车 & 休整</h4></div>
+        <div class="activity__head"><span class="activity__time">15:30</span><h4 class="activity__title">基督城 · 取车 &amp; 休整</h4></div>
         <div class="activity__body">
           <p>基督城被称为"花园之城"，取车后可在市区简单休整：逛一逛 <strong>Riverside Market</strong> 市集，去 <strong>基督城植物园</strong> 散步，到 <strong>Countdown / New World</strong> 超市采购未来几天的干粮和水。</p>
           <div class="callout callout--tip"><strong>调整建议：</strong>机上尽量休息，落地南半球后第一天往往疲惫。明日可适当推迟出门时间，但新西兰超市关门较早（晚上7—9点），采购尽量在今天完成。</div>
@@ -1678,10 +2469,10 @@
 <!-- DAY 3 -->
 <article class="day" id="day-3">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D04 行程摘要" data-reveal>
       <div class="day__num">04<span>·</span></div>
       <div class="day__date">09 / 27 · SUN · 中秋节</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>基督城 → 蒂卡波 → 特泽维尔</dd><dt>INFO</dt><dd>226 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>基督城 → 蒂卡波 → 特泽维尔</dd><dt>INFO</dt><dd>保守里程 304 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">蒂卡波·<em>暗夜星空</em></h3>
@@ -1703,7 +2494,7 @@
           <p style="font-family:var(--serif);font-style:italic;color:var(--ink);border-left:3px solid var(--glacier-deep);padding-left:16px;margin:12px 0;">蒂卡波湖（Lake Tekapo）——南岛最上镜的湖泊。冰川融水中的岩粉颗粒悬浮在水中，在阳光折射下呈现独特的"牛奶蓝"，与远处库克雪山相映。</p>
           <p><strong>好牧羊人教堂（Church of the Good Shepherd）</strong>——蒂卡波湖畔的石砌小教堂，南半球最受欢迎的婚礼场地之一。日落时分以教堂为前景、雪山湖泊为背景的构图是蒂卡波的经典打卡位。</p>
           <div class="callout"><strong>三条规矩：</strong>① 教堂门口停车位有限，建议停在镇中心步行过去（约10分钟）；② 教堂内部严禁拍照录像；③ 教堂周边属禁飞区，严禁使用无人机。</div>
-          
+
         </div>
       </div>
 <div class="activity">
@@ -1729,10 +2520,10 @@
 <!-- DAY 4 -->
 <article class="day" id="day-4" style="background: linear-gradient(180deg, var(--paper-deep), var(--paper));">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D05 行程摘要" data-reveal>
       <div class="day__num">05<span>·</span></div>
       <div class="day__date">09 / 28 · MON · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 库克山 → 特泽维尔</dd><dt>INFO</dt><dd>往返 164 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 库克山 → 特泽维尔</dd><dt>INFO</dt><dd>保守里程 194 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">塔斯曼·<em>冰川日</em></h3>
@@ -1779,7 +2570,7 @@
             <p style="margin:2px 0;"><strong>塔斯曼冰川步道（Tasman Glacier Walk）</strong>——3条步道可选：Lookout → Blue Lakes → Sealy Tarns。全程约 1.5—2h，冰川终点壮观。</p>
             <p style="font-size:0.85em;color:var(--ink-soft);margin:6px 0 0 0;font-style:italic;"><strong>行程调整：</strong>如果上午排到了直升机，Plan B 的普卡基湖游览改到 <strong>Day 3（9/27）下午</strong>完成——从蒂卡波出发前先去普卡基湖，再去特泽维尔。</p>
           </div>
-          
+
         </div>
       </div>
 
@@ -1788,11 +2579,11 @@
 <div class="activity" style="margin-top:20px;">
         <div class="activity__head"><span class="activity__time">傍晚</span><h4 class="activity__title">返回特泽维尔 · 晚餐</h4></div>
         <div class="activity__body">
-          <p>结束一天的冰川探索，返回特泽维尔。晚餐推荐：<strong>Poppies Cafe</strong>（本地人最爱，三文鱼和羊腿）、<strong>Ministry of Works Bar & Eatery</strong>（精酿啤酒+汉堡，氛围轻松）、<strong>The Musterer's Hut</strong>（简餐+咖啡，白天也适合）。</p>
+          <p>结束一天的冰川探索，返回特泽维尔。晚餐推荐：<strong>Poppies Cafe</strong>（本地人最爱，三文鱼和羊腿）、<strong>Ministry of Works Bar &amp; Eatery</strong>（精酿啤酒+汉堡，氛围轻松）、<strong>The Musterer's Hut</strong>（简餐+咖啡，白天也适合）。</p>
         </div>
       </div>
 
-    
+
 <div class="lodging">
         <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
@@ -1809,10 +2600,10 @@
 <!-- DAY 5 -->
 <article class="day" id="day-5">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D06 行程摘要" data-reveal>
       <div class="day__num">06<span>·</span></div>
       <div class="day__date">09 / 29 · TUE · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 瓦纳卡</dd><dt>INFO</dt><dd>206 km · ~2.5 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 瓦纳卡</dd><dt>INFO</dt><dd>保守里程 206 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">瓦纳卡·<em>湖畔时光</em></h3>
@@ -1844,7 +2635,7 @@
           <p style="margin-bottom:8px;"><strong>晚餐推荐：</strong></p>
           <ul>
             <li><strong>Kika</strong> — 精致小盘菜，开放式厨房，需提前预订</li>
-            <li><strong>Francesca's Italian Kitchen</strong> — 地道意大利面 & 披萨，氛围温馨</li>
+            <li><strong>Francesca's Italian Kitchen</strong> — 地道意大利面 &amp; 披萨，氛围温馨</li>
             <li><strong>Ode</strong> — 高端体验，纪念日可选</li>
           </ul>
           <p style="margin-top:10px;">饭后沿湖边散步消食，瓦纳卡的夜色格外宁静。</p>
@@ -1866,10 +2657,10 @@
 <!-- DAY 6 -->
 <article class="day" id="day-6">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D07 行程摘要" data-reveal>
       <div class="day__num">07<span>·</span></div>
       <div class="day__date">09 / 30 · WED · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>瓦纳卡 → 皇后镇 → 蒂阿瑙</dd><dt>INFO</dt><dd>239 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>瓦纳卡 → 皇后镇 → 蒂阿瑙</dd><dt>INFO</dt><dd>保守里程 240 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">驶向·<em>蒂阿瑙</em></h3>
@@ -1920,10 +2711,10 @@
 </article><!-- DAY 7 -->
 <article class="day" id="day-7" style="background: linear-gradient(180deg, var(--paper-deep), var(--paper));">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D08 行程摘要" data-reveal>
       <div class="day__num">08<span>·</span></div>
       <div class="day__date">10 / 01 · THU · 国庆节</div>
-      <dl class="day__meta"><dt>CRUISE</dt><dd>蒂阿瑙 ⇌ 米尔福德峡湾</dd><dt>INFO</dt><dd>往返 236 km</dd></dl>
+      <dl class="day__meta"><dt>CRUISE</dt><dd>蒂阿瑙 ⇌ 米尔福德峡湾</dd><dt>INFO</dt><dd>保守里程 237 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">米尔福德·<em>世界第八大奇迹</em></h3>
@@ -1994,10 +2785,10 @@
 </article><!-- DAY 8 -->
 <article class="day" id="day-8">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D09 行程摘要" data-reveal>
       <div class="day__num">09<span>·</span></div>
       <div class="day__date">10 / 02 · FRI · 国庆节</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>蒂阿瑙 → 皇后镇</dd><dt>INFO</dt><dd>171 km · ~2 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>蒂阿瑙 → 皇后镇</dd><dt>INFO</dt><dd>保守里程 185 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">皇后镇·<em>Deer Park</em></h3>
@@ -2016,7 +2807,7 @@
           <p style="margin-bottom:8px;"><strong>午餐推荐（任选）：</strong></p>
           <ul>
               <li><strong>Taco Medic</strong> — 平价墨西哥卷，快且好吃</li>
-            <li><strong>Vudu Cafe & Larder</strong> — 精品 brunch，沙拉和蛋糕都很赞</li>
+            <li><strong>Vudu Cafe &amp; Larder</strong> — 精品 brunch，沙拉和蛋糕都很赞</li>
             <li><strong>Pier 19</strong> — 湖景海鲜餐厅，天气好坐户外</li>
           </ul>
           <p style="margin-top:10px;">饭后可沿湖边散步消食，或逛逛皇后镇中心的小店——Shotover Street 和 Beach Street 交汇处是购物核心区。</p>
@@ -2062,10 +2853,10 @@
 </article><!-- DAY 9 -->
 <article class="day" id="day-9">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D10 行程摘要" data-reveal>
       <div class="day__num">10<span>·</span></div>
       <div class="day__date">10 / 03 · SAT · 国庆节</div>
-      <dl class="day__meta"><dt>ADVENTURE</dt><dd>皇后镇 → 格林诺奇</dd><dt>INFO</dt><dd>自驾往返 + Jet</dd></dl>
+      <dl class="day__meta"><dt>ADVENTURE</dt><dd>皇后镇 → 格林诺奇</dd><dt>INFO</dt><dd>保守里程 104 km + Jet</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">格林诺奇·<em>指环王之路</em></h3>
@@ -2134,7 +2925,7 @@
           <ul>
             <li><strong>Fat Badgers</strong> — 巨型披萨，性价比之王</li>
             <li><strong>Fergburger</strong> — 没吃够再来一次</li>
-            <li><strong>Flame Bar & Grill</strong> — 南非风味烤肉，分量大</li>
+            <li><strong>Flame Bar &amp; Grill</strong> — 南非风味烤肉，分量大</li>
           </ul>
         </div>
       </div>
@@ -2153,7 +2944,7 @@
 </article><!-- DAY 10 -->
 <article class="day" id="day-10">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D11 行程摘要" data-reveal>
       <div class="day__num">11<span>·</span></div>
       <div class="day__date">10 / 04 · SUN · 国庆节</div>
       <dl class="day__meta"><dt>FUN</dt><dd>皇后镇活动日</dd><dt>INFO</dt><dd>蹦极 · 缆车 · Luge</dd></dl>
@@ -2195,7 +2986,7 @@
 <!-- DAY 11 -->
 <article class="day" id="day-11">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D12 行程摘要" data-reveal>
       <div class="day__num">12<span>·</span></div>
       <div class="day__date">10 / 05 · MON · 国庆节</div>
       <dl class="day__meta"><dt>FLIGHT</dt><dd>皇后镇 → 奥克兰 → 首尔</dd><dt>INFO</dt><dd>7:00→8:50→20:20</dd></dl>
@@ -2241,7 +3032,7 @@
 <!-- DAY 12 -->
 <article class="day" id="day-12">
   <div class="day__inner">
-    <aside class="day__rail" data-reveal>
+    <aside class="day__rail" aria-label="D13 行程摘要" data-reveal>
       <div class="day__num">13<span>·</span></div>
       <div class="day__date">10 / 06 · TUE · 国庆节</div>
       <dl class="day__meta"><dt>HOME</dt><dd>首尔 → 上海</dd><dt>INFO</dt><dd>8:25→9:40</dd></dl>
@@ -2336,6 +3127,208 @@
   const mobileLayout = window.matchMedia('(max-width: 900px)');
   const days = [...document.querySelectorAll('.day')];
   const navItems = [...document.querySelectorAll('.day-nav__item')];
+  const mapRoot = document.querySelector('[data-map]');
+
+  if (
+    mapRoot
+    && mapRoot.querySelectorAll('.map-day[data-map-day]').length === 8
+    && mapRoot.querySelectorAll('.map-route[data-map-day]').length === 8
+    && mapRoot.querySelector('.map-svg')
+    && mapRoot.querySelector('.map-detail')
+    && mapRoot.querySelector('[data-map-overview]')
+    && mapRoot.querySelector('[data-map-clear]')
+  ) {
+    const mapDayButtons = [...mapRoot.querySelectorAll('.map-day[data-map-day]')];
+    const mapOverviewButton = mapRoot.querySelector('[data-map-overview]');
+    const mapRoutes = [...mapRoot.querySelectorAll('.map-route[data-map-day]')];
+    const mapPins = [...mapRoot.querySelectorAll('.map-pin[data-map-day]')];
+    const mapSvg = mapRoot.querySelector('.map-svg');
+    const mapClearButton = mapRoot.querySelector('[data-map-clear]');
+    const mapDetail = mapRoot.querySelector('.map-detail');
+    const mapDetailEyebrow = mapDetail.querySelector('.map-detail__eyebrow');
+    const mapDetailTitle = mapDetail.querySelector('.map-detail__title');
+    const mapDetailRoute = mapDetail.querySelector('.map-detail__route');
+    const mapDetailSummary = mapDetail.querySelector('.map-detail__summary');
+    const mapDetailLink = mapDetail.querySelector('.map-detail__link');
+    let lockedMapDay = null;
+    let previewMapDay = null;
+    let selectedLandmark = null;
+    let detailTimer = 0;
+    mapRoot.classList.add('is-enhanced');
+
+    const mapButtonForDay = (day) => (
+      mapDayButtons.find((button) => button.dataset.mapDay === day)
+    );
+
+    const updateMapDetail = (day) => {
+      const button = mapButtonForDay(day);
+      if (!button) {
+        mapDetailEyebrow.textContent = 'D04—D11 · SOUTH ISLAND';
+        mapDetailTitle.textContent = '选择一天，展开路线';
+        mapDetailRoute.textContent = '从基督城到峡湾，再回到皇后镇';
+        mapDetailSummary.textContent = '悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。';
+        mapDetailLink.href = '#day-3';
+        mapDetailLink.innerHTML = '查看第一段行程 <span aria-hidden="true">→</span>';
+        return;
+      }
+
+      mapDetailEyebrow.textContent = `D${day} · ${button.dataset.mapMeta}`;
+      mapDetailTitle.textContent = button.dataset.mapTitle;
+      mapDetailRoute.textContent = button.dataset.mapRoute;
+      mapDetailSummary.textContent = (
+        selectedLandmark && day === lockedMapDay && !previewMapDay
+          ? `已选地标：${selectedLandmark}。${button.dataset.mapSummary}`
+          : button.dataset.mapSummary
+      );
+      mapDetailLink.href = button.dataset.mapHref;
+      mapDetailLink.innerHTML = `查看 D${day} 完整行程 <span aria-hidden="true">→</span>`;
+    };
+
+    const transitionMapDetail = (day) => {
+      window.clearTimeout(detailTimer);
+      if (reduceMotion.matches) {
+        updateMapDetail(day);
+        mapDetail.classList.remove('is-changing');
+        return;
+      }
+      mapDetail.classList.add('is-changing');
+      detailTimer = window.setTimeout(() => {
+        updateMapDetail(day);
+        mapDetail.classList.remove('is-changing');
+      }, 90);
+    };
+
+    const renderMapState = () => {
+      const visibleDay = previewMapDay || lockedMapDay;
+      const previewing = Boolean(previewMapDay);
+      mapRoot.classList.toggle('is-filtered', Boolean(visibleDay));
+
+      mapDayButtons.forEach((button) => {
+        const day = button.dataset.mapDay;
+        button.classList.toggle('is-active', day === lockedMapDay && !previewing);
+        button.classList.toggle('is-preview', day === visibleDay && previewing);
+        button.setAttribute('aria-pressed', String(day === lockedMapDay));
+      });
+
+      mapOverviewButton.classList.toggle('is-active', !lockedMapDay && !previewing);
+      mapOverviewButton.setAttribute('aria-pressed', String(!lockedMapDay));
+
+      mapRoutes.forEach((route) => {
+        const day = route.dataset.mapDay;
+        route.classList.toggle('is-active', day === visibleDay && !previewing);
+        route.classList.toggle('is-preview', day === visibleDay && previewing);
+        route.setAttribute('aria-pressed', String(day === lockedMapDay));
+      });
+
+      mapPins.forEach((pin) => {
+        const day = pin.dataset.mapDay;
+        const visible = day === visibleDay;
+        const selected = (
+          visible
+          && !previewing
+          && pin.dataset.mapLandmark === selectedLandmark
+        );
+        pin.classList.toggle('is-active', visible && !previewing);
+        pin.classList.toggle('is-preview', visible && previewing);
+        pin.classList.toggle('is-selected', selected);
+        pin.setAttribute('tabindex', visible ? '0' : '-1');
+        pin.setAttribute('aria-pressed', String(selected));
+      });
+
+      transitionMapDetail(visibleDay);
+    };
+
+    const previewDay = (day) => {
+      previewMapDay = day;
+      renderMapState();
+    };
+
+    const endPreview = (day) => {
+      if (previewMapDay !== day) return;
+      previewMapDay = null;
+      renderMapState();
+    };
+
+    const toggleLockedDay = (day) => {
+      lockedMapDay = lockedMapDay === day ? null : day;
+      previewMapDay = null;
+      selectedLandmark = null;
+      renderMapState();
+      if (lockedMapDay && mobileLayout.matches) {
+        requestAnimationFrame(() => {
+          mapButtonForDay(lockedMapDay)?.scrollIntoView({
+            behavior: reduceMotion.matches ? 'auto' : 'smooth',
+            block: 'nearest',
+            inline: 'center'
+          });
+        });
+      }
+    };
+
+    const lockLandmark = (pin) => {
+      lockedMapDay = pin.dataset.mapDay;
+      previewMapDay = null;
+      selectedLandmark = pin.dataset.mapLandmark;
+      renderMapState();
+    };
+
+    const resetMap = () => {
+      lockedMapDay = null;
+      previewMapDay = null;
+      selectedLandmark = null;
+      renderMapState();
+    };
+
+    mapDayButtons.forEach((button) => {
+      const day = button.dataset.mapDay;
+      button.addEventListener('pointerenter', () => previewDay(day));
+      button.addEventListener('pointerleave', () => endPreview(day));
+      button.addEventListener('focus', () => previewDay(day));
+      button.addEventListener('blur', () => endPreview(day));
+      button.addEventListener('click', () => toggleLockedDay(day));
+    });
+
+    mapRoutes.forEach((route) => {
+      const day = route.dataset.mapDay;
+      route.addEventListener('pointerenter', () => previewDay(day));
+      route.addEventListener('pointerleave', () => endPreview(day));
+      route.addEventListener('focus', () => previewDay(day));
+      route.addEventListener('blur', () => endPreview(day));
+      route.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleLockedDay(day);
+      });
+      route.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleLockedDay(day);
+      });
+    });
+
+    mapPins.forEach((pin) => {
+      pin.addEventListener('click', (event) => {
+        event.stopPropagation();
+        lockLandmark(pin);
+      });
+      pin.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        lockLandmark(pin);
+      });
+    });
+
+    mapOverviewButton.addEventListener('click', resetMap);
+    mapClearButton.addEventListener('click', resetMap);
+    mapSvg.addEventListener('click', (event) => {
+      if (event.target.closest('.map-route')) return;
+      resetMap();
+    });
+    mapRoot.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') resetMap();
+    });
+
+    renderMapState();
+  }
 
   const setDayExpanded = (day, expanded) => {
     day.classList.toggle('is-collapsed', !expanded);
@@ -2365,7 +3358,12 @@
     button.addEventListener('click', () => {
       const expand = day.classList.contains('is-collapsed');
       if (expand && mobileLayout.matches) {
+        const buttonTop = button.getBoundingClientRect().top;
         days.forEach((otherDay) => setDayExpanded(otherDay, otherDay === day));
+        const scrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollBy(0, button.getBoundingClientRect().top - buttonTop);
+        document.documentElement.style.scrollBehavior = scrollBehavior;
       } else {
         setDayExpanded(day, expand);
       }
