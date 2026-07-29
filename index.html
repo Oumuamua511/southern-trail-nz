@@ -644,6 +644,10 @@
     background: rgba(244, 236, 224, 0.075);
     transform: translateX(3px);
   }
+  .map-day.is-preview {
+    border-color: rgba(200, 122, 58, 0.72);
+    background: rgba(244, 236, 224, 0.1);
+  }
   .map-day.is-active {
     color: var(--ink);
     border-color: var(--amber);
@@ -853,6 +857,16 @@
   .map-pin.is-active,
   .map-pin.is-preview {
     opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .map-pin:focus-visible {
+    outline: none;
+  }
+  .map-pin:focus-visible .map-pin__marker use,
+  .map-pin.is-selected .map-pin__marker use {
+    stroke: var(--cream);
+    stroke-width: 2.5;
   }
   .map-pin__leader {
     fill: none;
@@ -863,6 +877,11 @@
   }
   .map-pin__marker {
     filter: url("#pin-lift");
+  }
+  .map-pin__hit {
+    fill: transparent;
+    stroke: none;
+    pointer-events: all;
   }
   .map-pin__marker use {
     fill: var(--amber-deep);
@@ -1964,31 +1983,31 @@
           <span class="map-day__number">ALL</span>
           <span class="map-day__copy"><strong>全程鸟瞰</strong><small>D04—D11 · 南岛自驾环线</small></span>
         </button>
-          <button class="map-day" type="button" data-map-day="04" data-map-title="穿越坎特伯雷" data-map-route="基督城 → 蒂卡波 → 特泽维尔" data-map-meta="计划 226 km · 约 3 h" data-map-summary="从南岛门户出发，经蒂卡波暗夜保护区与湖畔地标，抵达特泽维尔。" data-map-href="#day-3" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="04" data-map-title="穿越坎特伯雷" data-map-route="基督城 → 蒂卡波 → 特泽维尔" data-map-meta="保守里程 304 km" data-map-summary="从南岛门户出发，经蒂卡波暗夜保护区与湖畔地标，抵达特泽维尔。" data-map-href="#day-3" aria-pressed="false">
             <span class="map-day__number">D04</span>
             <span class="map-day__copy"><strong>穿越坎特伯雷</strong><small>09 / 27 · 基督城 → 蒂卡波 → 特泽维尔</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="05" data-map-title="向奥拉基进发" data-map-route="特泽维尔 ⇌ 库克山" data-map-meta="计划往返 164 km · 约 3 h" data-map-summary="沿普卡基湖驶入高山腹地，在奥拉基与塔斯曼冰川之间展开一日探索。" data-map-href="#day-4" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="05" data-map-title="向奥拉基进发" data-map-route="特泽维尔 ⇌ 库克山" data-map-meta="保守里程 194 km" data-map-summary="沿普卡基湖驶入高山腹地，在奥拉基与塔斯曼冰川之间展开一日探索。" data-map-href="#day-4" aria-pressed="false">
             <span class="map-day__number">D05</span>
             <span class="map-day__copy"><strong>向奥拉基进发</strong><small>09 / 28 · 特泽维尔 ⇌ 库克山</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="06" data-map-title="湖区转换日" data-map-route="特泽维尔 → 瓦纳卡" data-map-meta="计划 206 km · 约 2.5 h" data-map-summary="离开麦肯齐盆地，翻越内陆公路抵达瓦纳卡湖畔。" data-map-href="#day-5" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="06" data-map-title="湖区转换日" data-map-route="特泽维尔 → 瓦纳卡" data-map-meta="保守里程 206 km" data-map-summary="离开麦肯齐盆地，翻越内陆公路抵达瓦纳卡湖畔。" data-map-href="#day-5" aria-pressed="false">
             <span class="map-day__number">D06</span>
             <span class="map-day__copy"><strong>湖区转换日</strong><small>09 / 29 · 特泽维尔 → 瓦纳卡</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="07" data-map-title="纵贯南部湖区" data-map-route="瓦纳卡 → 皇后镇 → 蒂阿瑙" data-map-meta="计划 239 km · 约 3 h" data-map-summary="由瓦纳卡南下，短停皇后镇后继续前往峡湾国家公园门户蒂阿瑙。" data-map-href="#day-6" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="07" data-map-title="纵贯南部湖区" data-map-route="瓦纳卡 → 皇后镇 → 蒂阿瑙" data-map-meta="保守里程 240 km" data-map-summary="由瓦纳卡南下，短停皇后镇后继续前往峡湾国家公园门户蒂阿瑙。" data-map-href="#day-6" aria-pressed="false">
             <span class="map-day__number">D07</span>
             <span class="map-day__copy"><strong>纵贯南部湖区</strong><small>09 / 30 · 瓦纳卡 → 皇后镇 → 蒂阿瑙</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="08" data-map-title="驶入峡湾" data-map-route="蒂阿瑙 ⇌ 米尔福德峡湾" data-map-meta="计划往返 236 km" data-map-summary="沿米尔福德公路穿越镜湖与荷马隧道，乘船深入峡湾后原路返回。" data-map-href="#day-7" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="08" data-map-title="驶入峡湾" data-map-route="蒂阿瑙 ⇌ 米尔福德峡湾" data-map-meta="保守里程 237 km" data-map-summary="沿米尔福德公路穿越镜湖与荷马隧道，乘船深入峡湾后原路返回。" data-map-href="#day-7" aria-pressed="false">
             <span class="map-day__number">D08</span>
             <span class="map-day__copy"><strong>驶入峡湾</strong><small>10 / 01 · 蒂阿瑙 ⇌ 米尔福德峡湾</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="09" data-map-title="重返皇后镇" data-map-route="蒂阿瑙 → 皇后镇" data-map-meta="计划 171 km · 约 2 h" data-map-summary="从蒂阿瑙回到瓦卡蒂普湖畔，在鹿苑高地收下皇后镇第一幅全景。" data-map-href="#day-8" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="09" data-map-title="重返皇后镇" data-map-route="蒂阿瑙 → 皇后镇" data-map-meta="保守里程 185 km" data-map-summary="从蒂阿瑙回到瓦卡蒂普湖畔，在鹿苑高地收下皇后镇第一幅全景。" data-map-href="#day-8" aria-pressed="false">
             <span class="map-day__number">D09</span>
             <span class="map-day__copy"><strong>重返皇后镇</strong><small>10 / 02 · 蒂阿瑙 → 皇后镇</small></span>
           </button>
-          <button class="map-day" type="button" data-map-day="10" data-map-title="格林诺奇支线" data-map-route="皇后镇 ⇌ 格林诺奇" data-map-meta="自驾往返 + Shotover Jet" data-map-summary="沿瓦卡蒂普湖西岸前往格林诺奇，返程接上喷射快艇体验。" data-map-href="#day-9" aria-pressed="false">
+          <button class="map-day" type="button" data-map-day="10" data-map-title="格林诺奇支线" data-map-route="皇后镇 ⇌ 格林诺奇" data-map-meta="保守里程 104 km · Shotover Jet" data-map-summary="沿瓦卡蒂普湖西岸前往格林诺奇，返程接上喷射快艇体验。" data-map-href="#day-9" aria-pressed="false">
             <span class="map-day__number">D10</span>
             <span class="map-day__copy"><strong>格林诺奇支线</strong><small>10 / 03 · 皇后镇 ⇌ 格林诺奇</small></span>
           </button>
@@ -2110,178 +2129,200 @@
             </g>
 
             <g class="map-pins" aria-label="当日沿途地标">
-                <g class="map-pin" data-map-day="10" style="--pin-order:0" transform="translate(323.4 484.8)">
+                <g class="map-pin" data-map-day="10" data-map-landmark="Bennett’s Bluff" tabindex="-1" role="button" aria-label="D10 · Bennett’s Bluff" style="--pin-order:0" transform="translate(323.4 484.8)">
                   <path class="map-pin__leader" d="M 0 0 L 42 20"></path>
                   <g class="map-pin__marker" transform="translate(42 20)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">Bennett’s Bluff</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="10" style="--pin-order:1" transform="translate(319.5 467.4)">
+                <g class="map-pin" data-map-day="10" data-map-landmark="格林诺奇" tabindex="-1" role="button" aria-label="D10 · 格林诺奇" style="--pin-order:1" transform="translate(319.5 467.4)">
                   <path class="map-pin__leader" d="M 0 0 L -48 -28"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-48 -28)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">格林诺奇</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="10" style="--pin-order:2" transform="translate(339.5 480.8)">
+                <g class="map-pin" data-map-day="10" data-map-landmark="Shotover Jet" tabindex="-1" role="button" aria-label="D10 · Shotover Jet" style="--pin-order:2" transform="translate(339.5 480.8)">
                   <path class="map-pin__leader" d="M 0 0 L 42 -26"></path>
                   <g class="map-pin__marker" transform="translate(42 -26)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/jetboat.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">Shotover Jet</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="11" style="--pin-order:0" transform="translate(338.7 485.1)">
+                <g class="map-pin" data-map-day="11" data-map-landmark="NZONE 跳伞" tabindex="-1" role="button" aria-label="D11 · NZONE 跳伞" style="--pin-order:0" transform="translate(338.7 485.1)">
                   <path class="map-pin__leader" d="M 0 0 L 46 20"></path>
                   <g class="map-pin__marker" transform="translate(46 20)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">NZONE 跳伞</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="11" style="--pin-order:1" transform="translate(337.8 484.8)">
+                <g class="map-pin" data-map-day="11" data-map-landmark="Skyline 缆车" tabindex="-1" role="button" aria-label="D11 · Skyline 缆车" style="--pin-order:1" transform="translate(337.8 484.8)">
                   <path class="map-pin__leader" d="M 0 0 L -52 -30"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-52 -30)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">Skyline 缆车</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="11" style="--pin-order:2" transform="translate(338.8 485.2)">
+                <g class="map-pin" data-map-day="11" data-map-landmark="Luge" tabindex="-1" role="button" aria-label="D11 · Luge" style="--pin-order:2" transform="translate(338.8 485.2)">
                   <path class="map-pin__leader" d="M 0 0 L -54 28"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-54 28)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">Luge</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="04" style="--pin-order:0" transform="translate(465 383.4)">
+                <g class="map-pin" data-map-day="04" data-map-landmark="Mt John" tabindex="-1" role="button" aria-label="D04 · Mt John" style="--pin-order:0" transform="translate(465 383.4)">
                   <path class="map-pin__leader" d="M 0 0 L 28 -38"></path>
                   <g class="map-pin__marker" transform="translate(28 -38)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/stargazing.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">Mt John</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="04" style="--pin-order:1" transform="translate(466.3 385.2)">
+                <g class="map-pin" data-map-day="04" data-map-landmark="好牧羊人教堂" tabindex="-1" role="button" aria-label="D04 · 好牧羊人教堂" style="--pin-order:1" transform="translate(466.3 385.2)">
                   <path class="map-pin__leader" d="M 0 0 L -58 -24"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-58 -24)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">好牧羊人教堂</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="04" style="--pin-order:2" transform="translate(465.9 385.3)">
+                <g class="map-pin" data-map-day="04" data-map-landmark="蒂卡波湖" tabindex="-1" role="button" aria-label="D04 · 蒂卡波湖" style="--pin-order:2" transform="translate(465.9 385.3)">
                   <path class="map-pin__leader" d="M 0 0 L 45 18"></path>
                   <g class="map-pin__marker" transform="translate(45 18)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">蒂卡波湖</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="05" style="--pin-order:0" transform="translate(444.7 389.5)">
+                <g class="map-pin" data-map-day="05" data-map-landmark="普卡基湖" tabindex="-1" role="button" aria-label="D05 · 普卡基湖" style="--pin-order:0" transform="translate(444.7 389.5)">
                   <path class="map-pin__leader" d="M 0 0 L 42 10"></path>
                   <g class="map-pin__marker" transform="translate(42 10)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">普卡基湖</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="05" style="--pin-order:1" transform="translate(439.3 359.1)">
+                <g class="map-pin" data-map-day="05" data-map-landmark="奥拉基" tabindex="-1" role="button" aria-label="D05 · 奥拉基" style="--pin-order:1" transform="translate(439.3 359.1)">
                   <path class="map-pin__leader" d="M 0 0 L -46 -24"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -24)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">奥拉基</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="05" style="--pin-order:2" transform="translate(444.7 352.6)">
+                <g class="map-pin" data-map-day="05" data-map-landmark="塔斯曼冰川" tabindex="-1" role="button" aria-label="D05 · 塔斯曼冰川" style="--pin-order:2" transform="translate(444.7 352.6)">
                   <path class="map-pin__leader" d="M 0 0 L 36 -38"></path>
                   <g class="map-pin__marker" transform="translate(36 -38)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/helicopter.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">塔斯曼冰川</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="06" style="--pin-order:0" transform="translate(372.1 452.3)">
+                <g class="map-pin" data-map-day="06" data-map-landmark="瓦纳卡湖畔" tabindex="-1" role="button" aria-label="D06 · 瓦纳卡湖畔" style="--pin-order:0" transform="translate(372.1 452.3)">
                   <path class="map-pin__leader" d="M 0 0 L 34 -30"></path>
                   <g class="map-pin__marker" transform="translate(34 -30)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">瓦纳卡湖畔</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="06" style="--pin-order:1" transform="translate(370.8 452.7)">
+                <g class="map-pin" data-map-day="06" data-map-landmark="孤独的树" tabindex="-1" role="button" aria-label="D06 · 孤独的树" style="--pin-order:1" transform="translate(370.8 452.7)">
                   <path class="map-pin__leader" d="M 0 0 L -50 24"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-50 24)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lone-tree.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">孤独的树</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="07" style="--pin-order:0" transform="translate(338.8 485.2)">
+                <g class="map-pin" data-map-day="07" data-map-landmark="皇后镇" tabindex="-1" role="button" aria-label="D07 · 皇后镇" style="--pin-order:0" transform="translate(338.8 485.2)">
                   <path class="map-pin__leader" d="M 0 0 L 36 -24"></path>
                   <g class="map-pin__marker" transform="translate(36 -24)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">皇后镇</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="07" style="--pin-order:1" transform="translate(272.8 522.3)">
+                <g class="map-pin" data-map-day="07" data-map-landmark="蒂阿瑙" tabindex="-1" role="button" aria-label="D07 · 蒂阿瑙" style="--pin-order:1" transform="translate(272.8 522.3)">
                   <path class="map-pin__leader" d="M 0 0 L -44 25"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-44 25)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">蒂阿瑙</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="08" style="--pin-order:0" transform="translate(293.3 484.8)">
+                <g class="map-pin" data-map-day="08" data-map-landmark="镜湖" tabindex="-1" role="button" aria-label="D08 · 镜湖" style="--pin-order:0" transform="translate(293.3 484.8)">
                   <path class="map-pin__leader" d="M 0 0 L 42 12"></path>
                   <g class="map-pin__marker" transform="translate(42 12)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/lake.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">镜湖</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="08" style="--pin-order:1" transform="translate(291.2 459.1)">
+                <g class="map-pin" data-map-day="08" data-map-landmark="荷马隧道" tabindex="-1" role="button" aria-label="D08 · 荷马隧道" style="--pin-order:1" transform="translate(291.2 459.1)">
                   <path class="map-pin__leader" d="M 0 0 L -46 -28"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -28)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/mountain.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">荷马隧道</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="08" style="--pin-order:2" transform="translate(287.5 449.8)">
+                <g class="map-pin" data-map-day="08" data-map-landmark="峡湾游船" tabindex="-1" role="button" aria-label="D08 · 峡湾游船" style="--pin-order:2" transform="translate(287.5 449.8)">
                   <path class="map-pin__leader" d="M 0 0 L 35 -35"></path>
                   <g class="map-pin__marker" transform="translate(35 -35)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/cruise.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">峡湾游船</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="08" style="--pin-order:3" transform="translate(287.4 449.5)">
+                <g class="map-pin" data-map-day="08" data-map-landmark="鲍恩瀑布" tabindex="-1" role="button" aria-label="D08 · 鲍恩瀑布" style="--pin-order:3" transform="translate(287.4 449.5)">
                   <path class="map-pin__leader" d="M 0 0 L -50 28"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-50 28)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/adventure.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">鲍恩瀑布</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="09" style="--pin-order:0" transform="translate(338.8 485.2)">
+                <g class="map-pin" data-map-day="09" data-map-landmark="皇后镇" tabindex="-1" role="button" aria-label="D09 · 皇后镇" style="--pin-order:0" transform="translate(338.8 485.2)">
                   <path class="map-pin__leader" d="M 0 0 L -46 -30"></path>
                   <g class="map-pin__marker map-pin__marker--left" transform="translate(-46 -30)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/city.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="-16" y="-2">皇后镇</text>
                   </g>
                 </g>
-                <g class="map-pin" data-map-day="09" style="--pin-order:1" transform="translate(341.4 485.9)">
+                <g class="map-pin" data-map-day="09" data-map-landmark="鹿苑高地" tabindex="-1" role="button" aria-label="D09 · 鹿苑高地" style="--pin-order:1" transform="translate(341.4 485.9)">
                   <path class="map-pin__leader" d="M 0 0 L 42 20"></path>
                   <g class="map-pin__marker" transform="translate(42 20)">
-                    <use href="#map-pin-shape"></use>
+                    <circle class="map-pin__hit" cx="0" cy="0" r="22"></circle>
+                    <use href="#map-pin-shape" x="-14" y="-16" width="28" height="36"></use>
                     <image href="assets/icons/deer.png" x="-7" y="-12" width="14" height="14"></image>
                     <text class="map-pin__label" x="16" y="-2">鹿苑高地</text>
                   </g>
@@ -2300,11 +2341,11 @@
           </p>
         </div>
 
-        <aside class="map-detail" aria-live="polite">
+        <aside class="map-detail">
           <span class="map-detail__eyebrow">D04—D11 · SOUTH ISLAND</span>
           <h3 class="map-detail__title">选择一天，展开路线</h3>
           <p class="map-detail__route">从基督城到峡湾，再回到皇后镇</p>
-          <p class="map-detail__summary">悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。</p>
+          <p class="map-detail__summary" aria-live="polite">悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。</p>
           <a class="map-detail__link" href="#day-3">查看第一段行程 <span aria-hidden="true">→</span></a>
         </aside>
       </div>
@@ -2425,7 +2466,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">04<span>·</span></div>
       <div class="day__date">09 / 27 · SUN · 中秋节</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>基督城 → 蒂卡波 → 特泽维尔</dd><dt>INFO</dt><dd>226 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>基督城 → 蒂卡波 → 特泽维尔</dd><dt>INFO</dt><dd>保守里程 304 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">蒂卡波·<em>暗夜星空</em></h3>
@@ -2476,7 +2517,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">05<span>·</span></div>
       <div class="day__date">09 / 28 · MON · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 库克山 → 特泽维尔</dd><dt>INFO</dt><dd>往返 164 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 库克山 → 特泽维尔</dd><dt>INFO</dt><dd>保守里程 194 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">塔斯曼·<em>冰川日</em></h3>
@@ -2556,7 +2597,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">06<span>·</span></div>
       <div class="day__date">09 / 29 · TUE · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 瓦纳卡</dd><dt>INFO</dt><dd>206 km · ~2.5 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>特泽维尔 → 瓦纳卡</dd><dt>INFO</dt><dd>保守里程 206 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">瓦纳卡·<em>湖畔时光</em></h3>
@@ -2613,7 +2654,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">07<span>·</span></div>
       <div class="day__date">09 / 30 · WED · 休假</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>瓦纳卡 → 皇后镇 → 蒂阿瑙</dd><dt>INFO</dt><dd>239 km · ~3 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>瓦纳卡 → 皇后镇 → 蒂阿瑙</dd><dt>INFO</dt><dd>保守里程 240 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">驶向·<em>蒂阿瑙</em></h3>
@@ -2667,7 +2708,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">08<span>·</span></div>
       <div class="day__date">10 / 01 · THU · 国庆节</div>
-      <dl class="day__meta"><dt>CRUISE</dt><dd>蒂阿瑙 ⇌ 米尔福德峡湾</dd><dt>INFO</dt><dd>往返 236 km</dd></dl>
+      <dl class="day__meta"><dt>CRUISE</dt><dd>蒂阿瑙 ⇌ 米尔福德峡湾</dd><dt>INFO</dt><dd>保守里程 237 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">米尔福德·<em>世界第八大奇迹</em></h3>
@@ -2741,7 +2782,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">09<span>·</span></div>
       <div class="day__date">10 / 02 · FRI · 国庆节</div>
-      <dl class="day__meta"><dt>DRIVE</dt><dd>蒂阿瑙 → 皇后镇</dd><dt>INFO</dt><dd>171 km · ~2 h</dd></dl>
+      <dl class="day__meta"><dt>DRIVE</dt><dd>蒂阿瑙 → 皇后镇</dd><dt>INFO</dt><dd>保守里程 185 km</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">皇后镇·<em>Deer Park</em></h3>
@@ -2809,7 +2850,7 @@
     <aside class="day__rail" data-reveal>
       <div class="day__num">10<span>·</span></div>
       <div class="day__date">10 / 03 · SAT · 国庆节</div>
-      <dl class="day__meta"><dt>ADVENTURE</dt><dd>皇后镇 → 格林诺奇</dd><dt>INFO</dt><dd>自驾往返 + Jet</dd></dl>
+      <dl class="day__meta"><dt>ADVENTURE</dt><dd>皇后镇 → 格林诺奇</dd><dt>INFO</dt><dd>保守里程 104 km + Jet</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">格林诺奇·<em>指环王之路</em></h3>
@@ -3080,6 +3121,208 @@
   const mobileLayout = window.matchMedia('(max-width: 900px)');
   const days = [...document.querySelectorAll('.day')];
   const navItems = [...document.querySelectorAll('.day-nav__item')];
+  const mapRoot = document.querySelector('[data-map]');
+
+  if (
+    mapRoot
+    && mapRoot.querySelectorAll('.map-day[data-map-day]').length === 8
+    && mapRoot.querySelectorAll('.map-route[data-map-day]').length === 8
+    && mapRoot.querySelector('.map-svg')
+    && mapRoot.querySelector('.map-detail')
+    && mapRoot.querySelector('[data-map-overview]')
+    && mapRoot.querySelector('[data-map-clear]')
+  ) {
+    const mapDayButtons = [...mapRoot.querySelectorAll('.map-day[data-map-day]')];
+    const mapOverviewButton = mapRoot.querySelector('[data-map-overview]');
+    const mapRoutes = [...mapRoot.querySelectorAll('.map-route[data-map-day]')];
+    const mapPins = [...mapRoot.querySelectorAll('.map-pin[data-map-day]')];
+    const mapSvg = mapRoot.querySelector('.map-svg');
+    const mapClearButton = mapRoot.querySelector('[data-map-clear]');
+    const mapDetail = mapRoot.querySelector('.map-detail');
+    const mapDetailEyebrow = mapDetail.querySelector('.map-detail__eyebrow');
+    const mapDetailTitle = mapDetail.querySelector('.map-detail__title');
+    const mapDetailRoute = mapDetail.querySelector('.map-detail__route');
+    const mapDetailSummary = mapDetail.querySelector('.map-detail__summary');
+    const mapDetailLink = mapDetail.querySelector('.map-detail__link');
+    let lockedMapDay = null;
+    let previewMapDay = null;
+    let selectedLandmark = null;
+    let detailTimer = 0;
+    mapRoot.classList.add('is-enhanced');
+
+    const mapButtonForDay = (day) => (
+      mapDayButtons.find((button) => button.dataset.mapDay === day)
+    );
+
+    const updateMapDetail = (day) => {
+      const button = mapButtonForDay(day);
+      if (!button) {
+        mapDetailEyebrow.textContent = 'D04—D11 · SOUTH ISLAND';
+        mapDetailTitle.textContent = '选择一天，展开路线';
+        mapDetailRoute.textContent = '从基督城到峡湾，再回到皇后镇';
+        mapDetailSummary.textContent = '悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。';
+        mapDetailLink.href = '#day-3';
+        mapDetailLink.innerHTML = '查看第一段行程 <span aria-hidden="true">→</span>';
+        return;
+      }
+
+      mapDetailEyebrow.textContent = `D${day} · ${button.dataset.mapMeta}`;
+      mapDetailTitle.textContent = button.dataset.mapTitle;
+      mapDetailRoute.textContent = button.dataset.mapRoute;
+      mapDetailSummary.textContent = (
+        selectedLandmark && day === lockedMapDay && !previewMapDay
+          ? `已选地标：${selectedLandmark}。${button.dataset.mapSummary}`
+          : button.dataset.mapSummary
+      );
+      mapDetailLink.href = button.dataset.mapHref;
+      mapDetailLink.innerHTML = `查看 D${day} 完整行程 <span aria-hidden="true">→</span>`;
+    };
+
+    const transitionMapDetail = (day) => {
+      window.clearTimeout(detailTimer);
+      if (reduceMotion.matches) {
+        updateMapDetail(day);
+        mapDetail.classList.remove('is-changing');
+        return;
+      }
+      mapDetail.classList.add('is-changing');
+      detailTimer = window.setTimeout(() => {
+        updateMapDetail(day);
+        mapDetail.classList.remove('is-changing');
+      }, 90);
+    };
+
+    const renderMapState = () => {
+      const visibleDay = previewMapDay || lockedMapDay;
+      const previewing = Boolean(previewMapDay);
+      mapRoot.classList.toggle('is-filtered', Boolean(visibleDay));
+
+      mapDayButtons.forEach((button) => {
+        const day = button.dataset.mapDay;
+        button.classList.toggle('is-active', day === lockedMapDay && !previewing);
+        button.classList.toggle('is-preview', day === visibleDay && previewing);
+        button.setAttribute('aria-pressed', String(day === lockedMapDay));
+      });
+
+      mapOverviewButton.classList.toggle('is-active', !lockedMapDay && !previewing);
+      mapOverviewButton.setAttribute('aria-pressed', String(!lockedMapDay));
+
+      mapRoutes.forEach((route) => {
+        const day = route.dataset.mapDay;
+        route.classList.toggle('is-active', day === visibleDay && !previewing);
+        route.classList.toggle('is-preview', day === visibleDay && previewing);
+        route.setAttribute('aria-pressed', String(day === lockedMapDay));
+      });
+
+      mapPins.forEach((pin) => {
+        const day = pin.dataset.mapDay;
+        const visible = day === visibleDay;
+        const selected = (
+          visible
+          && !previewing
+          && pin.dataset.mapLandmark === selectedLandmark
+        );
+        pin.classList.toggle('is-active', visible && !previewing);
+        pin.classList.toggle('is-preview', visible && previewing);
+        pin.classList.toggle('is-selected', selected);
+        pin.setAttribute('tabindex', visible ? '0' : '-1');
+        pin.setAttribute('aria-pressed', String(selected));
+      });
+
+      transitionMapDetail(visibleDay);
+    };
+
+    const previewDay = (day) => {
+      previewMapDay = day;
+      renderMapState();
+    };
+
+    const endPreview = (day) => {
+      if (previewMapDay !== day) return;
+      previewMapDay = null;
+      renderMapState();
+    };
+
+    const toggleLockedDay = (day) => {
+      lockedMapDay = lockedMapDay === day ? null : day;
+      previewMapDay = null;
+      selectedLandmark = null;
+      renderMapState();
+      if (lockedMapDay && mobileLayout.matches) {
+        requestAnimationFrame(() => {
+          mapButtonForDay(lockedMapDay)?.scrollIntoView({
+            behavior: reduceMotion.matches ? 'auto' : 'smooth',
+            block: 'nearest',
+            inline: 'center'
+          });
+        });
+      }
+    };
+
+    const lockLandmark = (pin) => {
+      lockedMapDay = pin.dataset.mapDay;
+      previewMapDay = null;
+      selectedLandmark = pin.dataset.mapLandmark;
+      renderMapState();
+    };
+
+    const resetMap = () => {
+      lockedMapDay = null;
+      previewMapDay = null;
+      selectedLandmark = null;
+      renderMapState();
+    };
+
+    mapDayButtons.forEach((button) => {
+      const day = button.dataset.mapDay;
+      button.addEventListener('pointerenter', () => previewDay(day));
+      button.addEventListener('pointerleave', () => endPreview(day));
+      button.addEventListener('focus', () => previewDay(day));
+      button.addEventListener('blur', () => endPreview(day));
+      button.addEventListener('click', () => toggleLockedDay(day));
+    });
+
+    mapRoutes.forEach((route) => {
+      const day = route.dataset.mapDay;
+      route.addEventListener('pointerenter', () => previewDay(day));
+      route.addEventListener('pointerleave', () => endPreview(day));
+      route.addEventListener('focus', () => previewDay(day));
+      route.addEventListener('blur', () => endPreview(day));
+      route.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleLockedDay(day);
+      });
+      route.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleLockedDay(day);
+      });
+    });
+
+    mapPins.forEach((pin) => {
+      pin.addEventListener('click', (event) => {
+        event.stopPropagation();
+        lockLandmark(pin);
+      });
+      pin.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        lockLandmark(pin);
+      });
+    });
+
+    mapOverviewButton.addEventListener('click', resetMap);
+    mapClearButton.addEventListener('click', resetMap);
+    mapSvg.addEventListener('click', (event) => {
+      if (event.target.closest('.map-route')) return;
+      resetMap();
+    });
+    mapRoot.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') resetMap();
+    });
+
+    renderMapState();
+  }
 
   const setDayExpanded = (day, expanded) => {
     day.classList.toggle('is-collapsed', !expanded);
