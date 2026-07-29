@@ -1,15 +1,18 @@
 # === 敏感个人信息 ===
-# 签证文件（仅 PDF 和翻译件，不排除行程 Excel）
+# 签证与行程工作底稿
 签证资料/
 *Visa*.pdf
 新西兰签证-翻译件*
+新西兰签证及行程_*.xlsx
 
 # 银行流水
 *银行流水*
 
 # 门票 / 票据
-*shootover*
-*Jet*
+门票资料/
+*shootover*.pdf
+*Shotover*.pdf
+*Jet*.pdf
 
 # === 临时文件 ===
 ~$*
@@ -18,6 +21,9 @@
 
 # === 工作目录 ===
 .workbuddy/
+raw/
+.venv/
+node_modules/
 
 # === 系统文件 ===
 .DS_Store
