@@ -2704,7 +2704,12 @@
     button.addEventListener('click', () => {
       const expand = day.classList.contains('is-collapsed');
       if (expand && mobileLayout.matches) {
+        const buttonTop = button.getBoundingClientRect().top;
         days.forEach((otherDay) => setDayExpanded(otherDay, otherDay === day));
+        const scrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollBy(0, button.getBoundingClientRect().top - buttonTop);
+        document.documentElement.style.scrollBehavior = scrollBehavior;
       } else {
         setDayExpanded(day, expand);
       }
