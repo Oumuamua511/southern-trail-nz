@@ -123,6 +123,8 @@ Final pin labels must use only details supported by the existing itinerary.
 - Route metadata is maintained once and used to populate the detail card.
 - Existing day articles remain the source of full itinerary content.
 - The map summary does not duplicate full activity descriptions.
+- Published distance uses the larger of the original itinerary estimate and the generated road geometry, labelled as conservative mileage.
+- Current conservative distances are D04 304 km, D05 194 km, D06 206 km, D07 240 km, D08 237 km, D09 185 km and D10 104 km.
 
 ## Progressive enhancement
 
@@ -168,4 +170,3 @@ Easing should feel like paper and ink settling, not a springy application dashbo
 - No runtime request is made to a map, tile or routing service.
 - All new local assets are present in a clean Git checkout.
 - W3C HTML validation, script syntax checks and existing page regression checks pass.
-
