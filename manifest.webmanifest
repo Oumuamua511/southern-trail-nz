@@ -1,0 +1,21 @@
+{
+  "name": "新西兰南岛自驾攻略 · Aotearoa Field Journal",
+  "short_name": "南岛行程",
+  "description": "2026 年新西兰南岛 13 天自驾行程手账。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4ece0",
+  "theme_color": "#14202e",
+  "icons": [
+    {
+      "src": "assets/icons/flight.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

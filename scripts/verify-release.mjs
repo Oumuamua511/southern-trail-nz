@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, join, relative, resolve } from 'node:path';
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -22,7 +22,7 @@ for (const [, reference, target] of hashTargets) {
   if (!idSet.has(target)) fail(`Broken hash reference: ${reference}`);
 }
 
-const localReferences = matches(/\b(?:href|src)="([^"]+)"/g)
+const localReferences = matches(/\b(?:href|src)\s*=\s*["']([^"']+)["']/g)
   .map((match) => match[1])
   .filter((reference) => (
     !reference.startsWith('#')
@@ -36,7 +36,12 @@ const localReferences = matches(/\b(?:href|src)="([^"]+)"/g)
 for (const reference of localReferences) {
   const cleanReference = reference.split(/[?#]/, 1)[0];
   const resolvedReference = resolve(root, cleanReference);
-  if (!resolvedReference.startsWith(`${root}/`)) {
+  const relativeReference = relative(root, resolvedReference);
+  if (
+    isAbsolute(relativeReference)
+    || relativeReference === '..'
+    || /^\.\.(?:[\\/]|$)/.test(relativeReference)
+  ) {
     fail(`Local reference escapes repository: ${reference}`);
   } else {
     try {
@@ -79,7 +84,40 @@ for (const match of matches(/<img\b[^>]*>/g)) {
   if (!/\balt="[^"]*"/.test(match[0])) fail(`Image is missing alt text: ${match[0]}`);
 }
 
-const inlineScripts = matches(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)
+const scriptSources = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)]
+  .map((match) => match[1]);
+const localRuntimeScripts = [];
+for (const source of scriptSources) {
+  if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(source)) {
+    fail(`External runtime script is not allowed: ${source}`);
+    continue;
+  }
+
+  const cleanSource = source.split(/[?#]/, 1)[0];
+  const resolvedSource = resolve(root, cleanSource);
+  const relativeSource = relative(root, resolvedSource);
+  if (
+    isAbsolute(relativeSource)
+    || relativeSource === '..'
+    || /^\.\.(?:[\\/]|$)/.test(relativeSource)
+  ) {
+    continue;
+  }
+
+  try {
+    if (statSync(resolvedSource).isFile()) {
+      const localSource = readFileSync(resolvedSource, 'utf8');
+      new Function(localSource);
+      localRuntimeScripts.push(localSource);
+    }
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      fail(`Local script does not compile: ${source} (${error.message})`);
+    }
+  }
+}
+
+const inlineScripts = matches(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)
   .map((match) => match[1]);
 for (const [index, source] of inlineScripts.entries()) {
   try {
@@ -89,7 +127,7 @@ for (const [index, source] of inlineScripts.entries()) {
   }
 }
 
-const runtimeSource = inlineScripts.join('\n');
+const runtimeSource = [...inlineScripts, ...localRuntimeScripts].join('\n');
 const runtimeDependencyPatterns = [
   [/\bfetch\s*\(/, 'fetch'],
   [/\bXMLHttpRequest\b/, 'XMLHttpRequest'],
@@ -103,7 +141,26 @@ for (const [pattern, label] of runtimeDependencyPatterns) {
   if (pattern.test(runtimeSource)) fail(`Unexpected runtime dependency: ${label}`);
 }
 
-if (/<script\b[^>]*\bsrc=/i.test(html)) fail('External runtime scripts are not allowed');
+try {
+  const manifest = JSON.parse(readFileSync(join(root, 'manifest.webmanifest'), 'utf8'));
+  if (manifest.scope !== './' || manifest.start_url !== './') {
+    fail('Manifest must keep project-relative scope and start URL');
+  }
+} catch (error) {
+  fail(`Invalid web manifest: ${error.message}`);
+}
+
+try {
+  const workerSource = readFileSync(join(root, 'sw.js'), 'utf8');
+  new Function(workerSource);
+  const cachedReferences = new Set([...workerSource.matchAll(/'\.\/([^']+)'/g)].map((match) => match[1]));
+  for (const reference of new Set(localReferences.map((value) => value.split(/[?#]/, 1)[0]))) {
+    if (!cachedReferences.has(reference)) fail(`Offline cache omits local resource: ${reference}`);
+  }
+} catch (error) {
+  fail(`Invalid service worker: ${error.message}`);
+}
+
 if (/\/Users\/|\/tmp\/|file:\/\//.test(html)) fail('Absolute development path found in production HTML');
 if (/\b(?:TODO|FIXME|HACK|XXX)\b/.test(html)) fail('Development marker found in production HTML');
 

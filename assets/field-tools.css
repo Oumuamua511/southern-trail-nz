@@ -1,0 +1,154 @@
+/* Offline field tools: checklist state, backup controls, and day sharing. */
+.field-tools__checklist-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px 24px;
+  align-items: center;
+  margin: 0 0 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  background: color-mix(in srgb, var(--cream) 84%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+.field-tools__checklist-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.field-tools__eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--amber-deep);
+}
+
+.field-tools__progress-label {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.field-tools__progress {
+  width: min(100%, 250px);
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+
+.field-tools__progress::-webkit-progress-bar { background: var(--paper-deep); }
+.field-tools__progress::-webkit-progress-value { background: var(--amber); }
+.field-tools__progress::-moz-progress-bar { background: var(--amber); }
+
+.field-tools__backup {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: stretch;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.field-tools__backup-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 12px/1.4 var(--mono);
+}
+
+.field-tools__button,
+.field-tools__share {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--cream);
+  font: 700 11px/1.1 var(--mono);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.field-tools__button:hover,
+.field-tools__share:hover {
+  background: var(--amber-deep);
+  border-color: var(--amber-deep);
+  transform: translateY(-1px);
+}
+
+.field-tools__button--quiet {
+  background: transparent;
+  color: var(--ink);
+}
+
+.field-tools__button--quiet:hover { color: var(--cream); }
+
+.field-tools__live-region {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field-tools__day-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -2px 0 24px;
+}
+
+.field-tools__share {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+
+.field-tools__share:hover { color: var(--cream); }
+
+/* The label, rather than the small visual checkbox, owns the full touch area. */
+.prep-check {
+  min-height: 44px;
+  padding: 11px 0;
+}
+
+@media (max-width: 640px) {
+  .field-tools__checklist-status {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .field-tools__progress { width: 100%; }
+
+  .field-tools__backup {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field-tools__backup-input { grid-column: 1 / -1; }
+
+  .field-tools__button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-tools__button,
+  .field-tools__share { transition: none; }
+}

@@ -2,7 +2,7 @@
 <html lang="zh-CN" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="description" content="2026 年新西兰南岛 13 天自驾行程手账：路线、每日安排、住宿、预算、行前清单与旅行贴士。">
 <meta name="theme-color" content="#14202e">
 <link rel="canonical" href="https://oumuamua511.github.io/southern-trail-nz/">
@@ -11,9 +11,12 @@
 <meta property="og:title" content="新西兰南岛自驾攻略 · Aotearoa Field Journal">
 <meta property="og:description" content="2026 年新西兰南岛 13 天自驾行程手账：路线、每日安排、住宿、预算、行前清单与旅行贴士。">
 <meta property="og:url" content="https://oumuamua511.github.io/southern-trail-nz/">
+<meta property="og:image" content="https://oumuamua511.github.io/southern-trail-nz/assets/icons/lake.png">
 <title>新西兰南岛自驾攻略 · Aotearoa Field Journal</title>
 <script>document.documentElement.classList.replace('no-js','js');</script>
 <link rel="icon" type="image/png" href="assets/icons/flight.png">
+<link rel="apple-touch-icon" href="assets/icons/flight.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800;9..144,900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Noto+Sans+SC:wght@300;400;500;700&amp;family=Noto+Serif+SC:wght@400;600;900&amp;display=swap" rel="stylesheet">
@@ -28,7 +31,7 @@
     --glacier: #4a86a8;
     --glacier-deep: #2a5d80;
     --amber: #c87a3a;
-    --amber-deep: #a85e25;
+    --amber-deep: #7b421d;
     --moss: #4d6b4f;
     --rust: #8b3a2a;
     --line: rgba(20, 32, 46, 0.18);
@@ -69,7 +72,7 @@
       radial-gradient(circle at 80% 60%, rgba(74, 134, 168, 0.05), transparent 50%);
   }
 
-  ::selection { background: var(--amber); color: var(--cream); }
+  ::selection { background: var(--amber); color: var(--ink); }
 
   .skip-link {
     position: fixed;
@@ -457,7 +460,7 @@
   }
   .day-nav__item.active {
     background: var(--amber);
-    color: var(--cream);
+    color: var(--ink);
   }
 
   /* ======================== SECTION CONTAINER ======================== */
@@ -1858,6 +1861,10 @@
     body { background: #fff; }
   }
 </style>
+<link rel="stylesheet" href="assets/trip-experience.css">
+<link rel="stylesheet" href="assets/reminder.css">
+<link rel="stylesheet" href="assets/field-tools.css">
+<link rel="stylesheet" href="assets/budget-tool.css">
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -1865,11 +1872,13 @@
 <header class="hero">
   <div class="stars"></div><div class="stars2"></div><div class="stars3"></div>
   <nav class="hero__nav" aria-label="页面页眉"><div class="hero__nav-brand">Aotearoa · Field Journal</div><div class="hero__nav-meta">2026 · 南半球 · 春</div></nav>
+  <div id="reminder-root"></div>
   <div class="hero__inner">
     <div class="hero__main">
       <div class="hero__eyebrow">SOUTH ISLAND · 首尔中转 · ROAD JOURNAL</div>
-      <h1 class="hero__title"><span class="hero__title-main">南岛<em>自驾</em></span><span class="num">2026 / 09 / 24 — 10 / 07</span></h1>
+      <h1 class="hero__title"><span class="hero__title-main">南岛<em>自驾</em></span><span class="num">2026 / 09 / 24 — 10 / 06</span></h1>
       <p class="hero__sub">中秋启程，经首尔中转飞抵奥克兰，南下基督城取车自驾。穿越麦肯齐盆地、塔斯曼冰川、瓦纳卡、皇后镇，最终抵达米尔福德峡湾——一份为期13天的实地自驾手账。</p>
+      <div class="hero__actions"><a href="#field-mode">查看下一站 <span aria-hidden="true">→</span></a><a href="#route">打开路线图</a></div>
       <div class="hero__chips"><span class="chip">首尔中转</span><span class="chip">9日自驾</span><span class="chip">7晚住宿</span><span class="chip">~1,500 km</span><span class="chip">冰川×峡湾</span><span class="chip">大韩航空</span></div>
     </div>
     <aside class="hero__panel" aria-label="行程坐标摘要">
@@ -1881,7 +1890,7 @@
   <div class="hero__scroll">SCROLL · 沿路向南</div>
 </header>
 
-<nav class="day-nav" aria-label="行程日期索引"><div class="day-nav__inner"><span class="day-nav__label">DAY · INDEX</span><div class="day-nav__list"><a class="day-nav__item" href="#overview">总览</a>
+<nav class="day-nav" aria-label="行程日期索引"><div class="day-nav__inner"><span class="day-nav__label">DAY · INDEX</span><div class="day-nav__list"><a class="day-nav__item" href="#field-mode">下一站</a><a class="day-nav__item" href="#overview">总览</a>
         <a class="day-nav__item" href="#route">路线图</a>
         <a class="day-nav__item" href="#day-0">D01 · 上海→首尔</a>
         <a class="day-nav__item" href="#day-1">D02 · 首尔→奥克兰</a>
@@ -1901,6 +1910,10 @@
         <a class="day-nav__item" href="#tips">贴士</a></div></div></nav>
 
 <main id="main-content">
+<section class="section field-mode" id="field-mode" aria-labelledby="field-mode-title">
+  <div class="section-head"><div class="section-head__num">§ 00 / NEXT STOP</div><h2 class="section-head__title" id="field-mode-title">旅途<em>现场</em></h2></div>
+  <div id="field-mode-root"><p>从<a href="#overview">行程总览</a>选择一天，查看下一站和当天安排。</p></div>
+</section>
 <!-- ============== OVERVIEW ============== -->
 <section class="section" id="overview">
   <div class="section-head" data-reveal>
@@ -1911,67 +1924,67 @@
     <a class="overview-row" href="#day-0">
       <div class="overview-row__day">01<small>09 / 24</small></div>
       <div class="overview-row__body"><strong>上海 → 首尔</strong><span>18:25-21:30 KE2058 虹桥→金浦</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/flight.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/flight.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-1">
       <div class="overview-row__day">02<small>09 / 25</small></div>
       <div class="overview-row__body"><strong>首尔 → 奥克兰</strong><span>首尔一日游 · 18:00 KE411 仁川→奥克兰</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/city.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/city.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-2">
       <div class="overview-row__day">03<small>09 / 26</small></div>
       <div class="overview-row__body"><strong>奥克兰 → 基督城</strong><span>13:15-14:35 NZ543 · 取车 · 超市采购</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/city.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/city.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-3">
       <div class="overview-row__day">04<small>09 / 27</small></div>
       <div class="overview-row__body"><strong>基督城 → 蒂卡波 → 特泽维尔</strong><span>约翰山 · 好牧羊人教堂 · 蒂卡波湖</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/stargazing.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/stargazing.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-4">
       <div class="overview-row__day">05<small>09 / 28</small></div>
       <div class="overview-row__body"><strong>特泽维尔 → 库克山 → 特泽维尔</strong><span>直升机（候补）或 普卡基湖 · 冰川步道</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/mountain.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/mountain.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-5">
       <div class="overview-row__day">06<small>09 / 29</small></div>
       <div class="overview-row__body"><strong>特泽维尔 → 瓦纳卡</strong><span>湖畔漫步 · 孤独的树 · 巨树 · 小镇晚餐</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/lone-tree.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lone-tree.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-6">
       <div class="overview-row__day">07<small>09 / 30</small></div>
       <div class="overview-row__body"><strong>瓦纳卡 → 皇后镇 → 蒂阿瑙</strong><span>Fergburger · 湖边休整 · 蒂阿瑙入住</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/lake.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lake.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-7">
       <div class="overview-row__day">08<small>10 / 01</small></div>
       <div class="overview-row__body"><strong>蒂阿瑙 ⇌ 米尔福德峡湾</strong><span>最美公路 · 峡湾游船 · 鲍恩瀑布</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/cruise.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/cruise.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-8">
       <div class="overview-row__day">09<small>10 / 02</small></div>
       <div class="overview-row__body"><strong>蒂阿瑙 → 皇后镇</strong><span>Deer Park（喂鹿·羊驼）· 皇后镇晚餐</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/deer.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/deer.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-9">
       <div class="overview-row__day">10<small>10 / 03</small></div>
       <div class="overview-row__body"><strong>皇后镇 → 格林诺奇</strong><span>指环王自驾线 · Shotover Jet · 逛街</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/jetboat.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/jetboat.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-10">
       <div class="overview-row__day">11<small>10 / 04</small></div>
       <div class="overview-row__body"><strong>皇后镇活动日</strong><span>Nzone 跳伞 · SkyLine 缆车+Luge · 自助晚餐</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/adventure.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/adventure.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-11">
       <div class="overview-row__day">12<small>10 / 05</small></div>
       <div class="overview-row__body"><strong>皇后镇 → 奥克兰 → 首尔</strong><span>7:00-8:50 NZ638 · 12:05 KE412 · 行李直达上海</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/flight.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/flight.png" alt=""></div>
     </a>
     <a class="overview-row" href="#day-12">
       <div class="overview-row__day">13<small>10 / 06</small></div>
       <div class="overview-row__body"><strong>首尔 → 上海</strong><span>8:25-9:40 KE881 仁川→浦东 · 圆满收官</span></div>
-      <div class="overview-row__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+      <div class="overview-row__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
     </a>
     </div>
 </section>
@@ -2025,7 +2038,7 @@
 
       <div class="map-stage">
         <div class="route-svg-wrap" role="group" aria-label="南岛路线交互地图">
-          <svg class="map-svg" viewBox="0 0 900 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="route-map-title route-map-desc">
+          <svg class="map-svg" viewBox="0 0 900 760" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="route-map-title route-map-desc">
             <title id="route-map-title">新西兰南岛 D04 至 D11 自驾路线图</title>
             <desc id="route-map-desc">基于真实南岛海岸线和公路路线绘制。选择日期可突出当天路段与沿途景点。</desc>
             <metadata>Coastline and lakes: Natural Earth 1:10m. Driving geometry: OpenStreetMap contributors via OSRM.</metadata>
@@ -2123,7 +2136,7 @@
                 </g>
             </g>
 
-            <g class="map-context" aria-label="行程起点与终点">
+            <g class="map-context" role="group" aria-label="行程起点与终点">
               <g data-map-context="03" transform="translate(609.9 334.8)">
                 <circle r="5"></circle>
                 <text x="13" y="-7">D03 · CHC 取车</text>
@@ -2134,7 +2147,7 @@
               </g>
             </g>
 
-            <g class="map-pins" aria-label="当日沿途地标">
+            <g class="map-pins" role="group" aria-label="当日沿途地标">
                 <g class="map-pin" data-map-day="10" data-map-landmark="Bennett’s Bluff" tabindex="-1" role="button" aria-label="D10 · Bennett’s Bluff" style="--pin-order:0" transform="translate(323.4 484.8)">
                   <path class="map-pin__leader" d="M 0 0 L 42 20"></path>
                   <g class="map-pin__marker" transform="translate(42 20)">
@@ -2351,9 +2364,10 @@
           <span class="map-detail__eyebrow">D04—D11 · SOUTH ISLAND</span>
           <h3 class="map-detail__title">选择一天，展开路线</h3>
           <p class="map-detail__route">从基督城到峡湾，再回到皇后镇</p>
-          <p class="map-detail__summary" aria-live="polite">悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。</p>
+          <p class="map-detail__summary" aria-live="polite">选择日期查看路线与沿途地标，并可跳转到当天的完整安排。</p>
           <a class="map-detail__link" href="#day-3">查看第一段行程 <span aria-hidden="true">→</span></a>
         </aside>
+        <div id="map-place-list" class="map-place-list" role="region" aria-label="当天可导航目的地"></div>
       </div>
     </div>
   </div>
@@ -2383,7 +2397,7 @@
           <div class="callout callout--tip"><strong>注意：</strong>金浦机场是首尔市内的机场（非仁川），离市区更近，打车约 30—40 min 即可到达明洞/弘大等核心区。</div>
         </div>
       </div>
-<div class="lodging"><div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div><div class="lodging__text"><strong>首尔</strong><span class="lodging-detail">同程预订 · 入住15:00后 · 退房10:00前</span></div></div>
+<div class="lodging"><div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div><div class="lodging__text"><strong>首尔</strong><span class="lodging-detail">同程预订 · 入住15:00后 · 退房10:00前</span></div></div>
     </div>
   </div>
 </article>
@@ -2402,7 +2416,7 @@
         <div class="activity__head"><span class="activity__time">白天</span><h4 class="activity__title">首尔自由探索</h4></div>
         <div class="activity__body">
           <p>中秋佳节，全天在首尔自由游览。景福宫、明洞、弘大等任选——韩国的中秋节日氛围也很浓厚。</p>
-          <p style="margin-top:8px">昨晚从金浦国际机场（GMP）入境，今天需在 <strong>18:00 前抵达仁川国际机场（ICN · T2 航站楼）</strong>登机。金浦→仁川打车约 40—60 min，也可乘机场快线 AREX。</p>
+          <p style="margin-top:8px">昨晚从金浦国际机场（GMP）入境。今天的 KE411 计划于 <strong>18:00 从仁川国际机场 ICN · T2 起飞</strong>；请以航司通知为准，提前到达机场办理值机与安检。金浦与仁川是不同机场，务必预留跨城交通时间。</p>
         </div>
       </div>
 <div class="activity">
@@ -2418,7 +2432,7 @@
           <div class="callout callout--tip"><strong>注意：</strong>确认行李是否直挂奥克兰。如非直挂，需在仁川重新办理托运。抵达奥克兰后入境、提取行李、转国内航站楼登机。</div>
         </div>
       </div>
-<div class="lodging"><div class="lodging__icon"><img class="field-icon" src="assets/icons/flight.png" alt=""></div><div class="lodging__text"><strong>夜宿飞机</strong><span class="lodging-detail">跨赤道的红眼航班</span></div></div>
+<div class="lodging"><div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/flight.png" alt=""></div><div class="lodging__text"><strong>夜宿飞机</strong><span class="lodging-detail">跨赤道的红眼航班</span></div></div>
     </div>
   </div>
 </article>
@@ -2454,10 +2468,10 @@
         </div>
       </div>
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>基督城</strong>
-          <span class="lodging-detail">2/240 Worcester Street, Christchurch, Canterbury Region 8011</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Nc9925tc" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 1晚</span>
           <span class="lodging-detail lodging-note"><strong>注意：</strong>扔垃圾、餐具放进洗碗机、关闭门窗</span>
@@ -2501,14 +2515,14 @@
         <div class="activity__head"><span class="activity__time">17:00</span><h4 class="activity__title">蒂卡波 → 特泽维尔</h4></div>
         <div class="activity__body">
           <p>下午驱车前往特泽维尔（Twizel），约 30 分钟车程。注意特泽维尔超市（Four Square）晚上 <strong>7 点关门</strong>，抵达后还有时间采购——务必在关门前赶到。</p>
-          <div class="callout callout--tip" style="margin-top:12px;"><strong><img class="inline-field-icon" src="assets/icons/stargazing.png" alt="">特泽维尔观星：</strong>特泽维尔同样属于麦肯齐暗夜保护区，光污染极低。躺在院子里或开车到镇外几分钟就能看到银河横跨天际。推荐下载 <strong>Clear Outside</strong> 或 <strong>MetService</strong> 查云量。10 月初夜间气温可降至 5°C 以下，务必穿足保暖衣物。</div>
+          <div class="callout callout--tip" style="margin-top:12px;"><strong><img loading="lazy" decoding="async" class="inline-field-icon" src="assets/icons/stargazing.png" alt="">特泽维尔观星：</strong>特泽维尔同样属于麦肯齐暗夜保护区，光污染极低。躺在院子里或开车到镇外几分钟就能看到银河横跨天际。推荐下载 <strong>Clear Outside</strong> 或 <strong>MetService</strong> 查云量。10 月初夜间气温可降至 5°C 以下，务必穿足保暖衣物。</div>
         </div>
       </div>
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>特泽维尔</strong>
-          <span class="lodging-detail">15 Braemar Place, Twizel, Canterbury 7901</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/2sXkz36L" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
           <span class="lodging-detail lodging-note"></span>
@@ -2532,9 +2546,9 @@
       <div style="display:flex;gap:20px;flex-wrap:wrap;margin:28px 0;">
         <!-- Plan A -->
         <div style="flex:1;min-width:260px;background:linear-gradient(135deg,#1a2a3a,#21384a);color:#e8e0d0;border-radius:8px;padding:22px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;opacity:0.08;"><img class="field-icon" src="assets/icons/helicopter.png" alt=""></div>
+          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;opacity:0.08;"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/helicopter.png" alt=""></div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span class="inline-field-icon"><img class="field-icon" src="assets/icons/helicopter.png" alt=""></span>
+            <span class="inline-field-icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/helicopter.png" alt=""></span>
             <h4 style="font-family:var(--display);font-size:1.2em;font-weight:600;color:var(--glacier);">Plan A · 直升机冰川徒步</h4>
           </div>
           <div style="background:rgba(200,122,58,0.2);color:#f0a050;padding:4px 10px;border-radius:3px;font-size:0.8em;font-weight:600;display:inline-block;margin-bottom:14px;">候补状态 · 三大运营商已满</div>
@@ -2551,7 +2565,7 @@
         <!-- Plan B -->
         <div style="flex:1;min-width:260px;background:var(--cream);border:1px solid var(--paper-deep);border-radius:8px;padding:22px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span class="inline-field-icon"><img class="field-icon" src="assets/icons/mountain.png" alt=""></span>
+            <span class="inline-field-icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/mountain.png" alt=""></span>
             <h4 style="font-family:var(--display);font-size:1.2em;font-weight:600;color:var(--glacier-deep);">Plan B · 普卡基湖 + 冰川步道</h4>
           </div>
           <div style="background:rgba(77,107,79,0.1);color:var(--moss);padding:4px 10px;border-radius:3px;font-size:0.8em;font-weight:600;display:inline-block;margin-bottom:14px;">已确认 · 直升机继续候补</div>
@@ -2585,10 +2599,10 @@
 
 
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>特泽维尔</strong>
-          <span class="lodging-detail">15 Braemar Place, Twizel, Canterbury 7901</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/2sXkz36L" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
         </div>
@@ -2642,10 +2656,10 @@
         </div>
       </div>
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>瓦纳卡</strong>
-          <span class="lodging-detail">24 Tenby Street, Wanaka, 9305</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-Lub8m7J" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Booking 住宿</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 1晚</span>
         </div>
@@ -2698,10 +2712,10 @@
         </div>
       </div>
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>蒂阿瑙</strong>
-          <span class="lodging-detail">Oraka Street, Te Anau, 9600</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-gR4WqiS" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Booking 住宿</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
         </div>
@@ -2772,10 +2786,10 @@
       </div>
 
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>蒂阿瑙</strong>
-          <span class="lodging-detail">Oraka Street, Te Anau, 9600</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Booking · <a href="https://www.booking.cn/Share-gR4WqiS" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Booking 住宿</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 2晚</span>
         </div>
@@ -2840,10 +2854,10 @@
       </div>
 
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>皇后镇</strong>
-          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
         </div>
@@ -2931,10 +2945,10 @@
       </div>
 
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>皇后镇</strong>
-          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
         </div>
@@ -2947,11 +2961,11 @@
     <aside class="day__rail" aria-label="D11 行程摘要" data-reveal>
       <div class="day__num">11<span>·</span></div>
       <div class="day__date">10 / 04 · SUN · 国庆节</div>
-      <dl class="day__meta"><dt>FUN</dt><dd>皇后镇活动日</dd><dt>INFO</dt><dd>蹦极 · 缆车 · Luge</dd></dl>
+      <dl class="day__meta"><dt>FUN</dt><dd>皇后镇活动日</dd><dt>INFO</dt><dd>跳伞 · 缆车 · Luge</dd></dl>
     </aside>
     <div class="day__body" data-reveal>
       <h3 class="day__title">皇后镇·<em>冒险之日</em></h3>
-      <p class="day__lede">蹦极、SkyLine 缆车、山顶自助餐、Luge 滑板车、看日落——国庆假期的完美收官。</p>
+      <p class="day__lede">跳伞、SkyLine 缆车、山顶自助餐、Luge 滑板车、看日落——国庆假期的完美收官。</p>
 <div class="activity activity--highlight">
         <div class="activity__head"><span class="activity__time">09:30</span><h4 class="activity__title">Nzone 跳伞</h4></div>
         <div class="activity__body">
@@ -2971,10 +2985,10 @@
         </div>
       </div>
 <div class="lodging">
-        <div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div>
+        <div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div>
         <div class="lodging__text">
           <strong>皇后镇</strong>
-          <span class="lodging-detail">43 Woodlands Close, Queenstown, Otago 9300</span>
+          <span class="lodging-detail">详细门牌以入住订单为准，可在目的地面板仅存本机。</span>
           <span class="lodging-detail">Airbnb · <a href="https://www.airbnb.com/l/Hvay9r0d" target="_blank" rel="noopener noreferrer" class="lodging-link">查看 Airbnb 房源</a></span>
           <span class="lodging-detail">入住 15:00后 · 退房 10:00前 · 3晚</span>
           <span class="lodging-detail lodging-note"></span>
@@ -3025,7 +3039,7 @@
           <div class="callout callout--tip"><strong>行李提示：</strong>奥克兰值机时行李直挂到上海。仁川转机无需取行李，次日 KE881 回到浦东。</div>
         </div>
       </div>
-<div class="lodging"><div class="lodging__icon"><img class="field-icon" src="assets/icons/lodge.png" alt=""></div><div class="lodging__text"><strong>首尔机场</strong><span class="lodging-detail">中转住宿 · 行李直达上海</span></div></div>
+<div class="lodging"><div class="lodging__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/lodge.png" alt=""></div><div class="lodging__text"><strong>首尔机场</strong><span class="lodging-detail">中转住宿 · 行李直达上海</span></div></div>
     </div>
   </div>
 </article>
@@ -3062,34 +3076,35 @@
 <section class="section" id="logistics">
   <div class="section-head" data-reveal><div class="section-head__num">§ 03 / LOGISTICS</div><h2 class="section-head__title">行前<em>备忘</em></h2></div>
   <div class="prep-grid">
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">01</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/supplies.png" alt=""></span>证件·金钱</h3><ul class="prep-list"><li>护照（有效期6个月以上）</li><li>新西兰电子签证（已办）</li><li>韩国签证（已办 · 入境首尔用）</li><li>国际驾照翻译件</li><li>Visa/MasterCard信用卡</li><li>少量纽币现金（小镇停车费）</li></ul></div>
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">02</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/flight.png" alt=""></span>航班信息</h3><ul class="prep-list">
-        <li class="no-bullet" style="color:var(--glacier);font-weight:600;margin-top:6px;">去程</li>
-        <li><strong>① KE2058</strong> 上海虹桥 T1 → 首尔金浦 GMP · 18:25—21:30 · 大韩航空</li>
-        <li><strong>② KE411</strong> 首尔仁川 ICN T2 → 奥克兰 AKL · 18:00→8:35(+1) · 大韩航空</li>
-        <li><strong>③ NZ543</strong> 奥克兰 AKL → 基督城 CHC · 13:15—14:35 · 新西兰航空</li>
-        <li class="no-bullet" style="color:var(--glacier);font-weight:600;margin-top:6px;">回程</li>
-        <li><strong>① NZ638</strong> 皇后镇 ZQN → 奥克兰 AKL · 07:00—08:50 · 新西兰航空</li>
-        <li><strong>② KE412</strong> 奥克兰 AKL → 首尔仁川 ICN T2 · 12:05—20:20 · 大韩航空</li>
-        <li><strong>③ KE881</strong> 首尔仁川 ICN T2 → 上海浦东 PVG · 08:25—09:40 · 大韩航空</li>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">01</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/supplies.png" alt=""></span>证件·金钱</h3><ul class="prep-list"><li data-check-id="passport">护照（有效期6个月以上）</li><li data-check-id="nz-visa">新西兰电子签证（已办）</li><li data-check-id="kr-visa">韩国签证（已办 · 入境首尔用）</li><li data-check-id="driver-translation">国际驾照翻译件</li><li data-check-id="credit-card">Visa/MasterCard信用卡</li><li data-check-id="cash-nzd">少量纽币现金（小镇停车费）</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">02</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/flight.png" alt=""></span>航班信息</h3><ul class="prep-list">
+        <li class="no-bullet" style="color:var(--glacier-deep);font-weight:600;margin-top:6px;">去程</li>
+        <li data-check-id="flight-ke2058"><strong>① KE2058</strong> 上海虹桥 T1 → 首尔金浦 GMP · 18:25—21:30 · 大韩航空</li>
+        <li data-check-id="flight-ke411"><strong>② KE411</strong> 首尔仁川 ICN T2 → 奥克兰 AKL · 18:00→8:35(+1) · 大韩航空</li>
+        <li data-check-id="flight-nz543"><strong>③ NZ543</strong> 奥克兰 AKL → 基督城 CHC · 13:15—14:35 · 新西兰航空</li>
+        <li class="no-bullet" style="color:var(--glacier-deep);font-weight:600;margin-top:6px;">回程</li>
+        <li data-check-id="flight-nz638"><strong>① NZ638</strong> 皇后镇 ZQN → 奥克兰 AKL · 07:00—08:50 · 新西兰航空</li>
+        <li data-check-id="flight-ke412"><strong>② KE412</strong> 奥克兰 AKL → 首尔仁川 ICN T2 · 12:05—20:20 · 大韩航空</li>
+        <li data-check-id="flight-ke881"><strong>③ KE881</strong> 首尔仁川 ICN T2 → 上海浦东 PVG · 08:25—09:40 · 大韩航空</li>
         <li class="no-bullet" style="color:var(--amber-deep);margin-top:8px;"><strong>行李提醒：</strong>奥克兰直挂上海 · 仁川无需取行李</li>
       </ul></div>
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">03</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/car.png" alt=""></span>租车·自驾</h3><ul class="prep-list"><li>基督城取车（9/26）→皇后镇还车（10/5）</li><li>已预订 · ¥5,068</li><li><strong>新西兰靠左行驶</strong></li><li>下载 Google Maps 离线地图</li><li>山区弯道多，注意限速</li></ul></div>
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">04</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/signal.png" alt=""></span>必备 APP</h3><ul class="prep-list"><li><strong>Google Maps</strong> · 离线地图</li><li><strong>MetService</strong> · 天气预报</li><li><strong>CamperMate</strong> · 旅行神器</li><li><strong>Clear Outside</strong> · 观星云量</li></ul></div>
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">05</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/supplies.png" alt=""></span>衣物·装备</h3><ul class="prep-list"><li>防风防水冲锋衣（峡湾必备）</li><li>保暖中间层 + 防水登山靴</li><li>防晒霜 SPF50+ · 墨镜</li><li>防虫喷雾（沙蝇专用）</li><li>帽子 · 手套(山顶)</li></ul></div>
-    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">06</span><span class="prep-card__icon"><img class="field-icon" src="assets/icons/signal.png" alt=""></span>通讯·安全</h3><ul class="prep-list">
-        <li><strong>韩国单日流量卡</strong> — 淘宝提前购，首尔中转日用</li>
-        <li><strong>新西兰电话卡/流量卡</strong> — 推荐 Spark / Skinny / One NZ，奥克兰机场或基督城购买</li>
-        <li>南岛大部分地区信号弱，离线地图必备</li>
-        <li style="margin-top:6px;">紧急电话：新西兰 111</li>
-        <li>中国驻新西兰使馆：+64-4-4721382</li>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">03</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/car.png" alt=""></span>租车·自驾</h3><ul class="prep-list"><li data-check-id="car-pickup-return">基督城取车（9/26）→皇后镇还车（10/5）</li><li data-check-id="car-booking">已预订 · ¥5,068</li><li data-check-id="left-driving"><strong>新西兰靠左行驶</strong></li><li data-check-id="offline-maps">下载 Google Maps 离线地图</li><li data-check-id="road-speed">山区弯道多，注意限速</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">04</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/signal.png" alt=""></span>必备 APP</h3><ul class="prep-list"><li data-check-id="app-google-maps"><strong>Google Maps</strong> · 离线地图</li><li data-check-id="app-metservice"><strong>MetService</strong> · 天气预报</li><li data-check-id="app-campermate"><strong>CamperMate</strong> · 旅行神器</li><li data-check-id="app-clear-outside"><strong>Clear Outside</strong> · 观星云量</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">05</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/supplies.png" alt=""></span>衣物·装备</h3><ul class="prep-list"><li data-check-id="gear-shell">防风防水冲锋衣（峡湾必备）</li><li data-check-id="gear-layer-boots">保暖中间层 + 防水登山靴</li><li data-check-id="gear-sunscreen">防晒霜 SPF50+ · 墨镜</li><li data-check-id="gear-sandfly">防虫喷雾（沙蝇专用）</li><li data-check-id="gear-hat-gloves">帽子 · 手套(山顶)</li></ul></div>
+    <div class="prep-card" data-reveal><h3 class="prep-card__title"><span class="num">06</span><span class="prep-card__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/signal.png" alt=""></span>通讯·安全</h3><ul class="prep-list">
+        <li data-check-id="connectivity-korea"><strong>韩国单日流量卡</strong> — 淘宝提前购，首尔中转日用</li>
+        <li data-check-id="connectivity-nz"><strong>新西兰电话卡/流量卡</strong> — 推荐 Spark / Skinny / One NZ，奥克兰机场或基督城购买</li>
+        <li data-check-id="signal-warning">南岛大部分地区信号弱，离线地图必备</li>
+        <li data-check-id="emergency-111" style="margin-top:6px;">紧急电话：新西兰 111</li>
+        <li data-check-id="embassy-phone">中国驻新西兰使馆：+64-4-4721382</li>
       </ul></div>
   </div>
 </section>
 
 <section class="budget-section" id="budget">
   <div class="route-section__inner">
-    <div class="section-head" data-reveal><div class="section-head__num">§ 04 / BUDGET</div><h2 class="section-head__title">预算<em>参考</em> <span style="font-size:0.4em;font-style:italic;font-weight:300;opacity:.6;">5人出行 · 费用均摊</span></h2></div>
+    <div class="section-head" data-reveal><div class="section-head__num">§ 04 / BUDGET</div><h2 class="section-head__title">预算<em>参考</em> <span style="font-size:0.4em;font-style:italic;font-weight:300;opacity:.6;">原始5人估算 · 可在下方调整</span></h2></div>
+    <div id="budget-tool"></div>
     <div class="budget-table" data-reveal>
       <div class="budget-fx">参考汇率 · <span>1 NZD ≈ ¥4.3</span></div>
       <div class="budget-row budget-row--header"><span>项目</span><span class="budget-row__total">5人合计</span><span class="budget-row__per">人均</span></div>
@@ -3101,17 +3116,17 @@
       <div class="budget-row"><div class="budget-row__label">餐饮 + 油费 + 杂费<small>约10天自驾 · 超市采购 + 外食</small></div><div class="budget-row__total">约 ¥25,000 — 30,000</div><div class="budget-row__per">¥5,000 — 6,000</div></div>
       <div class="budget-row budget-row--total"><div class="budget-row__label">总计估算</div><div class="budget-row__total">约 ¥167,583 — 172,583</div><div class="budget-row__per">约 ¥33,517 — 34,517</div></div>
     </div>
-    <p class="budget-note" data-reveal>以上为<strong>5人出行</strong>实际花费测算。机票为单人价，住宿和租车5人均摊。活动除 Deer Park 按车计费外均为单人价。不含首尔中转住宿、购物及个人消费。</p>
+    <p class="budget-note" data-reveal>以上为<strong>5人出行</strong>的计划费用估算，金额和汇率并非实时价格。住宿和租车按5人均摊；不含首尔中转住宿、购物及个人消费。出发前请按订单核对实际金额。</p>
   </div>
 </section>
 
 <section class="section" id="tips">
   <div class="section-head" data-reveal><div class="section-head__num">§ 05 / FIELD NOTES</div><h2 class="section-head__title">实用<em>贴士</em></h2></div>
   <div class="tips-grid">
-    <div class="tip-block" data-reveal><h3><span class="num">01</span><span class="tip-block__icon"><img class="field-icon" src="assets/icons/car.png" alt=""></span>行车安全</h3><ul><li>南岛山路弯道多，严格遵守限速</li><li>靠左行驶（与国内相反），转弯谨慎</li><li>山区天气多变，随时查 MetService</li><li>单车道桥梁按箭头方向让行</li></ul></div>
-    <div class="tip-block" data-reveal><h3><span class="num">02</span><span class="tip-block__icon"><img class="field-icon" src="assets/icons/signal.png" alt=""></span>信号覆盖</h3><ul><li>南岛大部分地区信号弱或无信号</li><li>米尔福德、格林诺奇全程无信号</li><li><strong>出发前必下离线地图</strong></li><li>住宿地通常有 Wi-Fi</li></ul></div>
-    <div class="tip-block" data-reveal><h3><span class="num">03</span><span class="tip-block__icon"><img class="field-icon" src="assets/icons/weather.png" alt=""></span>9-10月天气</h3><ul><li>白天 10—18°C，夜间 4—10°C</li><li>一天内可能经历四季，洋葱式穿搭</li><li>峡湾全年约 200 天有雨（≠坏事！）</li><li>紫外线极强，防晒必涂</li></ul></div>
-    <div class="tip-block" data-reveal><h3><span class="num">04</span><span class="tip-block__icon"><img class="field-icon" src="assets/icons/supplies.png" alt=""></span>超市·补给</h3><ul><li><strong>New World / Countdown</strong></li><li><strong>Pak'nSave</strong> 价格最低</li><li><strong>FreshChoice / Four Square</strong></li><li>特泽维尔超市晚7点关门，注意时间</li><li>建议在基督城采购充足再出发</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">01</span><span class="tip-block__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/car.png" alt=""></span>行车安全</h3><ul><li>南岛山路弯道多，严格遵守限速</li><li>靠左行驶（与国内相反），转弯谨慎</li><li>山区天气多变，随时查 MetService</li><li>单车道桥梁按箭头方向让行</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">02</span><span class="tip-block__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/signal.png" alt=""></span>信号覆盖</h3><ul><li>南岛大部分地区信号弱或无信号</li><li>米尔福德、格林诺奇全程无信号</li><li><strong>出发前必下离线地图</strong></li><li>住宿地通常有 Wi-Fi</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">03</span><span class="tip-block__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/weather.png" alt=""></span>9-10月天气</h3><ul><li>白天 10—18°C，夜间 4—10°C</li><li>一天内可能经历四季，洋葱式穿搭</li><li>峡湾全年约 200 天有雨（≠坏事！）</li><li>紫外线极强，防晒必涂</li></ul></div>
+    <div class="tip-block" data-reveal><h3><span class="num">04</span><span class="tip-block__icon"><img loading="lazy" decoding="async" class="field-icon" src="assets/icons/supplies.png" alt=""></span>超市·补给</h3><ul><li><strong>New World / Countdown</strong></li><li><strong>Pak'nSave</strong> 价格最低</li><li><strong>FreshChoice / Four Square</strong></li><li>特泽维尔超市晚7点关门，注意时间</li><li>建议在基督城采购充足再出发</li></ul></div>
   </div>
 </section>
 
@@ -3143,6 +3158,7 @@
     const mapRoutes = [...mapRoot.querySelectorAll('.map-route[data-map-day]')];
     const mapPins = [...mapRoot.querySelectorAll('.map-pin[data-map-day]')];
     const mapSvg = mapRoot.querySelector('.map-svg');
+    const hoverPreview = window.matchMedia('(hover: hover) and (pointer: fine)');
     const mapClearButton = mapRoot.querySelector('[data-map-clear]');
     const mapDetail = mapRoot.querySelector('.map-detail');
     const mapDetailEyebrow = mapDetail.querySelector('.map-detail__eyebrow');
@@ -3166,7 +3182,9 @@
         mapDetailEyebrow.textContent = 'D04—D11 · SOUTH ISLAND';
         mapDetailTitle.textContent = '选择一天，展开路线';
         mapDetailRoute.textContent = '从基督城到峡湾，再回到皇后镇';
-        mapDetailSummary.textContent = '悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。';
+        mapDetailSummary.textContent = hoverPreview.matches
+          ? '悬停可临时预览；点击后锁定当天路线，并查看沿途地标与活动。'
+          : '点击日期查看路线与沿途地标；再次点击同一天可返回全程路线。';
         mapDetailLink.href = '#day-3';
         mapDetailLink.innerHTML = '查看第一段行程 <span aria-hidden="true">→</span>';
         return;
@@ -3281,8 +3299,8 @@
 
     mapDayButtons.forEach((button) => {
       const day = button.dataset.mapDay;
-      button.addEventListener('pointerenter', () => previewDay(day));
-      button.addEventListener('pointerleave', () => endPreview(day));
+      button.addEventListener('pointerenter', () => { if (hoverPreview.matches) previewDay(day); });
+      button.addEventListener('pointerleave', () => { if (hoverPreview.matches) endPreview(day); });
       button.addEventListener('focus', () => previewDay(day));
       button.addEventListener('blur', () => endPreview(day));
       button.addEventListener('click', () => toggleLockedDay(day));
@@ -3290,8 +3308,8 @@
 
     mapRoutes.forEach((route) => {
       const day = route.dataset.mapDay;
-      route.addEventListener('pointerenter', () => previewDay(day));
-      route.addEventListener('pointerleave', () => endPreview(day));
+      route.addEventListener('pointerenter', () => { if (hoverPreview.matches) previewDay(day); });
+      route.addEventListener('pointerleave', () => { if (hoverPreview.matches) endPreview(day); });
       route.addEventListener('focus', () => previewDay(day));
       route.addEventListener('blur', () => endPreview(day));
       route.addEventListener('click', (event) => {
@@ -3384,25 +3402,6 @@
     mobileLayout.addListener(syncDayLayout);
   }
 
-  document.querySelectorAll('.prep-list li:not(.no-bullet)').forEach((item, index) => {
-    const label = document.createElement('label');
-    const input = document.createElement('input');
-    const text = document.createElement('span');
-    const storageKey = `southern-trail-check-${index}`;
-    label.className = 'prep-check';
-    input.type = 'checkbox';
-    while (item.firstChild) text.append(item.firstChild);
-    label.append(input, text);
-    item.append(label);
-    try { input.checked = localStorage.getItem(storageKey) === '1'; } catch (_) {}
-    input.addEventListener('change', () => {
-      try {
-        if (input.checked) localStorage.setItem(storageKey, '1');
-        else localStorage.removeItem(storageKey);
-      } catch (_) {}
-    });
-  });
-
   const revealElements = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver((entries) => {
@@ -3467,4 +3466,9 @@
     days.forEach((day) => setDayExpanded(day, day === target));
   });
 </script>
+<script src="assets/trip-data.js"></script>
+<script src="assets/trip-experience.js"></script>
+<script src="assets/reminder.js"></script>
+<script src="assets/field-tools.js"></script>
+<script src="assets/budget-tool.js"></script>
 </body></html>
