@@ -30,6 +30,9 @@ jobs:
         run: |
           node scripts/verify-map.mjs
           node scripts/verify-release.mjs
+          node scripts/verify-trip-data.mjs
+          node scripts/reminder-clock-tests.cjs
+          node scripts/offline-cache-tests.cjs
 
       - name: Validate HTML
         run: npx --yes html-validate@11.6.0 --rule no-inline-style:off index.html

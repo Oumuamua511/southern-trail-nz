@@ -1,0 +1,297 @@
+/* Offline budget planner. The host page provides the project's colour variables. */
+#budget-tool {
+  margin-top: 28px;
+}
+
+.budget-tool__panel {
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--line);
+  background: var(--cream);
+  box-shadow: var(--shadow-sm);
+}
+
+.budget-tool__header {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 22px;
+}
+
+.budget-tool__eyebrow {
+  color: var(--amber-deep);
+  font: 700 10px/1.2 var(--mono);
+  letter-spacing: .15em;
+}
+
+.budget-tool__title {
+  margin: 0;
+  color: var(--ink);
+  font: 600 clamp(22px, 3vw, 30px)/1.2 var(--display);
+}
+
+.budget-tool__intro,
+.budget-tool__note {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.budget-tool__controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.budget-tool__field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: var(--ink-soft);
+  font: 700 11px/1.2 var(--mono);
+  letter-spacing: .03em;
+}
+
+.budget-tool__input,
+.budget-tool__select,
+.budget-tool__item-name {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px/1.2 var(--sans);
+}
+
+.budget-tool__input:focus,
+.budget-tool__select:focus,
+.budget-tool__item-name:focus,
+.budget-tool__button:focus-visible,
+.budget-tool__paid:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.budget-tool__table-wrap {
+  overflow-x: auto;
+  margin-inline: -2px;
+}
+
+.budget-tool__table {
+  width: 100%;
+  min-width: 660px;
+  border-collapse: collapse;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.budget-tool__table th {
+  padding: 0 8px 9px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  text-align: left;
+  font: 700 10px/1.2 var(--mono);
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+.budget-tool__table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+}
+
+.budget-tool__table td:first-child,
+.budget-tool__table th:first-child { padding-left: 0; }
+
+.budget-tool__table td:last-child,
+.budget-tool__table th:last-child { padding-right: 0; }
+
+.budget-tool__table .budget-tool__item-name { min-width: 150px; }
+.budget-tool__table .budget-tool__input { min-width: 116px; }
+.budget-tool__table .budget-tool__select { min-width: 92px; }
+
+.budget-tool__converted {
+  display: block;
+  min-width: 92px;
+  color: var(--ink);
+  font: 600 13px/1.3 var(--mono);
+  white-space: nowrap;
+}
+
+.budget-tool__converted small {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font: 10px/1.3 var(--sans);
+}
+
+.budget-tool__paid-wrap {
+  display: inline-flex;
+  min-height: 44px;
+  min-width: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-tool__paid {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--moss);
+}
+
+.budget-tool__remove {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--rust);
+  font: 700 11px/1.1 var(--mono);
+  cursor: pointer;
+}
+
+.budget-tool__remove:hover { background: var(--paper-warm); }
+
+.budget-tool__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.budget-tool__button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--cream);
+  font: 700 11px/1.1 var(--mono);
+  letter-spacing: .04em;
+  cursor: pointer;
+}
+
+.budget-tool__button:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+
+.budget-tool__button--quiet {
+  background: transparent;
+  color: var(--ink);
+}
+
+.budget-tool__button--quiet:hover { color: var(--cream); }
+
+.budget-tool__summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.budget-tool__metric {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid var(--line-soft);
+  background: var(--paper);
+}
+
+.budget-tool__metric-label {
+  color: var(--ink-soft);
+  font: 700 10px/1.2 var(--mono);
+  letter-spacing: .05em;
+}
+
+.budget-tool__metric-value {
+  color: var(--ink);
+  font: 600 clamp(16px, 2vw, 21px)/1.2 var(--mono);
+  overflow-wrap: anywhere;
+}
+
+.budget-tool__note {
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.budget-tool__status {
+  min-height: 1.4em;
+  margin-top: 8px;
+  color: var(--moss);
+  font-size: 12px;
+}
+
+.budget-tool__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .budget-tool__controls,
+  .budget-tool__summary { grid-template-columns: 1fr 1fr; }
+
+  .budget-tool__table-wrap { overflow: visible; }
+  .budget-tool__table { min-width: 0; display: block; }
+  .budget-tool__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .budget-tool__table tbody,
+  .budget-tool__table tr,
+  .budget-tool__table td { display: block; }
+  .budget-tool__table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .budget-tool__table td,
+  .budget-tool__table td:first-child,
+  .budget-tool__table td:last-child {
+    display: grid;
+    grid-template-columns: minmax(74px, auto) minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+    padding: 0;
+    border: 0;
+  }
+  .budget-tool__table td::before {
+    content: attr(data-label);
+    color: var(--ink-soft);
+    font: 700 10px/1.2 var(--mono);
+    letter-spacing: .04em;
+  }
+  .budget-tool__table td:first-child { grid-column: 1 / -1; }
+  .budget-tool__table td:last-child { display: flex; justify-content: flex-end; }
+  .budget-tool__table td:last-child::before { display: none; }
+  .budget-tool__table .budget-tool__item-name,
+  .budget-tool__table .budget-tool__input,
+  .budget-tool__table .budget-tool__select { min-width: 0; }
+  .budget-tool__table .budget-tool__remove { margin-left: auto; }
+}
+
+@media (max-width: 450px) {
+  .budget-tool__controls,
+  .budget-tool__summary { grid-template-columns: 1fr; }
+  .budget-tool__panel { padding: 16px; }
+  .budget-tool__actions > * { width: 100%; }
+  .budget-tool__table tr { grid-template-columns: 1fr; }
+  .budget-tool__table td:first-child { grid-column: auto; }
+  .budget-tool__table td:last-child { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .budget-tool__button,
+  .budget-tool__remove { transition: none; }
+}
