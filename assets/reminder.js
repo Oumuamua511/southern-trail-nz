@@ -139,7 +139,8 @@
     signal.setAttribute('aria-hidden', 'true');
     detail.id = 'reminder-details';
     summary.setAttribute('aria-controls', detail.id);
-    detail.hidden = true;
+    detail.inert = true;
+    detail.setAttribute('aria-hidden', 'true');
     copy.append(eyebrow, title);
     summary.append(signal, copy, countdown);
     shell.append(summary, detail, live);
@@ -153,9 +154,9 @@
     function setExpanded(value) {
       expanded = value;
       shell.classList.toggle('is-expanded', expanded);
-      root.closest('.hero')?.classList.toggle('is-reminder-expanded', expanded);
       summary.setAttribute('aria-expanded', String(expanded));
-      detail.hidden = !expanded;
+      detail.inert = !expanded;
+      detail.setAttribute('aria-hidden', String(!expanded));
     }
 
     function renderDetails(model) {
@@ -305,6 +306,11 @@
     }
 
     summary.addEventListener('click', function () { setExpanded(!expanded); });
+    root.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || !expanded) return;
+      setExpanded(false);
+      summary.focus();
+    });
     window.addEventListener('southerntrail:placechange', function () { refresh(true); });
     refresh();
 
