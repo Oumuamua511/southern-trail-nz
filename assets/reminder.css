@@ -74,6 +74,7 @@
 .reminder__countdown,
 .reminder__meta,
 .reminder__form-label,
+.reminder__schedule-label,
 .reminder__edited {
   font-family: var(--mono);
   font-size: 9px;
@@ -185,21 +186,26 @@
 
 .reminder__form {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   align-items: end;
   padding-top: 13px;
   border-top: 1px solid rgba(244, 236, 224, 0.13);
 }
 
-.reminder__form-label {
+.reminder__form-label,
+.reminder__schedule-label {
   display: grid;
+  min-width: 0;
   gap: 5px;
   color: rgba(244, 236, 224, 0.68);
 }
+.reminder__form-label { grid-column: 1 / -1; }
 
+.reminder__date-input,
 .reminder__time-input {
   width: 100%;
+  min-width: 0;
   min-height: 44px;
   padding: 9px;
   border: 1px solid rgba(244, 236, 224, 0.28);
@@ -207,10 +213,11 @@
   background: rgba(244, 236, 224, 0.07);
   color: var(--cream);
   color-scheme: dark;
-  font: 700 14px/1 var(--mono);
+  font: 700 16px/1.2 var(--mono);
 }
 
-.reminder__control { min-width: 54px; }
+.reminder__control { min-width: 0; }
+.reminder__form .reminder__control { width: 100%; }
 .reminder__control--save { border-color: var(--amber); color: var(--amber); }
 
 .reminder__edited { color: var(--amber); }
@@ -237,12 +244,14 @@
 
 .reminder__schedule-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 84px 54px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   align-items: end;
 }
+.reminder__schedule-row .reminder__control { grid-column: 1 / -1; width: 100%; }
 
 .reminder__schedule-name {
+  grid-column: 1 / -1;
   overflow: hidden;
   color: rgba(244, 236, 224, 0.82);
   font: 12px/1.35 var(--sans);
@@ -252,7 +261,7 @@
 .reminder__schedule-name small {
   display: block;
   margin-top: 3px;
-  color: rgba(244, 236, 224, 0.48);
+  color: rgba(244, 236, 224, 0.6);
   font: 9px/1.2 var(--mono);
   letter-spacing: 0.06em;
 }
@@ -271,6 +280,10 @@
   #reminder-root { margin-top: 8px; }
 }
 
+@media (max-width: 520px) {
+  .reminder__schedule-row { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 390px) {
   #reminder-root { width: calc(100vw - 24px); }
   .reminder__summary { padding-inline: 12px; }
@@ -278,10 +291,6 @@
   .reminder__countdown { min-width: 64px; font-size: 8px; }
   .reminder__detail-inner { padding-inline: 13px; }
   .reminder.is-expanded .reminder__detail-inner { padding-block: 13px; }
-  .reminder__form { grid-template-columns: 1fr 1fr; }
-  .reminder__form-label { grid-column: 1 / -1; }
-  .reminder__control { width: 100%; }
-  .reminder__schedule-row { grid-template-columns: minmax(0, 1fr) 80px 50px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
