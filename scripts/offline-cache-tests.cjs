@@ -6,7 +6,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const scope = 'https://oumuamua511.github.io/southern-trail-nz/';
-const cacheName = 'southern-trail-nz-v1.0.1';
+const cacheName = 'southern-trail-nz-v1.0.2';
 
 class MockHeaders {
   constructor(values) {
@@ -49,8 +49,9 @@ class MockRequest {
 }
 
 const entries = new Map();
+const precached = [];
 const cache = {
-  addAll: async () => {},
+  addAll: async (requests) => { precached.push(...requests); },
   put(request, response) {
     entries.set(typeof request === 'string' ? request : request.url, response.clone());
     return Promise.resolve();
@@ -113,6 +114,12 @@ async function navigate(url) {
 }
 
 async function run() {
+  let installPromise;
+  listeners.install({ waitUntil(promise) { installPromise = promise; } });
+  assert.ok(installPromise, 'Install should precache the offline shell');
+  await installPromise;
+  assert.ok(precached.includes(new URL('./assets/trip-time.js', scope).toString()), 'Time conversion script must be available offline');
+
   const indexUrl = new URL('./index.html', scope).toString();
   const cachedHtml = '<!doctype html><title>cached</title>';
   await cache.put(indexUrl, new MockResponse(cachedHtml, { headers: { 'Content-Type': 'text/html; charset=utf-8' } }));
@@ -148,7 +155,7 @@ async function run() {
   }));
   let assetResponsePromise;
   listeners.fetch({
-    request: new MockRequest(`${reminderUrl}?v=1.0.1`, { mode: 'same-origin' }),
+    request: new MockRequest(`${reminderUrl}?v=1.0.2`, { mode: 'same-origin' }),
     respondWith(promise) { assetResponsePromise = promise; }
   });
   assert.ok(assetResponsePromise, 'Versioned local asset should be handled by the Service Worker');

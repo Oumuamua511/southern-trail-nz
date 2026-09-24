@@ -2,7 +2,8 @@
   'use strict';
 
   const trip = window.SouthernTrailData;
-  if (!trip || !Array.isArray(trip.days) || !Array.isArray(trip.events)) return;
+  const tripTime = window.SouthernTrailTime;
+  if (!trip || !tripTime || !Array.isArray(trip.days) || !Array.isArray(trip.events)) return;
 
   const placeStoragePrefix = 'southern-trail-private-place-';
   const timeStoragePrefix = 'southern-trail-event-time-';
@@ -171,9 +172,8 @@
 
   function eventTime(event) {
     const override = stored(timeStoragePrefix + event.id);
-    const time = /^([01]\d|2[0-3]):[0-5]\d$/.test(override || '') ? override : event.time;
-    if (!time) return NaN;
-    return Date.parse(`${event.date}T${time}:00${event.offset}`);
+    const moment = tripTime.effectiveMoment(event, override);
+    return moment ? moment.getTime() : NaN;
   }
 
   function upcomingEvents() {
@@ -183,18 +183,14 @@
       .sort((a, b) => a.instant - b.instant);
   }
 
-  function dateLabel(date) {
-    const [, month, day] = date.split('-');
-    return `${Number(month)} 月 ${Number(day)} 日`;
-  }
-
   function exportText() {
     const lines = ['2026 新西兰南岛行程 · 本机文字备份', '请以航司、活动订单及道路实时信息为准。', ''];
     trip.days.forEach((day, index) => {
       lines.push(`D${String(index + 1).padStart(2, '0')} · ${day.date} · ${day.title}`);
       trip.events.filter((event) => event.dayId === day.id).forEach((event) => {
-        const time = stored(timeStoragePrefix + event.id) || event.time || '时间待定';
-        lines.push(`  ${time} ${event.title}`);
+        const moment = tripTime.effectiveMoment(event, stored(timeStoragePrefix + event.id));
+        const deviceTime = moment ? tripTime.formatLocal(moment) : '待设定';
+        lines.push(`  本机时间：${deviceTime}（行程原定时间：${tripTime.sourceLabel(event)}） ${event.title}`);
       });
       day.placeIds.forEach((id) => {
         const place = effectivePlace(id);
@@ -217,7 +213,9 @@
       const { event } = next;
       const place = effectivePlace(event.placeId);
       main.appendChild(element('h3', 'field-mode__title', event.title));
-      main.appendChild(element('p', 'field-mode__meta', `${dateLabel(event.date)} · ${stored(timeStoragePrefix + event.id) || event.time} · ${event.zoneLabel}${event.flightNo ? ` · ${event.flightNo}` : ''}${event.terminal ? ` · ${event.terminal} 航站楼` : ''}`));
+      const moment = tripTime.effectiveMoment(event, stored(timeStoragePrefix + event.id));
+      main.appendChild(element('p', 'field-mode__meta', `本机时间 · ${moment ? tripTime.formatLocal(moment) : '待设定'}${event.flightNo ? ` · ${event.flightNo}` : ''}${event.terminal ? ` · ${event.terminal} 航站楼` : ''}`));
+      main.appendChild(element('p', 'field-mode__meta', `行程原定时间 · ${tripTime.sourceLabel(event)}`));
       if (place) main.appendChild(element('p', 'field-mode__address', `${place.name}${place.address ? ` · ${place.address}` : ''}`));
       main.appendChild(element('p', 'field-mode__note', event.note || (event.kind === 'flight' ? '航班、航站楼和值机信息请以航司通知为准。' : '出发前核对开放时间、天气及道路状况。')));
       const actions = element('div', 'field-mode__actions');
@@ -279,7 +277,8 @@
     const list = element('ol', 'field-mode__upcoming');
     future.slice(0, 4).forEach(({ event }) => {
       const item = element('li');
-      const time = element('time', '', `${dateLabel(event.date)} · ${stored(timeStoragePrefix + event.id) || event.time} ${event.zoneLabel}`);
+      const moment = tripTime.effectiveMoment(event, stored(timeStoragePrefix + event.id));
+      const time = element('time', '', `本机时间 · ${moment ? tripTime.formatLocal(moment) : '待设定'}；行程原定时间 · ${tripTime.sourceLabel(event)}`);
       item.appendChild(time);
       item.appendChild(element('span', '', event.title));
       list.appendChild(item);
@@ -386,7 +385,7 @@
     renderMapPlaces();
   });
   window.setInterval(renderFieldMode, 60000);
-  window.addEventListener('visibilitychange', () => { if (!document.hidden) renderFieldMode(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) renderFieldMode(); });
 
   const mapButtons = document.querySelectorAll('.map-day[data-map-day]');
   if (window.MutationObserver && mapButtons.length) {

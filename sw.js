@@ -1,5 +1,5 @@
 /* Offline shell for the GitHub Pages project path. Remote resources stay outside this cache. */
-const CACHE_NAME = 'southern-trail-nz-v1.0.1';
+const CACHE_NAME = 'southern-trail-nz-v1.0.2';
 const LOCAL_ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const LOCAL_ASSETS = [
   './assets/field-tools.css',
   './assets/budget-tool.css',
   './assets/trip-data.js',
+  './assets/trip-time.js',
   './assets/trip-experience.js',
   './assets/reminder.js',
   './assets/field-tools.js',

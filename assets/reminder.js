@@ -6,8 +6,11 @@
   'use strict';
 
   var OVERRIDE_PREFIX = 'southern-trail-event-time-';
-  var TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
+  var tripTime = window.SouthernTrailTime;
   var timerId = null;
+
+  if (!tripTime && typeof module !== 'undefined' && module.exports) tripTime = require('./trip-time.js');
+  if (!tripTime) return;
 
   function whenReady(callback) {
     if (document.readyState === 'loading') {
@@ -25,22 +28,21 @@
     return OVERRIDE_PREFIX + event.id;
   }
 
-  function savedTime(event) {
-    var value = safely(function () { return window.localStorage.getItem(timeKey(event)); }, null);
-    return TIME_PATTERN.test(value || '') ? value : null;
+  function savedValue(event) {
+    return safely(function () { return window.localStorage.getItem(timeKey(event)); }, null);
   }
 
   function hasSavedTime(event) {
-    return savedTime(event) !== null;
+    return tripTime.savedMoment(event, savedValue(event)) !== null;
   }
 
-  function effectiveTime(event) {
-    return savedTime(event) || (TIME_PATTERN.test(event.time || '') ? event.time : null);
+  function effectiveMoment(event) {
+    return tripTime.effectiveMoment(event, savedValue(event));
   }
 
   function saveTime(event, value) {
     safely(function () {
-      if (TIME_PATTERN.test(value || '')) {
+      if (tripTime.savedMoment(event, value)) {
         window.localStorage.setItem(timeKey(event), value);
       } else {
         window.localStorage.removeItem(timeKey(event));
@@ -49,15 +51,8 @@
     window.dispatchEvent(new Event('southerntrail:schedulechange'));
   }
 
-  function parseEventMoment(event, time) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(event.date || '') || !TIME_PATTERN.test(time || '')) return null;
-    var offset = /^[-+]\d{2}:\d{2}$/.test(event.offset || '') ? event.offset : '+00:00';
-    var moment = new Date(event.date + 'T' + time + ':00' + offset);
-    return Number.isNaN(moment.getTime()) ? null : moment;
-  }
-
   function eventEndsOn(event) {
-    return parseEventMoment(event, '23:59');
+    return tripTime.sourceMoment(event, '23:59');
   }
 
   function formatCountdown(milliseconds) {
@@ -69,6 +64,17 @@
     var remainder = seconds % 60;
     if (days > 0) return days + '天 ' + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
     return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(remainder).padStart(2, '0');
+  }
+
+  function fillLocalInputs(moment, dateInput, timeInput) {
+    var value = moment ? tripTime.localInputValue(moment) : '';
+    var separator = value.indexOf('T');
+    dateInput.value = separator >= 0 ? value.slice(0, separator) : '';
+    timeInput.value = separator >= 0 ? value.slice(separator + 1) : '';
+  }
+
+  function parseLocalInputs(dateInput, timeInput) {
+    return tripTime.parseDeviceLocalInput((dateInput.value || '') + 'T' + (timeInput.value || ''));
   }
 
   function typeLabel(kind, phase) {
@@ -103,13 +109,12 @@
   function modelFor(data, now) {
     var events = Array.isArray(data.events) ? data.events : [];
     var timed = events.map(function (event) {
-      var time = effectiveTime(event);
-      return { event: event, time: time, moment: parseEventMoment(event, time) };
+      return { event: event, moment: effectiveMoment(event) };
     }).filter(function (entry) { return entry.moment && entry.moment.getTime() >= now.getTime(); })
       .sort(function (a, b) { return a.moment - b.moment; });
 
     var unplanned = events.filter(function (event) {
-      return !effectiveTime(event) && eventEndsOn(event) && eventEndsOn(event).getTime() >= now.getTime();
+      return !effectiveMoment(event) && eventEndsOn(event) && eventEndsOn(event).getTime() >= now.getTime();
     }).sort(function (a, b) { return a.date.localeCompare(b.date); });
     /* A confirmed time always owns the primary countdown. Unplanned items remain
        visible in the detail panel so a tentative stop cannot silently disappear. */
@@ -170,10 +175,11 @@
       var event = model.state === 'timed' ? model.entry.event : model.event;
       var inner = makeElement('div', 'reminder__detail-inner');
       var place = placeFor(data, event);
-      var time = effectiveTime(event);
+      var moment = effectiveMoment(event);
       var heading = makeElement('div', 'reminder__detail-title', event.title);
-      var timeDescription = time ? event.date + ' · ' + time + ' · ' + (event.zoneLabel || event.offset || '当地时间') : event.date + ' · 待设定时间 · ' + (event.zoneLabel || event.offset || '当地时间');
-      inner.append(heading, makeElement('div', 'reminder__meta', timeDescription));
+      var deviceTimeDescription = moment ? '本机时间 · ' + tripTime.formatLocal(moment) : '本机时间 · 待设定';
+      inner.append(heading, makeElement('div', 'reminder__meta', deviceTimeDescription));
+      inner.appendChild(makeElement('div', 'reminder__meta', '行程原定时间 · ' + tripTime.sourceLabel(event)));
 
       var facts = [];
       if (event.flightNo) facts.push('航班 ' + event.flightNo);
@@ -181,7 +187,7 @@
       if (place && place.address) facts.push(place.address);
       if (facts.length) inner.appendChild(makeElement('div', 'reminder__note', facts.join(' · ')));
       if (event.note) inner.appendChild(makeElement('div', 'reminder__note', event.note));
-      if (hasSavedTime(event)) inner.appendChild(makeElement('div', 'reminder__edited', '已按你的时间安排'));
+      if (hasSavedTime(event)) inner.appendChild(makeElement('div', 'reminder__edited', tripTime.overrideKind(savedValue(event)) === 'legacy' ? '已保留原设备中的当地时间设置' : '已按本机时间安排'));
 
       var links = makeElement('div', 'reminder__links');
       var directions = mapUrl(place);
@@ -208,27 +214,33 @@
       if (links.children.length) inner.appendChild(links);
 
       var form = makeElement('div', 'reminder__form');
-      var label = makeElement('label', 'reminder__form-label', '按 ' + (event.zoneLabel || event.offset || '当地时间') + ' 设置时间');
-      var input = makeElement('input', 'reminder__time-input');
+      var dateLabel = makeElement('label', 'reminder__form-label', '本机日期');
+      var dateInput = makeElement('input', 'reminder__date-input');
+      var timeLabel = makeElement('label', 'reminder__form-label', '本机时间');
+      var timeInput = makeElement('input', 'reminder__time-input');
       var save = makeElement('button', 'reminder__control reminder__control--save', '保存');
       var clear = makeElement('button', 'reminder__control', event.time ? '恢复原定' : '清除安排');
-      input.type = 'time';
-      input.value = time || '';
-      input.setAttribute('aria-label', event.title + ' 的本地开始时间');
+      dateInput.type = 'date';
+      timeInput.type = 'time';
+      fillLocalInputs(moment, dateInput, timeInput);
+      dateInput.setAttribute('aria-label', event.title + ' 的本机日期');
+      timeInput.setAttribute('aria-label', event.title + ' 的本机时间');
       save.type = 'button';
       clear.type = 'button';
-      label.appendChild(input);
-      form.append(label, save, clear);
+      dateLabel.appendChild(dateInput);
+      timeLabel.appendChild(timeInput);
+      form.append(dateLabel, timeLabel, save, clear);
       inner.appendChild(form);
       detail.appendChild(inner);
 
       save.addEventListener('click', function () {
-        if (!TIME_PATTERN.test(input.value || '')) {
-          announce('请先选择有效时间，再保存。');
-          input.focus();
+        var parsed = parseLocalInputs(dateInput, timeInput);
+        if (!parsed.valid) {
+          announce(parsed.reason === 'gap' ? '该本机时间落在夏令时跳过的时段，请重新选择。' : parsed.reason === 'ambiguous' ? '该本机时间在夏令时切换时重复出现，请选择其他时间。' : '请先选择有效的本机日期和时间，再保存。');
+          (dateInput.value ? timeInput : dateInput).focus();
           return;
         }
-        saveTime(event, input.value);
+        saveTime(event, parsed.iso);
         announce('已保存你的出发时间。');
         refresh(true);
       });
@@ -249,22 +261,30 @@
         unplannedEvents.forEach(function (drive) {
           var row = makeElement('div', 'reminder__schedule-row');
           var name = makeElement('div', 'reminder__schedule-name', drive.title);
-          var local = makeElement('small', '', drive.date + ' · ' + (drive.zoneLabel || drive.offset || '当地时间'));
+          var local = makeElement('small', '', '行程原定时间 · ' + tripTime.sourceLabel(drive));
+          var driveDateLabel = makeElement('label', 'reminder__schedule-label', '本机日期');
+          var driveDate = makeElement('input', 'reminder__date-input');
+          var driveTimeLabel = makeElement('label', 'reminder__schedule-label', '本机时间');
           var driveTime = makeElement('input', 'reminder__time-input');
           var driveSave = makeElement('button', 'reminder__control reminder__control--save', '保存');
           name.appendChild(local);
+          driveDate.type = 'date';
           driveTime.type = 'time';
-          driveTime.setAttribute('aria-label', drive.title + ' 的本地出发时间');
+          driveDate.setAttribute('aria-label', drive.title + ' 的本机日期');
+          driveTime.setAttribute('aria-label', drive.title + ' 的本机时间');
           driveSave.type = 'button';
-          row.append(name, driveTime, driveSave);
+          driveDateLabel.appendChild(driveDate);
+          driveTimeLabel.appendChild(driveTime);
+          row.append(name, driveDateLabel, driveTimeLabel, driveSave);
           scheduleList.appendChild(row);
           driveSave.addEventListener('click', function () {
-            if (!TIME_PATTERN.test(driveTime.value || '')) {
-              announce('请先选择有效时间。');
-              driveTime.focus();
+            var parsed = parseLocalInputs(driveDate, driveTime);
+            if (!parsed.valid) {
+              announce(parsed.reason === 'gap' ? '该本机时间落在夏令时跳过的时段，请重新选择。' : parsed.reason === 'ambiguous' ? '该本机时间在夏令时切换时重复出现，请选择其他时间。' : '请先选择有效的本机日期和时间。');
+              (driveDate.value ? driveTime : driveDate).focus();
               return;
             }
-            saveTime(drive, driveTime.value);
+            saveTime(drive, parsed.iso);
             announce('已保存 ' + drive.title + ' 的时间。');
             refresh(true);
           });
@@ -276,7 +296,8 @@
 
     function refresh(forceDetails) {
       var model = modelFor(data, new Date());
-      var key = model.state === 'timed' ? 'timed:' + model.entry.event.id + ':' + effectiveTime(model.entry.event) : model.state === 'unplanned' ? 'unplanned:' + model.event.id : model.state;
+      var zone = safely(function () { return Intl.DateTimeFormat().resolvedOptions().timeZone; }, '');
+      var key = model.state === 'timed' ? 'timed:' + model.entry.event.id + ':' + model.entry.moment.toISOString() + ':' + zone : model.state === 'unplanned' ? 'unplanned:' + model.event.id + ':' + zone : model.state;
       if (key !== currentKey || forceDetails) {
         currentKey = key;
         currentModel = model;
@@ -326,7 +347,7 @@
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) stopTimer();
       else {
-        refresh();
+        refresh(true);
         startTimer();
       }
     });
