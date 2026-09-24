@@ -1,16 +1,11 @@
 /* Home-page, offline-only itinerary reminder. The root is a direct child of .hero. */
 #reminder-root {
-  position: absolute;
+  position: relative;
   z-index: 8;
-  top: 90px;
-  top: calc(env(safe-area-inset-top, 0px) + 90px);
-  left: 50%;
+  flex: none;
   width: min(440px, calc(100vw - 32px));
-  transform: translateX(-50%);
+  margin: 12px auto 0;
 }
-
-/* Make room for the island beneath the page header instead of covering the title. */
-.hero__inner { padding-top: 140px; }
 
 .reminder {
   color: var(--cream);
@@ -34,7 +29,8 @@
   cursor: pointer;
   -webkit-backdrop-filter: blur(16px) saturate(1.15);
   backdrop-filter: blur(16px) saturate(1.15);
-  transition: border-radius 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  transition: border-radius 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 400ms ease, background-color 400ms ease;
 }
 
 .reminder.is-expanded .reminder__summary {
@@ -106,21 +102,37 @@
 }
 
 .reminder__detail {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
   border: 1px solid rgba(200, 122, 58, 0.68);
   border-top: 0;
   border-radius: 0 0 18px 18px;
   background: #0f1d2a;
   box-shadow: 0 22px 48px -22px rgba(0, 0, 0, 0.82);
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 260ms ease, visibility 0s linear 400ms;
 }
 
-.reminder__detail[hidden] { display: none; }
+.reminder.is-expanded .reminder__detail {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 280ms ease 60ms, visibility 0s;
+}
 
 .reminder__detail-inner {
   display: grid;
   gap: 13px;
-  padding: 16px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: padding 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.reminder.is-expanded .reminder__detail-inner { padding-block: 16px; }
 
 .reminder__detail-title {
   font-family: var(--serif);
@@ -256,13 +268,7 @@
 }
 
 @media (max-width: 800px) {
-  #reminder-root {
-    top: 82px;
-    top: calc(env(safe-area-inset-top, 0px) + 82px);
-    transform: translateX(-50%);
-  }
-  .hero__inner { padding-top: 132px; }
-  .hero.is-reminder-expanded .hero__actions { margin-top: 70px; }
+  #reminder-root { margin-top: 8px; }
 }
 
 @media (max-width: 390px) {
@@ -270,7 +276,8 @@
   .reminder__summary { padding-inline: 12px; }
   .reminder__title { font-size: 14px; }
   .reminder__countdown { min-width: 64px; font-size: 8px; }
-  .reminder__detail-inner { padding: 13px; }
+  .reminder__detail-inner { padding-inline: 13px; }
+  .reminder.is-expanded .reminder__detail-inner { padding-block: 13px; }
   .reminder__form { grid-template-columns: 1fr 1fr; }
   .reminder__form-label { grid-column: 1 / -1; }
   .reminder__control { width: 100%; }
@@ -278,5 +285,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reminder__summary { transition: none; }
+  .reminder__summary,
+  .reminder__detail,
+  .reminder__detail-inner { transition: none; }
 }

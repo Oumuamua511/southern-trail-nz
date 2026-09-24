@@ -1,5 +1,5 @@
 /* Offline shell for the GitHub Pages project path. Remote resources stay outside this cache. */
-const CACHE_NAME = 'southern-trail-nz-v1';
+const CACHE_NAME = 'southern-trail-nz-v1.0.1';
 const LOCAL_ASSETS = [
   './',
   './index.html',
@@ -71,7 +71,7 @@ async function cacheStaticAsset(request) {
     }
     return response;
   } catch (_) {
-    const cached = await caches.match(request);
+    const cached = await caches.match(request, { ignoreSearch: true });
     return cached || new Response('', { status: 504, statusText: 'Offline' });
   }
 }

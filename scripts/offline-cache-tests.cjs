@@ -6,7 +6,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const scope = 'https://oumuamua511.github.io/southern-trail-nz/';
-const cacheName = 'southern-trail-nz-v1';
+const cacheName = 'southern-trail-nz-v1.0.1';
 
 class MockHeaders {
   constructor(values) {
@@ -55,8 +55,16 @@ const cache = {
     entries.set(typeof request === 'string' ? request : request.url, response.clone());
     return Promise.resolve();
   },
-  match(request) {
-    const response = entries.get(typeof request === 'string' ? request : request.url);
+  match(request, options) {
+    const url = typeof request === 'string' ? request : request.url;
+    let response = entries.get(url);
+    if (!response && options?.ignoreSearch) {
+      const requested = new URL(url);
+      response = [...entries].find(([key]) => {
+        const cached = new URL(key);
+        return cached.origin === requested.origin && cached.pathname === requested.pathname;
+      })?.[1];
+    }
     return Promise.resolve(response ? response.clone() : undefined);
   }
 };
@@ -66,7 +74,7 @@ const caches = {
     assert.equal(name, cacheName);
     return cache;
   },
-  match: (request) => cache.match(request),
+  match: (request, options) => cache.match(request, options),
   keys: async () => [cacheName],
   delete: async () => true
 };
@@ -134,7 +142,21 @@ async function run() {
   assert.equal(offlineResponse.headers.get('Content-Type'), 'text/html; charset=utf-8');
   assert.equal(await offlineResponse.text(), freshHtml, 'Offline app navigation must use cached HTML');
 
-  console.log('offline cache tests: ok (manifest isolation, navigation refresh, offline fallback)');
+  const reminderUrl = new URL('./assets/reminder.js', scope).toString();
+  await cache.put(reminderUrl, new MockResponse('window.reminderReady = true;', {
+    headers: { 'Content-Type': 'application/javascript' }
+  }));
+  let assetResponsePromise;
+  listeners.fetch({
+    request: new MockRequest(`${reminderUrl}?v=1.0.1`, { mode: 'same-origin' }),
+    respondWith(promise) { assetResponsePromise = promise; }
+  });
+  assert.ok(assetResponsePromise, 'Versioned local asset should be handled by the Service Worker');
+  const assetResponse = await assetResponsePromise;
+  assert.equal(assetResponse.status, 200);
+  assert.equal(await assetResponse.text(), 'window.reminderReady = true;', 'Offline versioned asset should use the precached same-path file');
+
+  console.log('offline cache tests: ok (manifest isolation, navigation refresh, offline fallback, versioned asset)');
 }
 
 run().catch((error) => {
